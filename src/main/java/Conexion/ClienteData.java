@@ -11,6 +11,8 @@ import Entidades.Cliente;
  * @author cisco
  */
 public abstract class ClienteData extends Conexion {
+    
+    
     public static void guardarCliente(Cliente cliente) {
         if (conn != null)
             System.out.println("Todo ok");
