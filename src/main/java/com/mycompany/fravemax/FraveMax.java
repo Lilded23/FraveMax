@@ -4,6 +4,9 @@
 
 package com.mycompany.fravemax;
 
+import Conexion.ClienteData;
+import Entidades.Cliente;
+
 /**
  *
  * @author jdbar
@@ -12,5 +15,8 @@ public class FraveMax {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+        Conexion.Conexion.Conectar();
+        Cliente cliente = new Cliente();
+        ClienteData.guardarCliente(cliente);
     }
 }

@@ -12,10 +12,10 @@ import java.sql.SQLException;
  *
  * @author jdbar
  */
-public class Conexion {
-    private static Connection conn;
+public abstract class Conexion {
+    public static Connection conn;
 
-        public static Connection getConnection() {
+        public static void Conectar() {
         try {
             conn = DriverManager.getConnection(
             "jdbc:mariadb://localhost/universidad",
@@ -26,6 +26,5 @@ public class Conexion {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return conn;
     }
 }
