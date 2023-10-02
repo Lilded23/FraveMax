@@ -17,8 +17,7 @@ public class Producto {
     private int stock;
     private boolean estado;
 
-    public Producto(int idProducto, String nombreProducto, String descripcion, double precioActual, int stock, boolean estado) {
-        this.idProducto = idProducto;
+    public Producto(String nombreProducto, String descripcion, double precioActual, int stock, boolean estado) {
         this.nombreProducto = nombreProducto;
         this.descripcion = descripcion;
         this.precioActual = precioActual;
