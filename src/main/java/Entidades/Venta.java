@@ -53,6 +53,18 @@ public class Venta {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Venta{");
+        sb.append("idVenta=").append(idVenta);
+        sb.append(", fechaVenta=").append(fechaVenta);
+        sb.append(", cliente=").append(cliente);
+        sb.append('}');
+        return sb.toString();
+    }
+    
     
     
 }

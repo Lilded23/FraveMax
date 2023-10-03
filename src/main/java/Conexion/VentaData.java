@@ -22,11 +22,11 @@ import java.util.logging.Logger;
  */
 public abstract class VentaData extends Conexion {
 
-    public static void guardarVenta(Venta venta, Cliente cliente) {
+    public static void guardarVenta(Venta venta) {
         try {
             String sql = "insert into venta (idCliente, fechaVenta) values (?, ?);";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, cliente.getIdCliente());
+            ps.setInt(1, venta.getCliente().getIdCliente());
             ps.setDate(2, Date.valueOf(venta.getFechaVenta()));
             ps.executeUpdate();
         } catch (SQLException ex) {
