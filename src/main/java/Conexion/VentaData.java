@@ -64,7 +64,7 @@ public abstract class VentaData extends Conexion {
             var fechaVenta = rs.getDate("fechaVenta").toLocalDate();
 
             var cliente = ClienteData.BuscarCliente(idCliente);
-            venta = new Venta(cliente, fechaVenta);
+            venta = new Venta(id, cliente, fechaVenta);
             
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class.getName()).log(Level.SEVERE, null, ex);
