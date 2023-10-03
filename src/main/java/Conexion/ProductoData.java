@@ -9,8 +9,11 @@ import Entidades.Cliente;
 import Entidades.Producto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -107,5 +110,27 @@ public abstract class ProductoData extends Conexion {
     return false;
     
         }
+    
+        public static Producto buscarPorId(int idProd){
+        Producto prodBuscado=null;
+        try {
+            String sql="Select * into producto where idProducto=?";
+            PreparedStatement pstm=conn.prepareStatement(sql);
+            pstm.setInt(1, idProd);
+            ResultSet rs= pstm.executeQuery();
+            if (rs.next()) {
+                prodBuscado.setDescripcion(rs.getNString("descripcion"));
+                prodBuscado.setEstado(rs.getBoolean("estado"));
+                prodBuscado.setNombreProducto(rs.getString("nombreProducto"));
+                prodBuscado.setPrecioActual(rs.getDouble("precioActual"));
+                prodBuscado.setStock(rs.getInt("stock"));
+            }
+            return prodBuscado;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                return prodBuscado;
+    }
+    
     }
 
