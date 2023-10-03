@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  * @author cisco
  */
 public abstract class VentaData extends Conexion {
+    
     public static void guardarVenta(Venta venta, Cliente cliente) {
         try {
             String sql = "insert into venta (idCliente, fechaVenta) values (?, ?);";
@@ -47,14 +48,13 @@ public abstract class VentaData extends Conexion {
     public static Venta buscarVenta(int id) {
         Venta venta = null;
         try {
-            String sql = "select * from venta where id = ?";
+            String sql = "select * from venta where idVenta = ?";
             var ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             var rs = ps.executeQuery();
-            int idCliente, idVenta;
+            int idCliente;
             Date date = null;
             while (rs.next()) {
-                idVenta = rs.getInt("idVenta");
                 idCliente = rs.getInt("idCliente");
                 date = rs.getDate("fechaVenta");
             }   
