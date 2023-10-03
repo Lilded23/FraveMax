@@ -15,10 +15,11 @@ import java.sql.SQLException;
 public abstract class Conexion {
     public static Connection conn;
 
-        public static void Conectar() {
+        public static void Conectar() throws ClassNotFoundException {
         try {
+            Class.forName("org.mariadb.jdbc.Driver");
             conn = DriverManager.getConnection(
-            "jdbc:mariadb://localhost/universidad",
+            "jdbc:mariadb://localhost/fravemax",
             "root",
          "");   
             
