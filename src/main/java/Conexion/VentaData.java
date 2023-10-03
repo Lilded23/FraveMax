@@ -47,12 +47,11 @@ public abstract class VentaData extends Conexion {
 
     /**
      *
-     * @param id de venta
+     * @param id De venta
      * @return Venta
      */
     public static Venta buscarVenta(int id) {
         Venta venta = null;
-
         try {
             String sql = "select * from venta where idVenta = ?";
             var ps = conn.prepareStatement(sql);
@@ -65,7 +64,7 @@ public abstract class VentaData extends Conexion {
 
             var cliente = ClienteData.BuscarCliente(idCliente);
             venta = new Venta(id, cliente, fechaVenta);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -79,7 +78,7 @@ public abstract class VentaData extends Conexion {
             var ps = conn.prepareStatement(sql);
             ps.setInt(1, cliente.getIdCliente());
             var rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 int idVenta = rs.getInt("idVenta");
                 var date = rs.getDate("fechaVenta").toLocalDate();
@@ -100,11 +99,12 @@ public abstract class VentaData extends Conexion {
             var ps = conn.prepareStatement(sql);
             ps.setDate(1, Date.valueOf(date));
             var rs = ps.executeQuery();
+            
             while (rs.next()) {
+                int idVenta = rs.getInt("idVenta");
                 int idCliente = rs.getInt("idCliente");
                 Cliente cliente = ClienteData.BuscarCliente(idCliente);
-                lista.add(new Venta(cliente, date));
-
+                lista.add(new Venta(idVenta, cliente, date));
             }
 
         } catch (SQLException ex) {
