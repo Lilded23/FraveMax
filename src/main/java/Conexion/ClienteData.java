@@ -66,10 +66,10 @@ public abstract class ClienteData extends Conexion {
 
             PreparedStatement sqlPD = conn.prepareStatement(sql);
 
-            sqlPD.setString(0, cliente.getApellido());
-            sqlPD.setString(1, cliente.getNombre());
-            sqlPD.setString(2, cliente.getDomiciio());
-            sqlPD.setString(3, cliente.getTelefono());
+            sqlPD.setString(1, cliente.getApellido());
+            sqlPD.setString(2, cliente.getNombre());
+            sqlPD.setString(3, cliente.getDomiciio());
+            sqlPD.setString(4, cliente.getTelefono());
 
             sqlPD.execute();
             return true;
