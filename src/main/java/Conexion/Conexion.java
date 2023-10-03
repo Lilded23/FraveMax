@@ -24,7 +24,7 @@ public abstract class Conexion {
          "");   
             
             System.out.println("Se conecto con exito");
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
     }

@@ -13,10 +13,7 @@ import Entidades.Cliente;
  */
 public class FraveMax {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         System.out.println("Hello World!");
-        Conexion.Conexion.Conectar();
-        Cliente cliente = new Cliente();
-        ClienteData.guardarCliente(cliente);
     }
 }
