@@ -4,6 +4,7 @@
  */
 package Entidades;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -12,10 +13,10 @@ import java.util.Date;
  */
 public class Venta {
     private int idVenta;
-    private Date fechaVenta;
+    private LocalDate fechaVenta;
     private Cliente cliente;
 
-    public Venta(Cliente cliente, Date fechaVenta) {
+    public Venta(Cliente cliente, LocalDate fechaVenta) {
         this.cliente = cliente;
         this.fechaVenta = fechaVenta;
     }
@@ -27,7 +28,7 @@ public class Venta {
         return idVenta;
     }
 
-    public Date getFechaVenta() {
+    public LocalDate getFechaVenta() {
         return fechaVenta;
     }
 
@@ -39,7 +40,7 @@ public class Venta {
         this.idVenta = idVenta;
     }
 
-    public void setFechaVenta(Date fechaVenta) {
+    public void setFechaVenta(LocalDate fechaVenta) {
         this.fechaVenta = fechaVenta;
     }
 
