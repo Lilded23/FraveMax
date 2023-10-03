@@ -79,10 +79,11 @@ public abstract class VentaData extends Conexion {
             var ps = conn.prepareStatement(sql);
             ps.setInt(1, cliente.getIdCliente());
             var rs = ps.executeQuery();
+            
             while (rs.next()) {
+                int idVenta = rs.getInt("idVenta");
                 var date = rs.getDate("fechaVenta").toLocalDate();
-                lista.add(new Venta(cliente, date));
-
+                lista.add(new Venta(idVenta, cliente, date));
             }
 
         } catch (SQLException ex) {
