@@ -102,7 +102,7 @@ public abstract class VentaData extends Conexion {
             var rs = ps.executeQuery();
             while (rs.next()) {
                 int idCliente = rs.getInt("idCliente");
-                Cliente cliente = ClienteData.buscarCliente(idCliente);
+                Cliente cliente = ClienteData.BuscarCliente(idCliente);
                 lista.add(new Venta(cliente, date));
 
             }
