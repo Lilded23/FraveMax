@@ -21,15 +21,15 @@ import java.util.logging.Logger;
 public abstract class DetalleVentaConexion extends Conexion {
 
 // Método para registrar un nuevo detalle de venta
-    public static boolean registrarDetalleVenta(int idVenta, int idProducto, int cantidad, double precioVenta) {
+    public static boolean registrarDetalleVenta(detalleVenta nuevodv) {
         try {
-            String sql = "INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioVenta) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO DetalleVenta ( idProducto, cantidad, precioVenta,idVenta) VALUES (?, ?, ?,?)";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, idVenta);
-            pstmt.setInt(2, idProducto);
-            pstmt.setInt(3, cantidad);
-            pstmt.setDouble(4, precioVenta);
+            pstmt.setInt(1, nuevodv.getProducto().getIdProducto());
+            pstmt.setInt(2, nuevodv.getCantidad());
+            pstmt.setDouble(3, nuevodv.getPrecioVenta());
+            pstmt.setInt(4, nuevodv.getVenta().getIdVenta());
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -41,13 +41,13 @@ public abstract class DetalleVentaConexion extends Conexion {
     }
 
 // Método para actualizar un detalle de venta existente
-    public static boolean actualizarDetalleVenta(int idDetalleVenta, int nuevaCantidad, double nuevoPrecioVenta) {
+    public static boolean actualizarDetalleVenta(int idDetalleVenta, detalleVenta dv) {
         try {
             String sql = "UPDATE DetalleVenta SET cantidad = ?, precioVenta = ? WHERE idDetalleVenta = ?";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, nuevaCantidad);
-            pstmt.setDouble(2, nuevoPrecioVenta);
+            pstmt.setInt(1, dv.getCantidad());
+            pstmt.setDouble(2, dv.getPrecioVenta());
             pstmt.setInt(3, idDetalleVenta);
 
             ResultSet rs = pstmt.executeQuery();
@@ -66,7 +66,6 @@ public abstract class DetalleVentaConexion extends Conexion {
             String sql = "SELECT * FROM DetalleVenta";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
-//            pstmt.setInt(1, idVenta);
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -74,7 +73,7 @@ public abstract class DetalleVentaConexion extends Conexion {
                 int idProducto = rs.getInt("idProducto");
                 int cantidad = rs.getInt("cantidad");
                 double precioVenta = rs.getDouble("precioVenta");
-                int  idVenta= rs.getInt("idVenta");
+                int idVenta = rs.getInt("idVenta");
                 Venta venta = VentaData.buscarVenta(idVenta);
                 Producto prod = ProductoData.buscarPorId(idProducto);
                 detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
@@ -88,6 +87,7 @@ public abstract class DetalleVentaConexion extends Conexion {
     }
 
     //Metodo para detalles de venta por una fecha especifica
+    // Pendiente PrecioVenta
     public static List<detalleVenta> ListaPorFecha(LocalDate fecha) {
         List<detalleVenta> listaVentas = new ArrayList();
         try {
@@ -117,7 +117,6 @@ public abstract class DetalleVentaConexion extends Conexion {
                 Cliente cli = null;
 
                 prod.setNombreProducto(nombreProducto);
-//                prod.setPrecioActual(precioVenta);
 
                 cli.setNombre(nombreCliente);
                 cli.setApellido(apellidoCliente);
@@ -139,6 +138,7 @@ public abstract class DetalleVentaConexion extends Conexion {
     }
 
     //Metodo para detalles de venta por un Cliente
+    // Pendiente PrecioVenta
     public static List<detalleVenta> ListaPorCliente(int idCliente) {
         List<detalleVenta> listaVentasClientes = new ArrayList();
         try {
