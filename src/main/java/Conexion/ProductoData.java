@@ -5,7 +5,6 @@
 package Conexion;
 
 import static Conexion.Conexion.conn;
-import Entidades.Cliente;
 import Entidades.Producto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -62,24 +61,27 @@ public abstract class ProductoData extends Conexion {
     public static boolean IngresarNuevoProducto(Producto producto) {
         try {
             String sql = "insert into `producto`(nombreProducto, descripcion, precioActual, stock, estado) values (?,?,?,?,?)";
-
-            PreparedStatement sqlPD = conn.prepareStatement(sql);
-
+ PreparedStatement sqlPD;
+            sqlPD = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             sqlPD.setString(1, producto.getNombreProducto());
             sqlPD.setString(2, producto.getDescripcion());
             sqlPD.setDouble(3, producto.getPrecioActual());
             sqlPD.setInt(4, producto.getStock());
             sqlPD.setBoolean(5, true);
-
-            sqlPD.execute();
-            return true;
-        } catch (Exception e) {
+            sqlPD.executeQuery();
+            ResultSet rs = sqlPD.getGeneratedKeys();
+            if (rs.next()) {
+                producto.setIdProducto(rs.getInt(1));
+                return true;
+            } else {
+                System.out.println("Error al crear PRODUCTO");
+                return false;
+            }
+        } catch (SQLException e) {
             System.out.println("Error al crear PRODUCTO" + e.getMessage());
-
         }
         return false;
     }
-
     public static boolean ActualizarStock(int stock, int idProducto) {
         try {
             String sql = "update `producto` set `stock`=? where `idProducto`=?";

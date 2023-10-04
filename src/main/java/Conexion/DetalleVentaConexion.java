@@ -1,6 +1,5 @@
 package Conexion;
 
-import Entidades.Cliente;
 import Entidades.Producto;
 import Entidades.Venta;
 import Entidades.detalleVenta;
@@ -32,7 +31,6 @@ public abstract class DetalleVentaConexion extends Conexion {
             pstmt.setInt(4, nuevodv.getVenta().getIdVenta());
 
             ResultSet rs = pstmt.executeQuery();
-
             return rs.next();
         } catch (SQLException ex) {
             Logger.getLogger(DetalleVentaConexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,14 +70,14 @@ public abstract class DetalleVentaConexion extends Conexion {
                 int idDetalleVenta = rs.getInt("idDetalleVenta");
                 int idProducto = rs.getInt("idProducto");
                 int cantidad = rs.getInt("cantidad");
-                double precioVenta = rs.getDouble("precioVenta");
                 int idVenta = rs.getInt("idVenta");
                 Venta venta = VentaData.buscarVenta(idVenta);
                 Producto prod = ProductoData.buscarPorId(idProducto);
+                double precioVenta = prod.getPrecioActual() * cantidad;
                 detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
+                dv.setIdDetalleVenta(idDetalleVenta);
                 listaIdVentas.add(dv);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(DetalleVentaConexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,52 +87,32 @@ public abstract class DetalleVentaConexion extends Conexion {
     //Metodo para detalles de venta por una fecha especifica
     // Pendiente PrecioVenta
     public static List<detalleVenta> ListaPorFecha(LocalDate fecha) {
-        List<detalleVenta> listaVentas = new ArrayList();
+        List<detalleVenta> listaVentasFecha = new ArrayList();
         try {
-            String sql = "SELECT dv.idDetalleVenta, dv.cantidad, dv.precioVenta, c.Nombre AS NombreCliente, "
-                    + "c.Apellido AS ApellidoCliente, p.nombreProducto AS NombreProducto, p.precioActual AS PrecioProducto "
+            String sql = "SELECT dv.* "
                     + "FROM DetalleVenta dv "
-                    + "INNER JOIN Venta v ON dv.idVenta = v.idVenta "
-                    + "INNER JOIN Cliente c ON v.idCliente = c.idCliente "
-                    + "INNER JOIN Producto p ON dv.idProducto = p.idProducto "
+                    + "JOIN Venta v ON dv.idVenta = v.idVenta "
                     + "WHERE v.fechaVenta = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setDate(1, Date.valueOf(fecha));
             ResultSet rs = ps.executeQuery();
-            detalleVenta detVenta = null;
             while (rs.next()) {
                 int idDetalleVenta = rs.getInt("idDetalleVenta");
+                int idProducto = rs.getInt("idProducto");
                 int cantidad = rs.getInt("cantidad");
-                double precioVenta = rs.getDouble("precioVenta");
-                String nombreCliente = rs.getString("NombreCliente");
-                String apellidoCliente = rs.getString("ApellidoCliente");
-                String nombreProducto = rs.getString("NombreProducto");
-                double precioProducto = rs.getDouble("PrecioProducto");
-
-                detalleVenta dv = null;
-                Producto prod = null;
-                Venta venta = null;
-                Cliente cli = null;
-
-                prod.setNombreProducto(nombreProducto);
-
-                cli.setNombre(nombreCliente);
-                cli.setApellido(apellidoCliente);
-
-                venta.setCliente(cli);
-                venta.setFechaVenta(fecha);
-
-                dv.setCantidad(cantidad);
-                dv.setPrecioVenta(precioVenta);
-                dv.setProducto(prod);
-                dv.setVenta(venta);
-                listaVentas.add(dv);
+                int idVenta = rs.getInt("idVenta");
+                Venta venta = VentaData.buscarVenta(idVenta);
+                Producto prod = ProductoData.buscarPorId(idProducto);
+                double precioVenta = prod.getPrecioActual() * cantidad;
+                detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
+                dv.setIdDetalleVenta(idDetalleVenta);
+                listaVentasFecha.add(dv);
             }
-            return listaVentas;
+            return listaVentasFecha;
         } catch (SQLException ex) {
             Logger.getLogger(DetalleVentaConexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listaVentas;
+        return listaVentasFecha;
     }
 
     //Metodo para detalles de venta por un Cliente
@@ -142,45 +120,24 @@ public abstract class DetalleVentaConexion extends Conexion {
     public static List<detalleVenta> ListaPorCliente(int idCliente) {
         List<detalleVenta> listaVentasClientes = new ArrayList();
         try {
-            String sql = "SELECT dv.idDetalleVenta, dv.cantidad, dv.precioVenta, c.Nombre AS NombreCliente, v.fechaVenta,"
-                    + "c.Apellido AS ApellidoCliente, p.nombreProducto AS NombreProducto, p.precioActual AS PrecioProducto "
+            String sql = "SELECT dv.* "
                     + "FROM DetalleVenta dv "
-                    + "INNER JOIN Venta v ON dv.idVenta = v.idVenta "
-                    + "INNER JOIN Cliente c ON v.idCliente = c.idCliente "
-                    + "INNER JOIN Producto p ON dv.idProducto = p.idProducto "
-                    + "WHERE v.idCliente = ?";
+                    + "JOIN Venta v ON dv.idVenta = v.idVenta "
+                    + "JOIN Cliente c ON v.idCliente = c.idCliente "
+                    + "WHERE c.idCliente = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, idCliente);
             ResultSet rs = ps.executeQuery();
-            detalleVenta detVenta = null;
             while (rs.next()) {
                 int idDetalleVenta = rs.getInt("idDetalleVenta");
+                int idProducto = rs.getInt("idProducto");
                 int cantidad = rs.getInt("cantidad");
-                double precioVenta = rs.getDouble("precioVenta");
-                String nombreCliente = rs.getString("NombreCliente");
-                String apellidoCliente = rs.getString("ApellidoCliente");
-                String nombreProducto = rs.getString("NombreProducto");
-                double precioProducto = rs.getDouble("PrecioProducto");
-                LocalDate fecha = rs.getDate("fechaVenta").toLocalDate();
-
-                detalleVenta dv = null;
-                Producto prod = null;
-                Venta venta = null;
-                Cliente cli = null;
-
-                prod.setNombreProducto(nombreProducto);
-//                prod.setPrecioActual(precioVenta);
-
-                cli.setNombre(nombreCliente);
-                cli.setApellido(apellidoCliente);
-
-                venta.setCliente(cli);
-                venta.setFechaVenta(fecha);
-
-                dv.setCantidad(cantidad);
-                dv.setPrecioVenta(precioVenta);
-                dv.setProducto(prod);
-                dv.setVenta(venta);
+                int idVenta = rs.getInt("idVenta");
+                Venta venta = VentaData.buscarVenta(idVenta);
+                Producto prod = ProductoData.buscarPorId(idProducto);
+                double precioVenta = prod.getPrecioActual() * cantidad;
+                detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
+                dv.setIdDetalleVenta(idDetalleVenta);
                 listaVentasClientes.add(dv);
             }
             return listaVentasClientes;
