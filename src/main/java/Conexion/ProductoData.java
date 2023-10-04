@@ -84,6 +84,9 @@ public abstract class ProductoData extends Conexion {
         try {
             String sql = "update `producto` set `stock`=? where `idProducto`=?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
+            
+            sqlPD.setInt(0, stock);
+            sqlPD.setInt(1, idProducto);
             sqlPD.execute();
             return true;
         } catch (Exception e) {
