@@ -32,6 +32,7 @@ public abstract class VentaData extends Conexion {
             int idVenta = rs.getInt(1);
             venta.setIdVenta(idVenta);
             rs.close();
+            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
