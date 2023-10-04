@@ -115,17 +115,17 @@ public abstract class ClienteData extends Conexion {
         return false;
 
     }
-    
-        
-    public static Cliente BuscarCliente(int idCliente){
-        Cliente clienteBuscado=null;
+
+    public static Cliente BuscarCliente(int idCliente) {
+        Cliente clienteBuscado = null;
         try {
-            String sql="Select * into cliente where idCliente=?";
-            PreparedStatement pstm=conn.prepareStatement(sql);
+            String sql = "Select * from cliente where idCliente=?";
+            PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1, idCliente);
-            ResultSet rs= pstm.executeQuery();
+            ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-              clienteBuscado.setApellido(rs.getString("Apellido"));
+                clienteBuscado = new Cliente();
+                clienteBuscado.setApellido(rs.getString("Apellido"));
                 clienteBuscado.setNombre(rs.getString("Nombre"));
                 clienteBuscado.setDomiciio(rs.getString("Domicilio"));
                 clienteBuscado.setTelefono(rs.getString("Telefono"));
@@ -135,7 +135,7 @@ public abstract class ClienteData extends Conexion {
         } catch (SQLException ex) {
             Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
         }
-                return clienteBuscado;
+        return clienteBuscado;
     }
 
 }
