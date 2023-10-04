@@ -22,16 +22,22 @@ public class FraveMax {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FraveMax.class.getName()).log(Level.SEVERE, null, ex);
         }
-        var cliente = new Cliente(
-                "Pruebas",
-                "Ramiro",
-                "Calle Falsa 123",
-                "911");
-        ClienteData.crearCliente(cliente);
+//        var cliente = new Cliente(
+//                "Pruebas",
+//                "Ramiro",
+//                "Calle Falsa 123",
+//                "911");
+//        ClienteData.crearCliente(cliente);
 //        var venta = new Venta(cliente, LocalDate.now());
 //        VentaData.guardarVenta(venta);
-        ClienteData.listaCliente()
-                .forEach(System.out::println);
+//        ClienteData.listaCliente()
+//                .forEach(System.out::println);
+//        var producto = new Producto(
+//                "Licuadora",
+//                "A tu vieja le va a encantar",
+//                22000, 40, true);
+//        ProductoData.IngresarNuevoProducto(producto);
+//        System.out.println( ProductoData.buscarPorId(1));
     }
 
 }

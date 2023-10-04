@@ -65,11 +65,11 @@ public abstract class ProductoData extends Conexion {
 
             PreparedStatement sqlPD = conn.prepareStatement(sql);
 
-            sqlPD.setString(0, producto.getNombreProducto());
-            sqlPD.setString(1, producto.getDescripcion());
-            sqlPD.setDouble(2, producto.getPrecioActual());
-            sqlPD.setInt(3, producto.getStock());
-            sqlPD.setBoolean(4, true);
+            sqlPD.setString(1, producto.getNombreProducto());
+            sqlPD.setString(2, producto.getDescripcion());
+            sqlPD.setDouble(3, producto.getPrecioActual());
+            sqlPD.setInt(4, producto.getStock());
+            sqlPD.setBoolean(5, true);
 
             sqlPD.execute();
             return true;
@@ -114,11 +114,12 @@ public abstract class ProductoData extends Conexion {
         public static Producto buscarPorId(int idProd){
         Producto prodBuscado=null;
         try {
-            String sql="Select * into producto where idProducto=?";
+            String sql="Select * from producto where idProducto=?";
             PreparedStatement pstm=conn.prepareStatement(sql);
             pstm.setInt(1, idProd);
             ResultSet rs= pstm.executeQuery();
             if (rs.next()) {
+                prodBuscado = new Producto();
                 prodBuscado.setDescripcion(rs.getNString("descripcion"));
                 prodBuscado.setEstado(rs.getBoolean("estado"));
                 prodBuscado.setNombreProducto(rs.getString("nombreProducto"));
