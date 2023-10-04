@@ -85,7 +85,7 @@ public abstract class ClienteData extends Conexion {
             String sql = "delete from `cliente` where idCliente=?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
 
-            sqlPD.setInt(0, idCliente);
+            sqlPD.setInt(1, idCliente);
 
             sqlPD.execute();
             return true;
@@ -101,11 +101,11 @@ public abstract class ClienteData extends Conexion {
             String sql = "update `cliente` set `Apellido`=? , `Nombre`=? , `Domicilio`=?,`Telefono`=? where idCliente = ?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
 
-            sqlPD.setString(0, cliente.getApellido());
-            sqlPD.setString(1, cliente.getNombre());
-            sqlPD.setString(2, cliente.getDomiciio());
-            sqlPD.setString(3, cliente.getTelefono());
-            sqlPD.setInt(4, idCliente);
+            sqlPD.setString(1, cliente.getApellido());
+            sqlPD.setString(2, cliente.getNombre());
+            sqlPD.setString(3, cliente.getDomiciio());
+            sqlPD.setString(4, cliente.getTelefono());
+            sqlPD.setInt(5, idCliente);
 
             sqlPD.execute();
             return true;

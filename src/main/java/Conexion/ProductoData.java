@@ -85,8 +85,8 @@ public abstract class ProductoData extends Conexion {
             String sql = "update `producto` set `stock`=? where `idProducto`=?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
             
-            sqlPD.setInt(0, stock);
-            sqlPD.setInt(1, idProducto);
+            sqlPD.setInt(1, stock);
+            sqlPD.setInt(2, idProducto);
             sqlPD.execute();
             return true;
         } catch (Exception e) {
@@ -100,8 +100,8 @@ public abstract class ProductoData extends Conexion {
             String sql = "update `producto` set `estado`=? where `idProducto`=?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
             
-            sqlPD.setBoolean(0, estado);
-            sqlPD.setInt(1, idProducto);
+            sqlPD.setBoolean(1, estado);
+            sqlPD.setInt(2, idProducto);
         
             sqlPD.execute();
             return true;
