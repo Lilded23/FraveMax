@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Conexion;
 
 import static Conexion.Conexion.conn;
@@ -9,6 +5,7 @@ import Entidades.Venta;
 import Entidades.Cliente;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,10 +22,16 @@ public abstract class VentaData extends Conexion {
     public static void guardarVenta(Venta venta) {
         try {
             String sql = "insert into venta (idCliente, fechaVenta) values (?, ?);";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            var ps = conn.prepareStatement(sql, 1);
             ps.setInt(1, venta.getCliente().getIdCliente());
             ps.setDate(2, Date.valueOf(venta.getFechaVenta()));
             ps.executeUpdate();
+            
+            var rs = ps.getGeneratedKeys();
+            rs.next();
+            int idVenta = rs.getInt(1);
+            venta.setIdVenta(idVenta);
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -40,6 +43,7 @@ public abstract class VentaData extends Conexion {
             var ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();
+            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,7 +68,8 @@ public abstract class VentaData extends Conexion {
 
             var cliente = ClienteData.BuscarCliente(idCliente);
             venta = new Venta(id, cliente, fechaVenta);
-
+            rs.close();
+            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,6 +89,8 @@ public abstract class VentaData extends Conexion {
                 var date = rs.getDate("fechaVenta").toLocalDate();
                 lista.add(new Venta(idVenta, cliente, date));
             }
+            rs.close();
+            ps.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class
@@ -99,14 +106,15 @@ public abstract class VentaData extends Conexion {
             var ps = conn.prepareStatement(sql);
             ps.setDate(1, Date.valueOf(date));
             var rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 int idVenta = rs.getInt("idVenta");
                 int idCliente = rs.getInt("idCliente");
                 Cliente cliente = ClienteData.BuscarCliente(idCliente);
                 lista.add(new Venta(idVenta, cliente, date));
             }
-
+            rs.close();
+            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class
                     .getName()).log(Level.SEVERE, null, ex);
