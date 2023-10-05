@@ -14,12 +14,22 @@ public class Cliente {
     private String nombre;
     private String domiciio;
     private String telefono;
+    private int dni;
 
-    public Cliente(String apellido, String nombre, String domiciio, String telefono) {
+    public Cliente(String apellido, String nombre, String domiciio, String telefono , int dni) {
         this.apellido = apellido;
         this.nombre = nombre;
         this.domiciio = domiciio;
         this.telefono = telefono;
+        this.dni= dni;
+    }
+
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
     }
 
     public Cliente() {
@@ -67,7 +77,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return idCliente  + apellido  + nombre +  domiciio + telefono;
+        return idCliente  + apellido  + nombre + dni +  domiciio + telefono;
     }
     
     

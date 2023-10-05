@@ -43,6 +43,7 @@ public abstract class ClienteData extends Conexion {
 
                 cliente.setApellido(res.getString("Apellido"));
                 cliente.setNombre(res.getString("Nombre"));
+                cliente.setDni(res.getInt("DNI"));
                 cliente.setDomiciio(res.getString("Domicilio"));
                 cliente.setTelefono(res.getString("Telefono"));
                 cliente.setIdCliente(Integer.parseInt(res.getString("idCliente")));
@@ -62,22 +63,23 @@ public abstract class ClienteData extends Conexion {
     public static boolean crearCliente(Cliente cliente) {
 
         try {
-            String sql = "insert into `cliente`(Apellido,Nombre,Domicilio,Telefono) values (?,?,?,?)";
+            String sql = "insert into `cliente`(Apellido,Nombre,DNI,Domicilio,Telefono) values (?,?,?,?,?)";
 
-            PreparedStatement sqlPD = conn.prepareStatement(sql , PreparedStatement.RETURN_GENERATED_KEYS);
+            PreparedStatement sqlPD = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
             sqlPD.setString(1, cliente.getApellido());
             sqlPD.setString(2, cliente.getNombre());
-            sqlPD.setString(3, cliente.getDomiciio());
-            sqlPD.setString(4, cliente.getTelefono());
+            sqlPD.setInt(3, cliente.getDni());
+            sqlPD.setString(4, cliente.getDomiciio());
+            sqlPD.setString(5, cliente.getTelefono());
 
             sqlPD.execute();
-            
+
             ResultSet res = sqlPD.getGeneratedKeys();
             if (res.next()) {
                 cliente.setIdCliente(res.getInt(1));
                 return true;
-            }else{
+            } else {
                 System.out.println("Error al generar ID ");
             }
             return true;
@@ -111,9 +113,10 @@ public abstract class ClienteData extends Conexion {
 
             sqlPD.setString(1, cliente.getApellido());
             sqlPD.setString(2, cliente.getNombre());
-            sqlPD.setString(3, cliente.getDomiciio());
-            sqlPD.setString(4, cliente.getTelefono());
-            sqlPD.setInt(5, idCliente);
+            sqlPD.setInt(3, cliente.getDni());
+            sqlPD.setString(4, cliente.getDomiciio());
+            sqlPD.setString(5, cliente.getTelefono());
+            sqlPD.setInt(6, idCliente);
 
             sqlPD.execute();
             return true;
@@ -135,6 +138,7 @@ public abstract class ClienteData extends Conexion {
                 clienteBuscado = new Cliente();
                 clienteBuscado.setApellido(rs.getString("Apellido"));
                 clienteBuscado.setNombre(rs.getString("Nombre"));
+                clienteBuscado.setDni(rs.getInt("DNI"));
                 clienteBuscado.setDomiciio(rs.getString("Domicilio"));
                 clienteBuscado.setTelefono(rs.getString("Telefono"));
                 clienteBuscado.setIdCliente(Integer.parseInt(rs.getString("idCliente")));
@@ -145,5 +149,7 @@ public abstract class ClienteData extends Conexion {
         }
         return clienteBuscado;
     }
+    
+    
 
 }

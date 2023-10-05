@@ -22,24 +22,24 @@ public class FraveMax {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FraveMax.class.getName()).log(Level.SEVERE, null, ex);
         }
-        var cliente = new Cliente(
-                "Pruebas",
-                "Ramiro",
+        Cliente cliente = new Cliente(
+                "Lopez",
+                "Victor",
                 "Calle Falsa 123",
-                "911");
-        cliente.setIdCliente(1);
-//        ClienteData.crearCliente(cliente);
-        var venta = new Venta(cliente, LocalDate.now());
-        VentaData.guardarVenta(venta);
-        System.out.println(venta.getIdVenta());
-//        ClienteData.listaCliente()
-//                .forEach(System.out::println);
-//        var producto = new Producto(
-//                "Licuadora",
-//                "A tu vieja le va a encantar",
-//                22000, 40, true);
-//        ProductoData.IngresarNuevoProducto(producto);
-//        System.out.println( ProductoData.buscarPorId(1));
+                "911",
+                    54652);
+        
+       //ClienteData.crearCliente(cliente);
+       
+     //  ClienteData.borrarCliente(5);
+       
+        System.out.println( ClienteData.BuscarCliente(1));
+        
+        ClienteData.modifocarCliente(cliente, 1);
+        
+        System.out.println( ClienteData.modifocarCliente(cliente,1));
     }
+    
+    
 
 }
