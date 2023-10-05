@@ -149,7 +149,34 @@ public abstract class ClienteData extends Conexion {
         }
         return clienteBuscado;
     }
-    
-    
+
+    public static List<Cliente> listaClientePorDNI(int dni) {
+        List<Cliente> clientes = new ArrayList<>();
+        try {
+            String sql = "select * from `cliente` where dni like ?";
+            PreparedStatement sqlPD = conn.prepareStatement(sql);
+
+            sqlPD.setString(1, dni + "%");
+
+            ResultSet res = sqlPD.executeQuery();
+
+            while (res.next()) {
+                Cliente cliente = new Cliente();
+
+                cliente.setApellido(res.getString("Apellido"));
+                cliente.setNombre(res.getString("Nombre"));
+                cliente.setDni(res.getInt("DNI"));
+                cliente.setDomiciio(res.getString("Domicilio"));
+                cliente.setTelefono(res.getString("Telefono"));
+                cliente.setIdCliente(Integer.parseInt(res.getString("idCliente")));
+
+                clientes.add(cliente);
+                return clientes;
+            }
+        } catch (Exception e) {
+            System.out.println("Erro al buscar por dni" + e.getMessage());
+        }
+        return clientes;
+    }
 
 }

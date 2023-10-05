@@ -49,7 +49,6 @@ public class FraveMax {
 //        VentaData.eliminarVenta(1);
 //        venta = VentaData.buscarVenta(1);
 //        System.out.println(venta);
-
 //        VentaData.buscarVentas(cliente)
 //                .forEach(System.out::println);
 //        
@@ -61,9 +60,7 @@ public class FraveMax {
 //
 //        System.out.println(venta);
 //        System.out.println(prod);
-
 //        detalleVenta dv = new detalleVenta(2, venta, 600, prod);
-
 //        System.out.println(DetalleVentaConexion.registrarDetalleVenta(dv));
 //        venta.setIdVenta(3);
 //        prod.setIdProducto(6);
@@ -73,16 +70,12 @@ public class FraveMax {
 //        } else {
 //            System.out.println("ERROR al Modificar detalle venta");
 //        }
-
-        
-        
 //        System.out.println("Lista Completa");
 //        List<detalleVenta> dvlist = new ArrayList();
 //        dvlist = DetalleVentaConexion.listarDetallesDeVenta();
 //        for (detalleVenta venta1 : dvlist) {
 //            System.out.println(venta1);
 //        }
-        
 //        System.out.println("Lista Por fecha");
 //        List<detalleVenta> dvlist1 = new ArrayList();
 //        LocalDate fecha = LocalDate.of(2023, 10, 04);
@@ -90,7 +83,6 @@ public class FraveMax {
 //        for (detalleVenta venta1 : dvlist1) {
 //            System.out.println(venta1);
 //        }
-        
 //
 //        System.out.println("Lista Por IdCliente");
 //        List<detalleVenta> dvlist2 = new ArrayList();
@@ -98,6 +90,25 @@ public class FraveMax {
 //        for (detalleVenta venta1 : dvlist2) {
 //            System.out.println(venta1);
 //        }
+//        Cliente cliente = new Cliente(
+//                "Lopez",
+//                "Victor",
+//                "Calle Falsa 123",
+//                "911",
+//                    54652);
+        //ClienteData.crearCliente(cliente);
+        //  ClienteData.borrarCliente(5);
+//        System.out.println( ClienteData.BuscarCliente(1));
+//
+//        ClienteData.modifocarCliente(cliente, 1);
+//
+//        System.out.println( ClienteData.modifocarCliente(cliente,1));
+        List<Cliente> clientes = ClienteData.listaClientePorDNI(0);
+
+        clientes.forEach(i -> {
+            System.out.println(i.getNombre() + " " + i.getDni());
+
+        });
     }
 
 }
