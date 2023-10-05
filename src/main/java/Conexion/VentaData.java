@@ -26,7 +26,7 @@ public abstract class VentaData extends Conexion {
             ps.setInt(1, venta.getCliente().getIdCliente());
             ps.setDate(2, Date.valueOf(venta.getFechaVenta()));
             ps.executeUpdate();
-            
+
             var rs = ps.getGeneratedKeys();
             rs.next();
             int idVenta = rs.getInt(1);
@@ -62,14 +62,14 @@ public abstract class VentaData extends Conexion {
             var ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             var rs = ps.executeQuery();
-            rs.next();
+            if (rs.next()) {
+                int idCliente = rs.getInt("idCliente");
+                var fechaVenta = rs.getDate("fechaVenta").toLocalDate();
+                var cliente = ClienteData.BuscarCliente(idCliente);
+                venta = new Venta(id, cliente, fechaVenta);
+                rs.close();
+            }
 
-            int idCliente = rs.getInt("idCliente");
-            var fechaVenta = rs.getDate("fechaVenta").toLocalDate();
-
-            var cliente = ClienteData.BuscarCliente(idCliente);
-            venta = new Venta(id, cliente, fechaVenta);
-            rs.close();
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class.getName()).log(Level.SEVERE, null, ex);

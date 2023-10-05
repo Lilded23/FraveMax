@@ -28,16 +28,33 @@ public class FraveMax {
                 "Calle Falsa 123",
                 "911",
                     54652);
+        cliente.setIdCliente(1);
         
        //ClienteData.crearCliente(cliente);
        
      //  ClienteData.borrarCliente(5);
        
-        System.out.println( ClienteData.BuscarCliente(1));
-        
-        ClienteData.modifocarCliente(cliente, 1);
-        
-        System.out.println( ClienteData.modifocarCliente(cliente,1));
+//        System.out.println( ClienteData.BuscarCliente(1));
+//        
+//        ClienteData.modifocarCliente(cliente, 1);
+//        
+//        System.out.println( ClienteData.modifocarCliente(cliente,1));
+
+////////////////////////////////////////////////////////////////
+//        cliente = ClienteData.BuscarCliente(1);
+//        var venta = new Venta(cliente, LocalDate.now());
+//        VentaData.guardarVenta(venta);
+//        
+//        
+//        VentaData.eliminarVenta(1);
+//        venta = VentaData.buscarVenta(1);
+//        System.out.println(venta);
+
+//        VentaData.buscarVentas(cliente)
+//                .forEach(System.out::println);
+//        
+//        VentaData.buscarVentas(LocalDate.of(2023, 10, 4))
+//                .forEach(System.out::println);
     }
     
     
