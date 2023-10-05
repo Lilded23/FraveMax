@@ -65,4 +65,14 @@ public class detalleVenta {
         this.producto = producto;
     }
 
+        @Override
+    public String toString() {
+        return "Detalle de Venta:"
+                + "\n  ID de Detalle de Venta: " + idDetalleVenta
+                + "\n  Cantidad: " + cantidad
+                + "\n  Fecha de Venta: " + venta.getFechaVenta()
+                + "\n  Cliente: " + venta.getCliente().getNombre() + " " + venta.getCliente().getApellido()
+                + "\n  Producto: " + producto.getNombreProducto()
+                + "\n  Precio TOTAL de venta: $ " + precioVenta;
+    }
 }

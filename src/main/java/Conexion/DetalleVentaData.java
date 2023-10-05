@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Victor Angel
  */
-public abstract class DetalleVentaConexion extends Conexion {
+public abstract class DetalleVentaData extends Conexion {
 
 // Método para registrar un nuevo detalle de venta
     public static boolean registrarDetalleVenta(detalleVenta nuevodv) {
@@ -30,10 +30,12 @@ public abstract class DetalleVentaConexion extends Conexion {
             pstmt.setDouble(3, nuevodv.getPrecioVenta());
             pstmt.setInt(4, nuevodv.getVenta().getIdVenta());
 
-            ResultSet rs = pstmt.executeQuery();
-            return rs.next();
+            int rs = pstmt.executeUpdate();
+            if (rs == 1) {
+                return true;
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(DetalleVentaConexion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -48,11 +50,12 @@ public abstract class DetalleVentaConexion extends Conexion {
             pstmt.setDouble(2, dv.getPrecioVenta());
             pstmt.setInt(3, idDetalleVenta);
 
-            ResultSet rs = pstmt.executeQuery();
-            return rs.next();
-
+            int rs = pstmt.executeUpdate();
+            if (rs == 1) {
+                return true;
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(DetalleVentaConexion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -79,7 +82,7 @@ public abstract class DetalleVentaConexion extends Conexion {
                 listaIdVentas.add(dv);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DetalleVentaConexion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaIdVentas;
     }
@@ -110,7 +113,7 @@ public abstract class DetalleVentaConexion extends Conexion {
             }
             return listaVentasFecha;
         } catch (SQLException ex) {
-            Logger.getLogger(DetalleVentaConexion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaVentasFecha;
     }
@@ -142,7 +145,7 @@ public abstract class DetalleVentaConexion extends Conexion {
             }
             return listaVentasClientes;
         } catch (SQLException ex) {
-            Logger.getLogger(DetalleVentaConexion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaVentasClientes;
     }
