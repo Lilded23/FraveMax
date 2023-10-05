@@ -90,6 +90,17 @@ public class FraveMax {
 //        for (detalleVenta venta1 : dvlist2) {
 //            System.out.println(venta1);
 //        }
+        
+           System.out.println("Lista dealles de venta con multiples productos");
+        List<detalleVenta> dvlist2 = new ArrayList();
+        dvlist2 = DetalleVentaData.listarDetallesVentaPorID(1);
+        for (detalleVenta venta1 : dvlist2) {
+            System.out.println(venta1);
+        }
+        
+        
+        
+        
 //        Cliente cliente = new Cliente(
 //                "Lopez",
 //                "Victor",

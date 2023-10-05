@@ -149,5 +149,30 @@ public abstract class DetalleVentaData extends Conexion {
         }
         return listaVentasClientes;
     }
+        // Método para listar detalles de venta con multiples productos
+    public static List<detalleVenta> listarDetallesVentaPorID(int idVenta) {
+        List<detalleVenta> listaVentas = new ArrayList();
+        try {
+            String sql = "SELECT * FROM DetalleVenta where idVenta=?";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, idVenta);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int idDetalleVenta = rs.getInt("idDetalleVenta");
+                int idProducto = rs.getInt("idProducto");
+                int cantidad = rs.getInt("cantidad");
+                Venta venta = VentaData.buscarVenta(idVenta);
+                Producto prod = ProductoData.buscarPorId(idProducto);
+                double precioVenta = prod.getPrecioActual() * cantidad;
+                detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
+                dv.setIdDetalleVenta(idDetalleVenta);
+                listaVentas.add(dv);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaVentas;
+    }
 
 }
