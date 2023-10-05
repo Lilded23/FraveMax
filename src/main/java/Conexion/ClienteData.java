@@ -64,7 +64,7 @@ public abstract class ClienteData extends Conexion {
         try {
             String sql = "insert into `cliente`(Apellido,Nombre,Domicilio,Telefono) values (?,?,?,?)";
 
-            PreparedStatement sqlPD = conn.prepareStatement(sql);
+            PreparedStatement sqlPD = conn.prepareStatement(sql , PreparedStatement.RETURN_GENERATED_KEYS);
 
             sqlPD.setString(1, cliente.getApellido());
             sqlPD.setString(2, cliente.getNombre());
@@ -72,6 +72,14 @@ public abstract class ClienteData extends Conexion {
             sqlPD.setString(4, cliente.getTelefono());
 
             sqlPD.execute();
+            
+            ResultSet res = sqlPD.getGeneratedKeys();
+            if (res.next()) {
+                cliente.setIdCliente(res.getInt(1));
+                return true;
+            }else{
+                System.out.println("Error al generar ID ");
+            }
             return true;
         } catch (Exception e) {
             System.out.println("Error al crear CLIENTE" + e.getMessage());
