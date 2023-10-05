@@ -91,13 +91,17 @@ public class FraveMax {
 //            System.out.println(venta1);
 //        }
 //        
-//           System.out.println("Lista dealles de venta con multiples productos");
-//        List<detalleVenta> dvlist2 = new ArrayList();
-//        dvlist2 = DetalleVentaData.listarDetallesVentaPorID(1);
-//        for (detalleVenta venta1 : dvlist2) {
-//            System.out.println(venta1);
-//        }
-       
+           System.out.println("Lista dealles de venta con multiples productos");
+        List<detalleVenta> dvlist2 = new ArrayList();
+        dvlist2 = DetalleVentaData.listarDetallesVentaPorID(1);
+        double total=0;
+        System.out.println("Detalle de Venta: ");
+        for (detalleVenta venta1 : dvlist2) {
+            System.out.println(venta1);
+            total=total+venta1.getPrecioVenta();
+        }
+        System.out.println("----------------------------");
+        System.out.println("TOTAL: $ " + total);
 //        Cliente cliente = new Cliente(
 //                "Lopez",
 //                "Victor",

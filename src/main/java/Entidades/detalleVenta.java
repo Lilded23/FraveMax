@@ -9,6 +9,7 @@ package Entidades;
  * @author jdbar
  */
 public class detalleVenta {
+
     private int idDetalleVenta;
     private int cantidad;
     private Venta venta;
@@ -65,14 +66,14 @@ public class detalleVenta {
         this.producto = producto;
     }
 
-        @Override
+    @Override
     public String toString() {
-        return "Detalle de Venta:"
-                + "\n  ID de Detalle de Venta: " + idDetalleVenta
-                + "\n  Cantidad: " + cantidad
-                + "\n  Fecha de Venta: " + venta.getFechaVenta()
+        return "\n  ID de Detalle de Venta: " + idDetalleVenta
                 + "\n  Cliente: " + venta.getCliente().getNombre() + " " + venta.getCliente().getApellido()
+                + "\n  Fecha de Venta: " + venta.getFechaVenta()
                 + "\n  Producto: " + producto.getNombreProducto()
-                + "\n  Precio TOTAL de venta: $ " + precioVenta;
+                + "\n  Cantidad: " + cantidad
+                + "\n  Precio Unitario: " + producto.getPrecioActual()
+                + "\n  Importe: $ " + precioVenta;
     }
 }
