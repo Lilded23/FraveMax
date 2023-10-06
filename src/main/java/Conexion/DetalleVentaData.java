@@ -21,13 +21,14 @@ public abstract class DetalleVentaData extends Conexion {
 
 // Método para registrar un nuevo detalle de venta
     public static boolean registrarDetalleVenta(detalleVenta nuevodv) {
+        double precio = nuevodv.getProducto().getPrecioActual() * nuevodv.getCantidad();
         try {
             String sql = "INSERT INTO DetalleVenta ( idProducto, cantidad, precioVenta,idVenta) VALUES (?, ?, ?,?)";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, nuevodv.getProducto().getIdProducto());
             pstmt.setInt(2, nuevodv.getCantidad());
-            pstmt.setDouble(3, nuevodv.getPrecioVenta());
+            pstmt.setDouble(3, precio);
             pstmt.setInt(4, nuevodv.getVenta().getIdVenta());
 
             int rs = pstmt.executeUpdate();
@@ -74,9 +75,9 @@ public abstract class DetalleVentaData extends Conexion {
                 int idProducto = rs.getInt("idProducto");
                 int cantidad = rs.getInt("cantidad");
                 int idVenta = rs.getInt("idVenta");
+                double precioVenta = rs.getDouble("precioVenta");
                 Venta venta = VentaData.buscarVenta(idVenta);
                 Producto prod = ProductoData.buscarPorId(idProducto);
-                double precioVenta = prod.getPrecioActual() * cantidad;
                 detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
                 dv.setIdDetalleVenta(idDetalleVenta);
                 listaIdVentas.add(dv);
@@ -104,9 +105,9 @@ public abstract class DetalleVentaData extends Conexion {
                 int idProducto = rs.getInt("idProducto");
                 int cantidad = rs.getInt("cantidad");
                 int idVenta = rs.getInt("idVenta");
+                double precioVenta = rs.getDouble("precioVenta");
                 Venta venta = VentaData.buscarVenta(idVenta);
                 Producto prod = ProductoData.buscarPorId(idProducto);
-                double precioVenta = prod.getPrecioActual() * cantidad;
                 detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
                 dv.setIdDetalleVenta(idDetalleVenta);
                 listaVentasFecha.add(dv);
@@ -136,9 +137,9 @@ public abstract class DetalleVentaData extends Conexion {
                 int idProducto = rs.getInt("idProducto");
                 int cantidad = rs.getInt("cantidad");
                 int idVenta = rs.getInt("idVenta");
+                double precioVenta = rs.getDouble("precioVenta");
                 Venta venta = VentaData.buscarVenta(idVenta);
                 Producto prod = ProductoData.buscarPorId(idProducto);
-                double precioVenta = prod.getPrecioActual() * cantidad;
                 detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
                 dv.setIdDetalleVenta(idDetalleVenta);
                 listaVentasClientes.add(dv);
@@ -149,7 +150,8 @@ public abstract class DetalleVentaData extends Conexion {
         }
         return listaVentasClientes;
     }
-        // Método para listar detalles de venta con multiples productos
+    // Método para listar detalles de venta con multiples productos
+
     public static List<detalleVenta> listarDetallesVentaPorID(int idVenta) {
         List<detalleVenta> listaVentas = new ArrayList();
         try {
