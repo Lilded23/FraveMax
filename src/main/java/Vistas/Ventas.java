@@ -8,6 +8,7 @@ import Entidades.*;
 import Conexion.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -58,8 +59,13 @@ public class Ventas extends javax.swing.JPanel {
         var param = jTextField3.getText().toLowerCase();
         var key = param.replaceAll("[\\d]", "");
         var val = param.replaceAll("[\\D]", "");
+        
         var listaClientes = ClienteData.listaCliente();
-
+        var modeloClientesCB = new DefaultComboBoxModel<Cliente>();
+        modeloClientesCB.addAll(listaClientes);
+        
+        clientesCB.setModel(modeloClientesCB);
+        
         for (Cliente cliente : listaClientes) {
             String idCliente = String.valueOf(cliente.getIdCliente());
             if ("id#".equals(key)) {
@@ -75,6 +81,7 @@ public class Ventas extends javax.swing.JPanel {
                 }
             }
         }
+
         configurarTabla();
     }
 
