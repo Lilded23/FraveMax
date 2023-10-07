@@ -31,14 +31,14 @@ public class Ventas extends javax.swing.JPanel {
 
     public Ventas() {
         initComponents();
-        fecha_textField.setText(today.toString());
+        fecha_textField.setText(today.withDayOfMonth(1).toString());
         fechaB_textField.setText(today.toString());
-
+        
         listaClientes = ClienteData.listaCliente();
         modeloClientesCB = new DefaultComboBoxModel<>();
         modeloClientesCB.addAll(listaClientes);
         clientesCB.setModel(modeloClientesCB);
-        clientesCB.setSelectedIndex(0);
+        configurarTabla();
 
     }
 
@@ -47,48 +47,46 @@ public class Ventas extends javax.swing.JPanel {
         var fechaB = Date.valueOf(fechaB_textField.getText()).toLocalDate();
 
         modeloTabla = new DefaultTableModel(
-                new String[]{"idVenta", "fecha"}, 0
+                new String[]{"idCliente", "idVenta", "fecha"}, 0
         );
-
+        List<Venta> lista = null;
         var cliente = (Cliente) clientesCB.getSelectedItem();
-
-        VentaData.buscarVentas(cliente, fecha, fechaB)
-                .forEach((Venta venta) -> {
-                    Object[] rowData = {venta.getIdVenta(), venta.getFechaVenta().toString()};
-                    modeloTabla.addRow(rowData);
-                });
-
+        lista = cliente != null
+                ? VentaData.buscarVentas(cliente, fecha, fechaB)
+                : VentaData.listarVentas();
+                    
+        lista.forEach((Venta venta) -> {
+                        var fulano = venta.getCliente();
+                        Object[] rowData = {
+                            fulano.getIdCliente(),
+                            venta.getIdVenta(),
+                            venta.getFechaVenta().toString()
+                        };
+                        modeloTabla.addRow(rowData);
+                    });
         tablaVentas.setModel(modeloTabla);
     }
-    
+
     public void configurarComboBox() {
         String param = jTextField3.getText().toLowerCase();
-        
-        if (param.startsWith("id:")) {
-            int id = Integer.parseInt(param.replace("id:", ""));
+
+        if (param.startsWith("id#")) {
+            int id = Integer.parseInt(param.replace("id#", ""));
             listaClientes.forEach(fulano -> {
                 if (fulano.getIdCliente() == id) {
                     clientesCB.getModel().setSelectedItem(fulano);
                 }
             });
-        } else if ((param.startsWith("dni:"))) {
-            int dni = Integer.parseInt(param.replace("dni:", ""));
+        } else if (param.startsWith("dni#")){
+            int dni = Integer.parseInt(param.replace("dni#", ""));
             listaClientes.forEach(fulano -> {
                 if (fulano.getDni() == dni) {
                     clientesCB.getModel().setSelectedItem(fulano);
                 }
             });
-        } else {
-            clientesCB.removeAllItems();
-            listaClientes.stream()
-                    .filter(fulano -> fulano.getApellido().toLowerCase()
-                    .startsWith(param))
-                    .toList()
-                    .forEach(clientesCB::addItem);
-
         }
         configurarTabla();
-        
+
     }
 
     /**
@@ -113,7 +111,7 @@ public class Ventas extends javax.swing.JPanel {
         jTextField3 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
             public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
@@ -123,7 +121,7 @@ public class Ventas extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Filtrar:");
+        jLabel1.setText("Buscar");
 
         jLabel2.setText("Entre");
 
@@ -140,20 +138,20 @@ public class Ventas extends javax.swing.JPanel {
 
         tablaVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "idVenta", "Fecha"
+                "idCliente", "idVenta", "Fecha"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -177,7 +175,7 @@ public class Ventas extends javax.swing.JPanel {
             }
         });
 
-        jToggleButton1.setText("Ver detalle");
+        jToggleButton1.setText("Ver detalles");
 
         clientesCB.setModel(new javax.swing.DefaultComboBoxModel<Cliente>());
         clientesCB.addActionListener(new java.awt.event.ActionListener() {
@@ -186,6 +184,7 @@ public class Ventas extends javax.swing.JPanel {
             }
         });
 
+        jTextField3.setText("dni#");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -199,9 +198,9 @@ public class Ventas extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setText("Para buscar usamos clave:valor");
+        jLabel4.setText("Para buscar : clave#valor. Por ejemplo: dni#2050 o id#1");
 
-        jLabel6.setText("ej. id:1 o dni:2050");
+        jLabel5.setText("Formato de fecha: yyyy-mm-dd");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -230,13 +229,14 @@ public class Ventas extends javax.swing.JPanel {
                                 .addComponent(fechaB_textField, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))
+                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jToggleButton1)
                         .addGap(22, 22, 22)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -257,16 +257,14 @@ public class Ventas extends javax.swing.JPanel {
                     .addComponent(clientesCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jToggleButton1)
-                        .addComponent(jButton1)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton1)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel5))
                 .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -313,7 +311,7 @@ public class Ventas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JToggleButton jToggleButton1;

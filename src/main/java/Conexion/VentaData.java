@@ -76,6 +76,30 @@ public abstract class VentaData extends Conexion {
         }
         return venta;
     }
+    
+    public static List<Venta> listarVentas() {
+        List<Venta> lista = new ArrayList<>();
+        try {
+            String sql = "select * from venta";
+            var ps = conn.prepareStatement(sql);
+            var rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idCliente = rs.getInt("idCliente");
+                var cliente = ClienteData.BuscarCliente(idCliente);
+                int idVenta = rs.getInt("idVenta");
+                var date = rs.getDate("fechaVenta").toLocalDate();
+                lista.add(new Venta(idVenta, cliente, date));
+            }
+            rs.close();
+            ps.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VentaData.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
 
     public static List<Venta> buscarVentas(Cliente cliente) {
         List<Venta> lista = new ArrayList<>();
