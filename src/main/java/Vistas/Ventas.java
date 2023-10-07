@@ -8,10 +8,6 @@ import Entidades.*;
 import Conexion.*;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,70 +19,63 @@ public class Ventas extends javax.swing.JPanel {
     /**
      * Creates new form Ventas
      */
-    DefaultComboBoxModel<Cliente> modeloClientesCB;
-    List<Cliente> listaClientes;
-    List<Venta> listaVentas;
-    LocalDate today = LocalDate.now();
-    DefaultTableModel modeloTabla;
+    LocalDate today;
 
     public Ventas() {
         initComponents();
+        today = LocalDate.now();
         fecha_textField.setText(today.withDayOfMonth(1).toString());
         fechaB_textField.setText(today.toString());
-        
-        listaClientes = ClienteData.listaCliente();
-        modeloClientesCB = new DefaultComboBoxModel<>();
-        modeloClientesCB.addAll(listaClientes);
-        clientesCB.setModel(modeloClientesCB);
-        configurarTabla();
-
+        configurarComboBox();
     }
 
-    public void configurarTabla() {
+    private void configurarTabla() {
         var fecha = Date.valueOf(fecha_textField.getText()).toLocalDate();
         var fechaB = Date.valueOf(fechaB_textField.getText()).toLocalDate();
 
-        modeloTabla = new DefaultTableModel(
+        var modeloTabla = new DefaultTableModel(
                 new String[]{"idCliente", "idVenta", "fecha"}, 0
         );
-        List<Venta> lista = null;
+
         var cliente = (Cliente) clientesCB.getSelectedItem();
-        lista = cliente != null
+        var lista = cliente != null
                 ? VentaData.buscarVentas(cliente, fecha, fechaB)
                 : VentaData.listarVentas();
-                    
+
         lista.forEach((Venta venta) -> {
-                        var fulano = venta.getCliente();
-                        Object[] rowData = {
-                            fulano.getIdCliente(),
-                            venta.getIdVenta(),
-                            venta.getFechaVenta().toString()
-                        };
-                        modeloTabla.addRow(rowData);
-                    });
+            var fulano = venta.getCliente();
+            Object[] rowData = {
+                fulano.getIdCliente(),
+                venta.getIdVenta(),
+                venta.getFechaVenta().toString()
+            };
+            modeloTabla.addRow(rowData);
+        });
         tablaVentas.setModel(modeloTabla);
     }
 
     public void configurarComboBox() {
-        String param = jTextField3.getText().toLowerCase();
+        var param = jTextField3.getText().toLowerCase();
+        var key = param.replaceAll("[\\d]", "");
+        var val = param.replaceAll("[\\D]", "");
+        var listaClientes = ClienteData.listaCliente();
 
-        if (param.startsWith("id#")) {
-            int id = Integer.parseInt(param.replace("id#", ""));
-            listaClientes.forEach(fulano -> {
-                if (fulano.getIdCliente() == id) {
-                    clientesCB.getModel().setSelectedItem(fulano);
+        for (Cliente cliente : listaClientes) {
+            String idCliente = String.valueOf(cliente.getIdCliente());
+            if ("id#".equals(key)) {
+                if (idCliente.startsWith(val)) {
+                    clientesCB.getModel().setSelectedItem(cliente);
+                    break;
                 }
-            });
-        } else if (param.startsWith("dni#")){
-            int dni = Integer.parseInt(param.replace("dni#", ""));
-            listaClientes.forEach(fulano -> {
-                if (fulano.getDni() == dni) {
-                    clientesCB.getModel().setSelectedItem(fulano);
+            } else {
+                String dniCliente = String.valueOf(cliente.getDni());
+                if (dniCliente.startsWith(val)) {
+                    clientesCB.getModel().setSelectedItem(cliente);
+                    break;
                 }
-            });
+            }
         }
         configurarTabla();
-
     }
 
     /**
@@ -110,7 +99,6 @@ public class Ventas extends javax.swing.JPanel {
         clientesCB = new javax.swing.JComboBox<Cliente>();
         jTextField3 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -121,9 +109,9 @@ public class Ventas extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Buscar");
+        jLabel1.setText("Buscar DNI");
 
-        jLabel2.setText("Entre");
+        jLabel2.setText("Fecha ");
 
         fecha_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         fecha_textField.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +120,7 @@ public class Ventas extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setText(" y ");
+        jLabel3.setText("hasta");
 
         fechaB_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
@@ -184,7 +172,6 @@ public class Ventas extends javax.swing.JPanel {
             }
         });
 
-        jTextField3.setText("dni#");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -197,8 +184,6 @@ public class Ventas extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-
-        jLabel4.setText("Para buscar : clave#valor. Por ejemplo: dni#2050 o id#1");
 
         jLabel5.setText("Formato de fecha: yyyy-mm-dd");
 
@@ -215,52 +200,47 @@ public class Ventas extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3))
-                            .addComponent(clientesCB, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(clientesCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(fecha_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(fecha_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(fechaB_textField, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaB_textField, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jToggleButton1)
                         .addGap(22, 22, 22)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(fechaB_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
                         .addComponent(fecha_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(clientesCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton1)
                     .addComponent(jButton1)
@@ -310,7 +290,6 @@ public class Ventas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField3;
