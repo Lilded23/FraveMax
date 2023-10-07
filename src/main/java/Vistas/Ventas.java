@@ -8,6 +8,7 @@ import Entidades.*;
 import Conexion.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Collections;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,41 +32,45 @@ public class Ventas extends javax.swing.JPanel {
     }
 
     private void configurarTabla() {
-        var fecha = Date.valueOf(fecha_textField.getText()).toLocalDate();
-        var fechaB = Date.valueOf(fechaB_textField.getText()).toLocalDate();
+        try {
+            var modeloTabla = new DefaultTableModel(
+                    new String[]{"idCliente", "idVenta", "fecha"}, 0
+            );
+            var fecha = Date.valueOf(fecha_textField.getText()).toLocalDate();
+            var fechaB = Date.valueOf(fechaB_textField.getText()).toLocalDate();
+            var cliente = (Cliente) clientesCB.getSelectedItem();
+            var lista = cliente != null
+                    ? VentaData.buscarVentas(cliente, fecha, fechaB)
+                    : VentaData.listarVentas();
 
-        var modeloTabla = new DefaultTableModel(
-                new String[]{"idCliente", "idVenta", "fecha"}, 0
-        );
-
-        var cliente = (Cliente) clientesCB.getSelectedItem();
-        var lista = cliente != null
-                ? VentaData.buscarVentas(cliente, fecha, fechaB)
-                : VentaData.listarVentas();
-
-        lista.forEach((Venta venta) -> {
-            var fulano = venta.getCliente();
-            Object[] rowData = {
-                fulano.getIdCliente(),
-                venta.getIdVenta(),
-                venta.getFechaVenta().toString()
-            };
-            modeloTabla.addRow(rowData);
-        });
-        tablaVentas.setModel(modeloTabla);
+            Collections.reverse(lista);
+            lista.forEach((Venta venta) -> {
+                var fulano = venta.getCliente();
+                Object[] rowData = {
+                    fulano.getIdCliente(),
+                    venta.getIdVenta(),
+                    venta.getFechaVenta().toString()
+                };
+                modeloTabla.addRow(rowData);
+            });
+            tablaVentas.setModel(modeloTabla);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void configurarComboBox() {
-        var param = jTextField3.getText().toLowerCase();
+        try {
+            var param = jTextField3.getText().toLowerCase();
         var key = param.replaceAll("[\\d]", "");
         var val = param.replaceAll("[\\D]", "");
-        
+
         var listaClientes = ClienteData.listaCliente();
         var modeloClientesCB = new DefaultComboBoxModel<Cliente>();
         modeloClientesCB.addAll(listaClientes);
-        
+
         clientesCB.setModel(modeloClientesCB);
-        
+
         for (Cliente cliente : listaClientes) {
             String idCliente = String.valueOf(cliente.getIdCliente());
             if ("id#".equals(key)) {
@@ -81,8 +86,10 @@ public class Ventas extends javax.swing.JPanel {
                 }
             }
         }
-
         configurarTabla();
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
     /**
@@ -102,11 +109,11 @@ public class Ventas extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVentas = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
         clientesCB = new javax.swing.JComboBox<Cliente>();
         jTextField3 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
             public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
@@ -167,13 +174,6 @@ public class Ventas extends javax.swing.JPanel {
             }
         });
 
-        jToggleButton1.setText("Ver detalles");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
-            }
-        });
-
         clientesCB.setModel(new javax.swing.DefaultComboBoxModel<Cliente>());
         clientesCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,6 +195,13 @@ public class Ventas extends javax.swing.JPanel {
         });
 
         jLabel5.setText("Formato de fecha: yyyy-mm-dd");
+
+        jButton3.setText("Ver detalles");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -225,8 +232,8 @@ public class Ventas extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jToggleButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
                 .addContainerGap())
         );
@@ -251,9 +258,9 @@ public class Ventas extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton1)
                     .addComponent(jButton1)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jButton3))
                 .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -290,14 +297,18 @@ public class Ventas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_formAncestorResized
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        var col = 1;
-        var row = tablaVentas.getSelectedRow();
-        int idVenta = (int) tablaVentas.getValueAt(row, 1);
-        var venta = VentaData.buscarVenta(idVenta);
-        System.out.println(venta);
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+        try {
+            var row = tablaVentas.getSelectedRow();
+            int idVenta = (int) tablaVentas.getValueAt(row, 1);
+            var venta = VentaData.buscarVenta(idVenta);
+            System.out.println(venta);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -306,13 +317,13 @@ public class Ventas extends javax.swing.JPanel {
     private javax.swing.JTextField fecha_textField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTable tablaVentas;
     // End of variables declaration//GEN-END:variables
 }
