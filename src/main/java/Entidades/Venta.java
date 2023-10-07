@@ -26,6 +26,11 @@ public class Venta {
         this.fechaVenta = fechaVenta;
         this.cliente = cliente;
     }
+
+    public Venta(Cliente cliente) {
+        this.cliente = cliente;
+        this.fechaVenta = LocalDate.now();
+    }
     
     public Venta() {
     }

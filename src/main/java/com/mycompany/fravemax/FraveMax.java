@@ -24,13 +24,17 @@ public class FraveMax {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FraveMax.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        Cliente cliente = new Cliente(
-//                "Lopez",
-//                "Victor",
-//                "Calle Falsa 123",
-//                "911",
-//                54652);
-//        cliente.setIdCliente(1);
+
+        LocalDate dateA = LocalDate.of(2023, 10, 1),
+                  dateB = LocalDate.of(2023, 10, 30);
+        
+        Cliente cliente = new Cliente(
+                "Lopez",
+                "Victor",
+                "Calle Falsa 123",
+                "911",
+                54652);
+        cliente.setIdCliente(1);
 
 //        ClienteData.crearCliente(cliente);
         //  ClienteData.borrarCliente(5);
@@ -41,21 +45,34 @@ public class FraveMax {
 //        System.out.println( ClienteData.modifocarCliente(cliente,1));
 ////////////////////////////////////////////////////////////////
 //        cliente = ClienteData.BuscarCliente(1);
-//        var venta = new Venta(cliente, LocalDate.now());
+//        var venta = new Venta(1, cliente, LocalDate.now());
+//
 //        VentaData.guardarVenta(venta);
-//        System.out.println(venta.getIdVenta());
 //        
-//        
+//        System.out.println(
+//                venta.getIdVenta()
+//        );
+//  
 //        VentaData.eliminarVenta(1);
+//        
 //        venta = VentaData.buscarVenta(1);
-//        System.out.println(venta);
+//        
+//        System.out.println(
+//                venta
+//        );
+//        
 //        VentaData.buscarVentas(cliente)
 //                .forEach(System.out::println);
 //        
-//        VentaData.buscarVentas(LocalDate.of(2023, 10, 4))
+//        VentaData.buscarVentas(dateA)
 //                .forEach(System.out::println);
-//        VentaData.buscarVentas(LocalDate.of(2023, 10, 1), LocalDate.of(2023, 10, 30)
+//        
+//        VentaData.buscarVentas(dateA, dateB)
 //                .forEach(System.out::println);
+        
+        System.out.println(
+                VentaData.buscarVentas(cliente, dateA, dateB));
+
 //        Producto prod = new Producto("Tv 32", "Tv 32 pulgadas led", 2000, 15, true);
 //        ProductoData.IngresarNuevoProducto(prod);
 //        System.out.println(prod.getIdProducto());
@@ -121,8 +138,7 @@ public class FraveMax {
 //
 //        clientes.forEach(i -> {
 //            System.out.println(i.getNombre() + " " + i.getDni());
-
-        });
+//        });
     }
 
 }
