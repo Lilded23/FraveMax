@@ -157,11 +157,8 @@ public class Ventas extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tablaVentas.setColumnSelectionAllowed(true);
         tablaVentas.setFillsViewportHeight(true);
-        tablaVentas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaVentas);
-        tablaVentas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jButton1.setText("Nueva");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -171,6 +168,11 @@ public class Ventas extends javax.swing.JPanel {
         });
 
         jToggleButton1.setText("Ver detalles");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         clientesCB.setModel(new javax.swing.DefaultComboBoxModel<Cliente>());
         clientesCB.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +226,7 @@ public class Ventas extends javax.swing.JPanel {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jToggleButton1)
-                        .addGap(22, 22, 22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)))
                 .addContainerGap())
         );
@@ -276,6 +278,7 @@ public class Ventas extends javax.swing.JPanel {
         var nueva = new Venta(cliente);
         VentaData.guardarVenta(nueva);
         configurarTabla();
+        System.out.println(nueva);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void clientesCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesCBActionPerformed
@@ -286,6 +289,15 @@ public class Ventas extends javax.swing.JPanel {
     private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
         // TODO add your handling code here:
     }//GEN-LAST:event_formAncestorResized
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+        var col = 1;
+        var row = tablaVentas.getSelectedRow();
+        int idVenta = (int) tablaVentas.getValueAt(row, 1);
+        var venta = VentaData.buscarVenta(idVenta);
+        System.out.println(venta);
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
