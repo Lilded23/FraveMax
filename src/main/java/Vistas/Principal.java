@@ -6,10 +6,10 @@ package Vistas;
 
 import Entidades.*;
 import Conexion.*;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.mycompany.fravemax.FraveMax;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 
 /**
  *
@@ -22,21 +22,22 @@ public class Principal extends javax.swing.JFrame {
      */
     Ventas vistaVentas;
     public Principal() {
-        
         initComponents();
+        setLocationRelativeTo(null);
         try {
             Conexion.Conectar();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FraveMax.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tablero.removeAll();
         vistaVentas = new Ventas();
-        tablero.add(vistaVentas);
-        vistaVentas.setSize(tablero.getSize());
-        tablero.repaint();
-        
+        mostrarVentas();
     }
-
+    
+    public void mostrarVentas() {
+        tablero.removeAll();
+        tablero.add(vistaVentas);
+        tablero.repaint();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,6 +51,8 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tablero.setMinimumSize(new java.awt.Dimension(800, 600));
+        tablero.setPreferredSize(new java.awt.Dimension(800, 600));
         tablero.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
             public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
             }
@@ -57,17 +60,7 @@ public class Principal extends javax.swing.JFrame {
                 tableroAncestorResized(evt);
             }
         });
-
-        javax.swing.GroupLayout tableroLayout = new javax.swing.GroupLayout(tablero);
-        tablero.setLayout(tableroLayout);
-        tableroLayout.setHorizontalGroup(
-            tableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 788, Short.MAX_VALUE)
-        );
-        tableroLayout.setVerticalGroup(
-            tableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
-        );
+        tablero.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,24 +95,26 @@ public class Principal extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
 
+        
+        //</editor-fold>
+        FlatMacDarkLaf.setup();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -131,4 +126,5 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel tablero;
     // End of variables declaration//GEN-END:variables
+
 }

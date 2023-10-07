@@ -28,7 +28,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField3" min="-2" pref="156" max="-2" attributes="0"/>
+                              <Component id="jTextField3" pref="156" max="32767" attributes="0"/>
                           </Group>
                           <Component id="clientesCB" max="32767" attributes="0"/>
                       </Group>
@@ -37,7 +37,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="fecha_textField" min="-2" pref="195" max="-2" attributes="0"/>
+                              <Component id="fecha_textField" pref="195" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
