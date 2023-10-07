@@ -122,4 +122,30 @@ public abstract class VentaData extends Conexion {
         }
         return lista;
     }
+    
+     public static List<Venta> buscarVentas(LocalDate dateA, LocalDate dateB) {
+        List<Venta> lista = new ArrayList<>();
+        LocalDate date;
+        try {
+            String sql = "select * from venta where fechaVenta between ? and ?";
+            var ps = conn.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(dateA));
+            ps.setDate(2, Date.valueOf(dateB));
+            var rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idVenta = rs.getInt("idVenta");
+                int idCliente = rs.getInt("idCliente");
+                date = rs.getDate("fechaVenta").toLocalDate();
+                Cliente cliente = ClienteData.BuscarCliente(idCliente);
+                lista.add(new Venta(idVenta, cliente, date));
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(VentaData.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
 }

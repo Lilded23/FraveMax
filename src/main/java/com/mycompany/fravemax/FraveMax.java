@@ -54,6 +54,8 @@ public class FraveMax {
 //        
 //        VentaData.buscarVentas(LocalDate.of(2023, 10, 4))
 //                .forEach(System.out::println);
+//        VentaData.buscarVentas(LocalDate.of(2023, 10, 1), LocalDate.of(2023, 10, 30)
+//                .forEach(System.out::println);
 //        Producto prod = new Producto("Tv 32", "Tv 32 pulgadas led", 2000, 15, true);
 //        ProductoData.IngresarNuevoProducto(prod);
 //        System.out.println(prod.getIdProducto());
@@ -91,34 +93,34 @@ public class FraveMax {
 //            System.out.println(venta1);
 //        }
 //        
-           System.out.println("Lista dealles de venta con multiples productos");
-        List<detalleVenta> dvlist2 = new ArrayList();
-        dvlist2 = DetalleVentaData.listarDetallesVentaPorID(1);
-        double total=0;
-        System.out.println("Detalle de Venta: ");
-        for (detalleVenta venta1 : dvlist2) {
-            System.out.println(venta1);
-            total=total+venta1.getPrecioVenta();
-        }
-        System.out.println("----------------------------");
-        System.out.println("TOTAL: $ " + total);
-//        Cliente cliente = new Cliente(
-//                "Lopez",
-//                "Victor",
-//                "Calle Falsa 123",
-//                "911",
-//                    54652);
-        //ClienteData.crearCliente(cliente);
-        //  ClienteData.borrarCliente(5);
-//        System.out.println( ClienteData.BuscarCliente(1));
+//           System.out.println("Lista dealles de venta con multiples productos");
+//        List<detalleVenta> dvlist2 = new ArrayList();
+//        dvlist2 = DetalleVentaData.listarDetallesVentaPorID(1);
+//        double total=0;
+//        System.out.println("Detalle de Venta: ");
+//        for (detalleVenta venta1 : dvlist2) {
+//            System.out.println(venta1);
+//            total=total+venta1.getPrecioVenta();
+//        }
+//        System.out.println("----------------------------");
+//        System.out.println("TOTAL: $ " + total);
+////        Cliente cliente = new Cliente(
+////                "Lopez",
+////                "Victor",
+////                "Calle Falsa 123",
+////                "911",
+////                    54652);
+//        //ClienteData.crearCliente(cliente);
+//        //  ClienteData.borrarCliente(5);
+////        System.out.println( ClienteData.BuscarCliente(1));
+////
+////        ClienteData.modifocarCliente(cliente, 1);
+////
+////        System.out.println( ClienteData.modifocarCliente(cliente,1));
+//        List<Cliente> clientes = ClienteData.listaClientePorDNI(0);
 //
-//        ClienteData.modifocarCliente(cliente, 1);
-//
-//        System.out.println( ClienteData.modifocarCliente(cliente,1));
-        List<Cliente> clientes = ClienteData.listaClientePorDNI(0);
-
-        clientes.forEach(i -> {
-            System.out.println(i.getNombre() + " " + i.getDni());
+//        clientes.forEach(i -> {
+//            System.out.println(i.getNombre() + " " + i.getDni());
 
         });
     }
