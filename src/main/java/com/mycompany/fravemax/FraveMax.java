@@ -19,12 +19,6 @@ import java.util.logging.Logger;
 public class FraveMax {
 
     public static void main(String[] args) {
-        try {
-            Conexion.Conectar();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FraveMax.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
 //        LocalDate dateA = LocalDate.of(2023, 10, 1),
 //                  dateB = LocalDate.of(2023, 10, 30);
 //        
@@ -35,7 +29,6 @@ public class FraveMax {
 //                "911",
 //                54652);
 //        cliente.setIdCliente(1);
-
 //        ClienteData.crearCliente(cliente);
         //  ClienteData.borrarCliente(5);
 //        System.out.println( ClienteData.BuscarCliente(1));
@@ -69,10 +62,8 @@ public class FraveMax {
 //        
 //        VentaData.buscarVentas(dateA, dateB)
 //                .forEach(System.out::println);
-        
 //        System.out.println(
 //                VentaData.buscarVentas(cliente, dateA, dateB));
-
 //        Producto prod = new Producto("Tv 32", "Tv 32 pulgadas led", 2000, 15, true);
 //        ProductoData.IngresarNuevoProducto(prod);
 //        System.out.println(prod.getIdProducto());

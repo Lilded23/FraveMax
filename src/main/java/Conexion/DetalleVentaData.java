@@ -21,6 +21,7 @@ public abstract class DetalleVentaData extends Conexion {
 
 // Método para registrar un nuevo detalle de venta
     public static boolean registrarDetalleVenta(detalleVenta nuevodv) {
+        Conectar();
         double precio = nuevodv.getProducto().getPrecioActual() * nuevodv.getCantidad();
         try {
             String sql = "INSERT INTO DetalleVenta ( idProducto, cantidad, precioVenta,idVenta) VALUES (?, ?, ?,?)";
@@ -43,6 +44,7 @@ public abstract class DetalleVentaData extends Conexion {
 
 // Método para actualizar un detalle de venta existente
     public static boolean actualizarDetalleVenta(int idDetalleVenta, detalleVenta dv) {
+        Conectar();
         try {
             String sql = "UPDATE DetalleVenta SET cantidad = ?, precioVenta = ? WHERE idDetalleVenta = ?";
 
@@ -63,6 +65,7 @@ public abstract class DetalleVentaData extends Conexion {
 
 // Método para listar detalles de venta de una venta específica
     public static List<detalleVenta> listarDetallesDeVenta() {
+        Conectar();
         List<detalleVenta> listaIdVentas = new ArrayList();
         try {
             String sql = "SELECT * FROM DetalleVenta";
@@ -91,6 +94,7 @@ public abstract class DetalleVentaData extends Conexion {
     //Metodo para detalles de venta por una fecha especifica
     // Pendiente PrecioVenta
     public static List<detalleVenta> ListaPorFecha(LocalDate fecha) {
+        Conectar();
         List<detalleVenta> listaVentasFecha = new ArrayList();
         try {
             String sql = "SELECT dv.* "
@@ -122,6 +126,7 @@ public abstract class DetalleVentaData extends Conexion {
     //Metodo para detalles de venta por un Cliente
     // Pendiente PrecioVenta
     public static List<detalleVenta> ListaPorCliente(int idCliente) {
+        Conectar();
         List<detalleVenta> listaVentasClientes = new ArrayList();
         try {
             String sql = "SELECT dv.* "
@@ -153,6 +158,7 @@ public abstract class DetalleVentaData extends Conexion {
     // Método para listar detalles de venta con multiples productos
 
     public static List<detalleVenta> listarDetallesVentaPorID(int idVenta) {
+        Conectar();
         List<detalleVenta> listaVentas = new ArrayList();
         try {
             String sql = "SELECT * FROM DetalleVenta where idVenta=?";

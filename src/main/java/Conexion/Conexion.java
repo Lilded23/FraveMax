@@ -18,7 +18,7 @@ public abstract class Conexion {
 
     public static Connection conn;
 
-    public static void Conectar() throws ClassNotFoundException {
+    public static void Conectar() {
 
         try {
             Class.forName("org.mariadb.jdbc.Driver");
@@ -29,12 +29,13 @@ public abstract class Conexion {
                         "");
                 System.out.println("Conectado =)");
             }
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
-    
-    public static void Desconectar() throws ClassNotFoundException {
+
+    public static void Desconectar() {
         try {
             conn.close();
         } catch (SQLException ex) {

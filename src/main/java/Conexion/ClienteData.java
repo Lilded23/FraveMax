@@ -21,15 +21,8 @@ import java.util.logging.Logger;
  */
 public abstract class ClienteData extends Conexion {
 
-    public ClienteData() {
-        try {
-            Conectar();
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
-        }
-    }
-
     public static List<Cliente> listaCliente() {
+        Conectar();
         List<Cliente> clientes = new ArrayList<>();
         try {
             String sql = "select * from cliente";
@@ -51,17 +44,17 @@ public abstract class ClienteData extends Conexion {
                 clientes.add(cliente);
 
             }
-
             return clientes;
 
-        } catch (Exception e) {
+        } catch (NumberFormatException | SQLException e) {
             System.out.println("Error al cargar la lista de CLIENTES" + e.getMessage());
         }
+        
         return clientes;
     }
 
     public static boolean crearCliente(Cliente cliente) {
-
+        Conectar();
         try {
             String sql = "insert into `cliente`(Apellido,Nombre,DNI,Domicilio,Telefono) values (?,?,?,?,?)";
 
@@ -82,15 +75,18 @@ public abstract class ClienteData extends Conexion {
             } else {
                 System.out.println("Error al generar ID ");
             }
+            
             return true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error al crear CLIENTE" + e.getMessage());
 
         }
+        
         return false;
     }
 
     public static boolean borrarCliente(int idCliente) {
+        Conectar();
         try {
             String sql = "delete from `cliente` where idCliente=?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
@@ -98,15 +94,18 @@ public abstract class ClienteData extends Conexion {
             sqlPD.setInt(1, idCliente);
 
             sqlPD.execute();
+            
             return true;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error al borrar CLIENTE " + e.getMessage());
         }
+        
         return false;
     }
 
     public static boolean modifocarCliente(Cliente cliente, int idCliente) {
+        Conectar();
         try {
             String sql = "update `cliente` set `Apellido`=? , `Nombre`=? , `Domicilio`=?,`Telefono`=? where idCliente = ?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
@@ -119,15 +118,18 @@ public abstract class ClienteData extends Conexion {
             sqlPD.setInt(6, idCliente);
 
             sqlPD.execute();
+            
             return true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error al modifificar CLIENTE " + e.getMessage());
         }
+        
         return false;
 
     }
 
     public static Cliente BuscarCliente(int idCliente) {
+        Conectar();
         Cliente clienteBuscado = null;
         try {
             String sql = "Select * from cliente where idCliente=?";
@@ -143,14 +145,17 @@ public abstract class ClienteData extends Conexion {
                 clienteBuscado.setTelefono(rs.getString("Telefono"));
                 clienteBuscado.setIdCliente(Integer.parseInt(rs.getString("idCliente")));
             }
+            
             return clienteBuscado;
         } catch (SQLException ex) {
             Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return clienteBuscado;
     }
 
     public static List<Cliente> listaClientePorDNI(int dni) {
+        Conectar();
         List<Cliente> clientes = new ArrayList<>();
         try {
             String sql = "select * from `cliente` where dni like ?";
@@ -171,11 +176,13 @@ public abstract class ClienteData extends Conexion {
                 cliente.setIdCliente(Integer.parseInt(res.getString("idCliente")));
 
                 clientes.add(cliente);
+                
                 return clientes;
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException | SQLException e) {
             System.out.println("Erro al buscar por dni" + e.getMessage());
         }
+        
         return clientes;
     }
 

@@ -4,8 +4,6 @@ import static Conexion.Conexion.conn;
 import Entidades.Venta;
 import Entidades.Cliente;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,6 +18,7 @@ import java.util.logging.Logger;
 public abstract class VentaData extends Conexion {
 
     public static void guardarVenta(Venta venta) {
+        Conectar();
         try {
             String sql = "insert into venta (idCliente, fechaVenta) values (?, ?);";
             var ps = conn.prepareStatement(sql, 1);
@@ -36,9 +35,11 @@ public abstract class VentaData extends Conexion {
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     public static void eliminarVenta(int id) {
+        Conectar();
         try {
             String sql = "delete from venta where idVenta = ?";
             var ps = conn.prepareStatement(sql);
@@ -48,6 +49,7 @@ public abstract class VentaData extends Conexion {
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /**
@@ -57,6 +59,7 @@ public abstract class VentaData extends Conexion {
      */
     public static Venta buscarVenta(int id) {
         Venta venta = null;
+        Conectar();
         try {
             String sql = "select * from venta where idVenta = ?";
             var ps = conn.prepareStatement(sql);
@@ -71,14 +74,16 @@ public abstract class VentaData extends Conexion {
             }
 
             ps.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return venta;
     }
-    
+
     public static List<Venta> listarVentas() {
         List<Venta> lista = new ArrayList<>();
+        Conectar();
         try {
             String sql = "select * from venta";
             var ps = conn.prepareStatement(sql);
@@ -98,10 +103,12 @@ public abstract class VentaData extends Conexion {
             Logger.getLogger(VentaData.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        
         return lista;
     }
 
     public static List<Venta> buscarVentas(Cliente cliente) {
+        Conectar();
         List<Venta> lista = new ArrayList<>();
         try {
             String sql = "select * from venta where idCliente = ?";
@@ -116,15 +123,16 @@ public abstract class VentaData extends Conexion {
             }
             rs.close();
             ps.close();
-
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        
         return lista;
     }
 
     public static List<Venta> buscarVentas(LocalDate date) {
+        Conectar();
         List<Venta> lista = new ArrayList<>();
         try {
             String sql = "select * from venta where fechaVenta = ?";
@@ -144,12 +152,14 @@ public abstract class VentaData extends Conexion {
             Logger.getLogger(VentaData.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        
         return lista;
     }
 
     public static List<Venta> buscarVentas(LocalDate dateA, LocalDate dateB) {
         List<Venta> lista = new ArrayList<>();
         LocalDate date;
+        Conectar();
         try {
             String sql = "select * from venta where fechaVenta between ? and ?";
             var ps = conn.prepareStatement(sql);
@@ -170,12 +180,14 @@ public abstract class VentaData extends Conexion {
             Logger.getLogger(VentaData.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        
         return lista;
     }
 
     public static List<Venta> buscarVentas(Cliente cliente, LocalDate dateA, LocalDate dateB) {
         List<Venta> lista = new ArrayList<>();
         LocalDate date;
+        Conectar();
         try {
             String sql = "select * from venta where idCliente = ? and fechaVenta between ? and ?";
             var ps = conn.prepareStatement(sql);
@@ -196,6 +208,7 @@ public abstract class VentaData extends Conexion {
             Logger.getLogger(VentaData.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        
         return lista;
     }
 }
