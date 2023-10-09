@@ -20,7 +20,8 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    Ventas vistaVentas;
+    public static Ventas vistaVentas;
+
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
@@ -32,12 +33,21 @@ public class Principal extends javax.swing.JFrame {
         vistaVentas = new Ventas();
         mostrarVentas();
     }
-    
-    public void mostrarVentas() {
+
+    public static void mostrarVentas() {
         tablero.removeAll();
         tablero.add(vistaVentas);
+        tablero.revalidate();
         tablero.repaint();
     }
+
+    public static void mostrarFacil() {
+        tablero.removeAll();
+        tablero.add(new facil());
+        tablero.revalidate();
+        tablero.repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,6 +61,7 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tablero.setBackground(new java.awt.Color(0, 102, 102));
         tablero.setMinimumSize(new java.awt.Dimension(800, 600));
         tablero.setPreferredSize(new java.awt.Dimension(800, 600));
         tablero.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -75,8 +86,8 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(tablero, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,7 +123,6 @@ public class Principal extends javax.swing.JFrame {
 //            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 
-        
         //</editor-fold>
         FlatMacDarkLaf.setup();
         /* Create and display the form */
@@ -124,7 +134,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JPanel tablero;
+    public static javax.swing.JPanel tablero;
     // End of variables declaration//GEN-END:variables
 
 }

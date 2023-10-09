@@ -16,7 +16,8 @@ public abstract class Conexion {
     public static Connection conn;
 
         public static void Conectar() throws ClassNotFoundException {
-        try {
+        if (conn == null)
+            try {
             Class.forName("org.mariadb.jdbc.Driver");
             conn = DriverManager.getConnection(
             "jdbc:mariadb://localhost/fravemax",
