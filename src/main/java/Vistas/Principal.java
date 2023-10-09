@@ -62,15 +62,7 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tablero.setBackground(new java.awt.Color(0, 102, 102));
-        tablero.setMinimumSize(new java.awt.Dimension(800, 600));
-        tablero.setPreferredSize(new java.awt.Dimension(800, 600));
-        tablero.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
-            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
-            }
-            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
-                tableroAncestorResized(evt);
-            }
-        });
+        tablero.setMinimumSize(new java.awt.Dimension(788, 588));
         tablero.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -86,16 +78,12 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tablero, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(tablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tableroAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_tableroAncestorResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tableroAncestorResized
 
     /**
      * @param args the command line arguments
