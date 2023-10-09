@@ -28,11 +28,6 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
-        try {
-            Conexion.Conectar();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FraveMax.class.getName()).log(Level.SEVERE, null, ex);
-        }
         vistaVentas = new Ventas();
         mostrarVentas();
     }

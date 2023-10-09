@@ -20,15 +20,8 @@ import java.util.logging.Logger;
  */
 public abstract class ProductoData extends Conexion {
 
-    public ProductoData() {
-        try {
-            Conectar();
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
-        }
-    }
-
     public static List<Producto> listaProducto() {
+        Conectar();
         List<Producto> productos = new ArrayList<>();
         try {
             String sql = "select * from producto";
@@ -59,9 +52,10 @@ public abstract class ProductoData extends Conexion {
     }
 
     public static boolean IngresarNuevoProducto(Producto producto) {
+        Conectar();
         try {
             String sql = "insert into `producto`(nombreProducto, descripcion, precioActual, stock, estado) values (?,?,?,?,?)";
- PreparedStatement sqlPD;
+            PreparedStatement sqlPD;
             sqlPD = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             sqlPD.setString(1, producto.getNombreProducto());
             sqlPD.setString(2, producto.getDescripcion());
@@ -82,11 +76,13 @@ public abstract class ProductoData extends Conexion {
         }
         return false;
     }
+
     public static boolean ActualizarStock(int stock, int idProducto) {
+        Conectar();
         try {
             String sql = "update `producto` set `stock`=? where `idProducto`=?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
-            
+
             sqlPD.setInt(1, stock);
             sqlPD.setInt(2, idProducto);
             sqlPD.execute();
@@ -96,33 +92,33 @@ public abstract class ProductoData extends Conexion {
         }
         return false;
     }
-    
-    public static boolean ActualizarEstado(boolean estado, int idProducto)    {
+
+    public static boolean ActualizarEstado(boolean estado, int idProducto) {
+        Conectar();
         try {
             String sql = "update `producto` set `estado`=? where `idProducto`=?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
-            
+
             sqlPD.setBoolean(1, estado);
             sqlPD.setInt(2, idProducto);
-        
+
             sqlPD.execute();
             return true;
+        } catch (Exception e) {
+            System.out.println("Error al modifificar PRODUCTO " + e.getMessage());
         }
-        
-        catch(Exception e) {
-              System.out.println("Error al modifificar PRODUCTO " + e.getMessage());
-        }
-    return false;
-    
-        }
-    
-        public static Producto buscarPorId(int idProd){
-        Producto prodBuscado=null;
+        return false;
+
+    }
+
+    public static Producto buscarPorId(int idProd) {
+        Conectar();
+        Producto prodBuscado = null;
         try {
-            String sql="Select * from producto where idProducto=?";
-            PreparedStatement pstm=conn.prepareStatement(sql);
+            String sql = "Select * from producto where idProducto=?";
+            PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1, idProd);
-            ResultSet rs= pstm.executeQuery();
+            ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
                 prodBuscado = new Producto();
                 prodBuscado.setDescripcion(rs.getNString("descripcion"));
@@ -135,8 +131,7 @@ public abstract class ProductoData extends Conexion {
         } catch (SQLException ex) {
             Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
         }
-                return prodBuscado;
-    }
-    
+        return prodBuscado;
     }
 
+}
