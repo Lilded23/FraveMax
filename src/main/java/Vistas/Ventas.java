@@ -53,7 +53,6 @@ public class Ventas extends javax.swing.JPanel {
                 };
                 modeloTabla.addRow(rowData);
             });
-            VentaData.Conectar();
             tablaVentas.setModel(modeloTabla);
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -63,31 +62,31 @@ public class Ventas extends javax.swing.JPanel {
     public void configurarComboBox() {
         try {
             var param = jTextField3.getText().toLowerCase();
-        var key = param.replaceAll("[\\d]", "");
-        var val = param.replaceAll("[\\D]", "");
+            var key = param.replaceAll("[\\d]", "");
+            var val = param.replaceAll("[\\D]", "");
 
-        var listaClientes = ClienteData.listaCliente();
-        var modeloClientesCB = new DefaultComboBoxModel<Cliente>();
-        modeloClientesCB.addAll(listaClientes);
+            var listaClientes = ClienteData.listaCliente();
+            var modeloClientesCB = new DefaultComboBoxModel<Cliente>();
+            modeloClientesCB.addAll(listaClientes);
 
-        clientesCB.setModel(modeloClientesCB);
+            clientesCB.setModel(modeloClientesCB);
 
-        for (Cliente cliente : listaClientes) {
-            String idCliente = String.valueOf(cliente.getIdCliente());
-            if ("id#".equals(key)) {
-                if (idCliente.startsWith(val)) {
-                    clientesCB.getModel().setSelectedItem(cliente);
-                    break;
-                }
-            } else {
-                String dniCliente = String.valueOf(cliente.getDni());
-                if (dniCliente.startsWith(val)) {
-                    clientesCB.getModel().setSelectedItem(cliente);
-                    break;
+            for (Cliente cliente : listaClientes) {
+                String idCliente = String.valueOf(cliente.getIdCliente());
+                if ("id#".equals(key)) {
+                    if (idCliente.startsWith(val)) {
+                        clientesCB.getModel().setSelectedItem(cliente);
+                        break;
+                    }
+                } else {
+                    String dniCliente = String.valueOf(cliente.getDni());
+                    if (dniCliente.startsWith(val)) {
+                        clientesCB.getModel().setSelectedItem(cliente);
+                        break;
+                    }
                 }
             }
-        }
-        configurarTabla();
+            configurarTabla();
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -340,7 +339,7 @@ public class Ventas extends javax.swing.JPanel {
         System.out.println(cliente.getApellido());
         System.out.println(cliente.getDni());
         System.out.println(cliente.getTelefono());
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
