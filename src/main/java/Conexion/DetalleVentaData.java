@@ -152,8 +152,24 @@ public abstract class DetalleVentaData extends Conexion {
     }
     // Método para listar detalles de venta con multiples productos
 
-    public static List<detalleVenta> listarDetallesVentaPorID(int idVenta) {
-        List<detalleVenta> listaVentas = new ArrayList();
+    public static int cantidadProd(int idVenta) {
+        try {
+            String sql = "SELECT * FROM DetalleVenta where idVenta=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, idVenta);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int cantidad = rs.getInt("Cantidad");
+                return cantidad;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    // Método para listar detalles de venta con multiples products
+    public static Producto buscaVentaPorID(int idVenta) {
+       
         try {
             String sql = "SELECT * FROM DetalleVenta where idVenta=?";
 
@@ -161,20 +177,31 @@ public abstract class DetalleVentaData extends Conexion {
             pstmt.setInt(1, idVenta);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                int idDetalleVenta = rs.getInt("idDetalleVenta");
                 int idProducto = rs.getInt("idProducto");
-                int cantidad = rs.getInt("cantidad");
-                Venta venta = VentaData.buscarVenta(idVenta);
                 Producto prod = ProductoData.buscarPorId(idProducto);
-                double precioVenta = prod.getPrecioActual() * cantidad;
-                detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
-                dv.setIdDetalleVenta(idDetalleVenta);
-                listaVentas.add(dv);
+                return prod;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listaVentas;
+        return null;
     }
+    
+    // Método para eliminar un detalle de venta existente
+    public static boolean eliminarDetalleVenta(int idVenta) {
+        try {
+            String sql = "delete from DetalleVenta WHERE idVenta = ?";
 
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, idVenta);
+
+            int rs = pstmt.executeUpdate();
+            if (rs == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

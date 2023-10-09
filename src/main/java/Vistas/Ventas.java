@@ -206,7 +206,7 @@ public class Ventas extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setText("jButton4");
+        jButton4.setText("Realizar Venta");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -335,11 +335,7 @@ public class Ventas extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        var cliente = (Cliente) clientesCB.getSelectedItem();
-        System.out.println(cliente);
-        System.out.println(cliente.getApellido());
-        System.out.println(cliente.getDni());
-        System.out.println(cliente.getTelefono());
+Principal.mostrarRealizarVenta();
         
     }//GEN-LAST:event_jButton4ActionPerformed
 

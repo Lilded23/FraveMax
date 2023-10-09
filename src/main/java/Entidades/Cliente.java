@@ -75,9 +75,9 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    @Override
+   @Override
     public String toString() {
-        return idCliente  + apellido  + nombre + dni +  domiciio + telefono;
+        return idCliente+ " " + apellido  +" "+  nombre +" "+  dni;
     }
     
     

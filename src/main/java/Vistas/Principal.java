@@ -6,8 +6,11 @@ package Vistas;
 
 import Entidades.*;
 import Conexion.*;
+import VistasDetallesVenta.DetallesVentaView;
+import VistasDetallesVenta.RealizarVentaview;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.mycompany.fravemax.FraveMax;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,6 +51,19 @@ public class Principal extends javax.swing.JFrame {
         tablero.repaint();
     }
 
+    public static void mostrarRealizarVenta() {
+        tablero.removeAll();
+        tablero.add(new RealizarVentaview());
+        tablero.revalidate();
+        tablero.repaint();
+    }
+
+    public static void mostrarDetalle(Cliente cli,List<Integer> listaIdVenta, double total) {
+        tablero.removeAll();
+        tablero.add(new DetallesVentaView(cli, listaIdVenta, total));
+        tablero.revalidate();
+        tablero.repaint();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
