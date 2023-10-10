@@ -6,10 +6,13 @@ package Vistas;
 
 import Entidades.*;
 import Conexion.*;
+import Vistas.VistaClientes.ClientesVistas;
 import VistasDetallesVenta.DetallesVentaView;
 import VistasDetallesVenta.RealizarVentaview;
+import VistasProducto.Buscar;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.mycompany.fravemax.FraveMax;
+import java.awt.Color;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +23,10 @@ import java.util.logging.Logger;
  */
 public class Principal extends javax.swing.JFrame {
 
+    Color color1 = new Color(0, 122, 255);
+    Color backgraoundOriginal = new Color(30,30,30);
+    
+    static String vistaActual ;
     /**
      * Creates new form Principal
      */
@@ -28,13 +35,13 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
-        vistaVentas = new Ventas();
-        mostrarVentas();
+//        vistaVentas = new Ventas();
+//        mostrarVentas();
     }
 
     public static void mostrarVentas() {
         tablero.removeAll();
-        tablero.add(vistaVentas);
+        tablero.add(new Ventas());
         tablero.revalidate();
         tablero.repaint();
     }
@@ -59,6 +66,27 @@ public class Principal extends javax.swing.JFrame {
         tablero.revalidate();
         tablero.repaint();
     }
+    
+    private static void mostrarListaClientes(){
+    tablero.removeAll();
+    tablero.add(new ClientesVistas());
+    tablero.revalidate();
+    tablero.repaint();
+    
+    
+    }
+    
+    private static void mostrarListaProductos(){
+    tablero.removeAll();
+    tablero.add(new Buscar());
+    tablero.revalidate();
+    tablero.repaint();
+    
+    
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,12 +96,118 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        JLCliente = new javax.swing.JLabel();
+        JLProductos = new javax.swing.JLabel();
+        JLVentas = new javax.swing.JLabel();
+        JLBoletas = new javax.swing.JLabel();
         tablero = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tablero.setBackground(new java.awt.Color(0, 102, 102));
-        tablero.setMinimumSize(new java.awt.Dimension(788, 588));
+        jLabel1.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Ventas");
+
+        JLCliente.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        JLCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLCliente.setText("Clientes");
+        JLCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JLCliente.setOpaque(true);
+        JLCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JLClienteMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                JLClienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                JLClienteMouseExited(evt);
+            }
+        });
+
+        JLProductos.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        JLProductos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLProductos.setText("Productos");
+        JLProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JLProductos.setOpaque(true);
+        JLProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JLProductosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                JLProductosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                JLProductosMouseExited(evt);
+            }
+        });
+
+        JLVentas.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        JLVentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLVentas.setText("Ventas");
+        JLVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JLVentas.setOpaque(true);
+        JLVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JLVentasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                JLVentasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                JLVentasMouseExited(evt);
+            }
+        });
+
+        JLBoletas.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        JLBoletas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLBoletas.setText("Boletas");
+        JLBoletas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JLBoletas.setOpaque(true);
+        JLBoletas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JLBoletasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                JLBoletasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                JLBoletasMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
+            .addComponent(JLCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(JLProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(JLVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(JLBoletas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(JLCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JLProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JLVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(JLBoletas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(271, Short.MAX_VALUE))
+        );
+
+        tablero.setMinimumSize(new java.awt.Dimension(800, 600));
         tablero.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -81,20 +215,79 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tablero, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void JLVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLVentasMouseClicked
+        // TODO add your handling code here:
+        mostrarRealizarVenta();
+    }//GEN-LAST:event_JLVentasMouseClicked
+
+    private void JLBoletasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLBoletasMouseClicked
+        // TODO add your handling code here:
+        mostrarVentas();
+    }//GEN-LAST:event_JLBoletasMouseClicked
+
+    private void JLClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLClienteMouseClicked
+        // TODO add your handling code here:
+        mostrarListaClientes();
+    }//GEN-LAST:event_JLClienteMouseClicked
+
+    private void JLProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLProductosMouseClicked
+        // TODO add your handling code here:
+        mostrarListaProductos();
+    }//GEN-LAST:event_JLProductosMouseClicked
+
+    private void JLClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLClienteMouseEntered
+        // TODO add your handling code here:
+        JLCliente.setBackground(color1);
+        
+    }//GEN-LAST:event_JLClienteMouseEntered
+
+    private void JLClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLClienteMouseExited
+        // TODO add your handling code here:
+        JLCliente.setBackground(backgraoundOriginal);
+    }//GEN-LAST:event_JLClienteMouseExited
+
+    private void JLProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLProductosMouseEntered
+        // TODO add your handling code here:
+        JLProductos.setBackground(color1);
+    }//GEN-LAST:event_JLProductosMouseEntered
+
+    private void JLProductosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLProductosMouseExited
+        // TODO add your handling code here:
+        JLProductos.setBackground(backgraoundOriginal);
+    }//GEN-LAST:event_JLProductosMouseExited
+
+    private void JLVentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLVentasMouseEntered
+        // TODO add your handling code here:
+        JLVentas.setBackground(color1);
+    }//GEN-LAST:event_JLVentasMouseEntered
+
+    private void JLVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLVentasMouseExited
+        // TODO add your handling code here:
+        JLVentas.setBackground(backgraoundOriginal);
+    }//GEN-LAST:event_JLVentasMouseExited
+
+    private void JLBoletasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLBoletasMouseEntered
+        // TODO add your handling code here
+        JLBoletas.setBackground(color1);
+    }//GEN-LAST:event_JLBoletasMouseEntered
+
+    private void JLBoletasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLBoletasMouseExited
+        // TODO add your handling code here:
+        JLBoletas.setBackground(backgraoundOriginal);
+    }//GEN-LAST:event_JLBoletasMouseExited
 
     /**
      * @param args the command line arguments
@@ -133,7 +326,13 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JPanel tablero;
+    private javax.swing.JLabel JLBoletas;
+    private javax.swing.JLabel JLCliente;
+    private javax.swing.JLabel JLProductos;
+    private javax.swing.JLabel JLVentas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private static javax.swing.JPanel tablero;
     // End of variables declaration//GEN-END:variables
 
 }
