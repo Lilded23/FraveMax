@@ -12,6 +12,7 @@ import VistasDetallesVenta.RealizarVentaview;
 import VistasProducto.Buscar;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.mycompany.fravemax.FraveMax;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.List;
 import java.util.logging.Level;
@@ -72,10 +73,12 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private static void mostrarListaClientes() {
+        ClientesVistas clientesVistas = new ClientesVistas();
         tablero.removeAll();
-        tablero.add(new ClientesVistas());
+        tablero.add(clientesVistas);
         tablero.revalidate();
         tablero.repaint();
+
 
     }
 
