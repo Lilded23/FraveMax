@@ -24,9 +24,13 @@ import java.util.logging.Logger;
 public class Principal extends javax.swing.JFrame {
 
     Color color1 = new Color(0, 122, 255);
-    Color backgraoundOriginal = new Color(30,30,30);
-    
-    static String vistaActual ;
+    Color backgraoundOriginal = new Color(30, 30, 30);
+    private boolean ClienteSelect = false;
+    private boolean ProductosSelect = false;
+    private boolean VentaSelect = false;
+    private boolean BoletaSelect = false;
+
+    static String vistaActual;
     /**
      * Creates new form Principal
      */
@@ -60,33 +64,29 @@ public class Principal extends javax.swing.JFrame {
         tablero.repaint();
     }
 
-    public static void mostrarDetalle(Cliente cli,List<Integer> listaIdVenta, double total) {
+    public static void mostrarDetalle(Cliente cli, List<Integer> listaIdVenta, double total) {
         tablero.removeAll();
         tablero.add(new DetallesVentaView(cli, listaIdVenta, total));
         tablero.revalidate();
         tablero.repaint();
     }
-    
-    private static void mostrarListaClientes(){
-    tablero.removeAll();
-    tablero.add(new ClientesVistas());
-    tablero.revalidate();
-    tablero.repaint();
-    
-    
+
+    private static void mostrarListaClientes() {
+        tablero.removeAll();
+        tablero.add(new ClientesVistas());
+        tablero.revalidate();
+        tablero.repaint();
+
     }
-    
-    private static void mostrarListaProductos(){
-    tablero.removeAll();
-    tablero.add(new Buscar());
-    tablero.revalidate();
-    tablero.repaint();
-    
-    
+
+    private static void mostrarListaProductos() {
+        tablero.removeAll();
+        tablero.add(new Buscar());
+        tablero.revalidate();
+        tablero.repaint();
+
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -231,32 +231,50 @@ public class Principal extends javax.swing.JFrame {
     private void JLVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLVentasMouseClicked
         // TODO add your handling code here:
         mostrarRealizarVenta();
+        ClienteSelect = false;
+        ProductosSelect = false;
+        VentaSelect = true;
+        BoletaSelect = false;
     }//GEN-LAST:event_JLVentasMouseClicked
 
     private void JLBoletasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLBoletasMouseClicked
         // TODO add your handling code here:
         mostrarVentas();
+        ClienteSelect = false;
+        ProductosSelect = false;
+        VentaSelect = false;
+        BoletaSelect = true;
     }//GEN-LAST:event_JLBoletasMouseClicked
 
     private void JLClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLClienteMouseClicked
         // TODO add your handling code here:
         mostrarListaClientes();
+        ClienteSelect = true;
+        ProductosSelect = false;
+        VentaSelect = false;
+        BoletaSelect = false;
     }//GEN-LAST:event_JLClienteMouseClicked
 
     private void JLProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLProductosMouseClicked
         // TODO add your handling code here:
         mostrarListaProductos();
+        ClienteSelect = false;
+        ProductosSelect = true;
+        VentaSelect = false;
+        BoletaSelect = false;
     }//GEN-LAST:event_JLProductosMouseClicked
 
     private void JLClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLClienteMouseEntered
         // TODO add your handling code here:
         JLCliente.setBackground(color1);
-        
+
     }//GEN-LAST:event_JLClienteMouseEntered
 
     private void JLClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLClienteMouseExited
         // TODO add your handling code here:
-        JLCliente.setBackground(backgraoundOriginal);
+        JLCliente.setBackground(color1);
+        setColor(ClienteSelect, ProductosSelect, VentaSelect, BoletaSelect);
+
     }//GEN-LAST:event_JLClienteMouseExited
 
     private void JLProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLProductosMouseEntered
@@ -267,6 +285,8 @@ public class Principal extends javax.swing.JFrame {
     private void JLProductosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLProductosMouseExited
         // TODO add your handling code here:
         JLProductos.setBackground(backgraoundOriginal);
+        setColor(ClienteSelect, ProductosSelect, VentaSelect, BoletaSelect);
+
     }//GEN-LAST:event_JLProductosMouseExited
 
     private void JLVentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLVentasMouseEntered
@@ -277,6 +297,8 @@ public class Principal extends javax.swing.JFrame {
     private void JLVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLVentasMouseExited
         // TODO add your handling code here:
         JLVentas.setBackground(backgraoundOriginal);
+        setColor(ClienteSelect, ProductosSelect, VentaSelect, BoletaSelect);
+
     }//GEN-LAST:event_JLVentasMouseExited
 
     private void JLBoletasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLBoletasMouseEntered
@@ -287,6 +309,8 @@ public class Principal extends javax.swing.JFrame {
     private void JLBoletasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLBoletasMouseExited
         // TODO add your handling code here:
         JLBoletas.setBackground(backgraoundOriginal);
+        setColor(ClienteSelect, ProductosSelect, VentaSelect, BoletaSelect);
+         
     }//GEN-LAST:event_JLBoletasMouseExited
 
     /**
@@ -335,4 +359,12 @@ public class Principal extends javax.swing.JFrame {
     private static javax.swing.JPanel tablero;
     // End of variables declaration//GEN-END:variables
 
+    private void setColor (boolean ClienteSelect , boolean ProductoSelect , boolean VentasSelect , boolean BoletasSelect){
+    
+    JLCliente.setBackground(ClienteSelect ? color1 : backgraoundOriginal);
+    JLProductos.setBackground(ProductoSelect ? color1 : backgraoundOriginal);
+    JLVentas.setBackground(VentasSelect ? color1 : backgraoundOriginal);
+    JLBoletas.setBackground(BoletasSelect ? color1 : backgraoundOriginal);
+    
+    }
 }
