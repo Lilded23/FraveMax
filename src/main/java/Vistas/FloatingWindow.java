@@ -41,8 +41,5 @@ public class FloatingWindow extends JFrame {
                 lastY = e.getYOnScreen();
             }
         });
-
     }
-
-
 }

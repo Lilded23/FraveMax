@@ -21,9 +21,9 @@ public class ClientesVistas extends javax.swing.JPanel {
      * Creates new form ClientesVistas
      */
     public ClientesVistas() {
-        initComponents();
-        cargarTabla();
+        initComponents();      
         borrarfilasProd();
+        cargarTabla();
         cargarDatosClientes();
     }
 

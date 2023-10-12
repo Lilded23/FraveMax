@@ -26,15 +26,16 @@ public class Principal extends javax.swing.JFrame {
 
     Color color1 = new Color(0, 122, 255);
     Color backgraoundOriginal = new Color(30, 30, 30);
-    private static  boolean ClienteSelect = false;
+    private static boolean ClienteSelect = false;
     private boolean ProductosSelect = false;
     private boolean VentaSelect = false;
-    private  boolean BoletaSelect = false;
+    private boolean BoletaSelect = false;
 
     static String vistaActual;
     /**
      * Creates new form Principal
      */
+    private static ClientesVistas clientesVistas;
     public static Ventas vistaVentas;
 
     public Principal() {
@@ -42,6 +43,7 @@ public class Principal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 //        vistaVentas = new Ventas();
 //        mostrarVentas();
+        clientesVistas = new ClientesVistas();
     }
 
     public static void mostrarVentas() {
@@ -74,12 +76,11 @@ public class Principal extends javax.swing.JFrame {
 
     private static void mostrarListaClientes() {
         if (!ClienteSelect) {
-           
-        ClientesVistas clientesVistas = new ClientesVistas();
-        tablero.removeAll();
-        tablero.add(clientesVistas);
-        tablero.revalidate();
-        tablero.repaint();
+
+            tablero.removeAll();
+            tablero.add(clientesVistas);
+            tablero.revalidate();
+            tablero.repaint();
         }
 
     }
@@ -107,6 +108,7 @@ public class Principal extends javax.swing.JFrame {
         JLProductos = new javax.swing.JLabel();
         JLVentas = new javax.swing.JLabel();
         JLBoletas = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 1), new java.awt.Dimension(0, 1), new java.awt.Dimension(32767, 1));
         tablero = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -195,6 +197,10 @@ public class Principal extends javax.swing.JFrame {
             .addComponent(JLProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(JLVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(JLBoletas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,9 +213,11 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(JLProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JLVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69)
                 .addComponent(JLBoletas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
 
         tablero.setMinimumSize(new java.awt.Dimension(800, 600));
@@ -315,7 +323,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         JLBoletas.setBackground(backgraoundOriginal);
         setColor(ClienteSelect, ProductosSelect, VentaSelect, BoletaSelect);
-         
+
     }//GEN-LAST:event_JLBoletasMouseExited
 
     /**
@@ -359,17 +367,18 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel JLCliente;
     private javax.swing.JLabel JLProductos;
     private javax.swing.JLabel JLVentas;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private static javax.swing.JPanel tablero;
     // End of variables declaration//GEN-END:variables
 
-    private void setColor (boolean ClienteSelect , boolean ProductoSelect , boolean VentasSelect , boolean BoletasSelect){
-    
-    JLCliente.setBackground(ClienteSelect ? color1 : backgraoundOriginal);
-    JLProductos.setBackground(ProductoSelect ? color1 : backgraoundOriginal);
-    JLVentas.setBackground(VentasSelect ? color1 : backgraoundOriginal);
-    JLBoletas.setBackground(BoletasSelect ? color1 : backgraoundOriginal);
-    
+    private void setColor(boolean ClienteSelect, boolean ProductoSelect, boolean VentasSelect, boolean BoletasSelect) {
+
+        JLCliente.setBackground(ClienteSelect ? color1 : backgraoundOriginal);
+        JLProductos.setBackground(ProductoSelect ? color1 : backgraoundOriginal);
+        JLVentas.setBackground(VentasSelect ? color1 : backgraoundOriginal);
+        JLBoletas.setBackground(BoletasSelect ? color1 : backgraoundOriginal);
+
     }
 }
