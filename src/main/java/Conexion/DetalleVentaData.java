@@ -41,15 +41,14 @@ public abstract class DetalleVentaData extends Conexion {
         return false;
     }
 
-// Método para actualizar un detalle de venta existente
-    public static boolean actualizarDetalleVenta(int idDetalleVenta, detalleVenta dv) {
+// Método para eliminar un detalle de venta existente
+    public static boolean eliminarDetalleVenta(int idVenta, int idProd) {
         try {
-            String sql = "UPDATE DetalleVenta SET cantidad = ?, precioVenta = ? WHERE idDetalleVenta = ?";
+            String sql = "delete from DetalleVenta WHERE idVenta = ? and idProducto=?";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, dv.getCantidad());
-            pstmt.setDouble(2, dv.getPrecioVenta());
-            pstmt.setInt(3, idDetalleVenta);
+            pstmt.setInt(1, idVenta);
+            pstmt.setInt(2, idProd);
 
             int rs = pstmt.executeUpdate();
             if (rs == 1) {
@@ -78,6 +77,7 @@ public abstract class DetalleVentaData extends Conexion {
                 double precioVenta = rs.getDouble("precioVenta");
                 Venta venta = VentaData.buscarVenta(idVenta);
                 Producto prod = ProductoData.buscarPorId(idProducto);
+//                double precioVenta = prod.getPrecioActual() * cantidad;
                 detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
                 dv.setIdDetalleVenta(idDetalleVenta);
                 listaIdVentas.add(dv);
@@ -108,6 +108,7 @@ public abstract class DetalleVentaData extends Conexion {
                 double precioVenta = rs.getDouble("precioVenta");
                 Venta venta = VentaData.buscarVenta(idVenta);
                 Producto prod = ProductoData.buscarPorId(idProducto);
+//                double precioVenta = prod.getPrecioActual() * cantidad;
                 detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
                 dv.setIdDetalleVenta(idDetalleVenta);
                 listaVentasFecha.add(dv);
@@ -140,6 +141,7 @@ public abstract class DetalleVentaData extends Conexion {
                 double precioVenta = rs.getDouble("precioVenta");
                 Venta venta = VentaData.buscarVenta(idVenta);
                 Producto prod = ProductoData.buscarPorId(idProducto);
+//                double precioVenta = prod.getPrecioActual() * cantidad;
                 detalleVenta dv = new detalleVenta(cantidad, venta, precioVenta, prod);
                 dv.setIdDetalleVenta(idDetalleVenta);
                 listaVentasClientes.add(dv);
@@ -150,26 +152,10 @@ public abstract class DetalleVentaData extends Conexion {
         }
         return listaVentasClientes;
     }
-    // Método para listar detalles de venta con multiples productos
 
-    public static int cantidadProd(int idVenta) {
-        try {
-            String sql = "SELECT * FROM DetalleVenta where idVenta=?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, idVenta);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                int cantidad = rs.getInt("Cantidad");
-                return cantidad;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
-    }
     // Método para listar detalles de venta con multiples products
-    public static Producto buscaVentaPorID(int idVenta) {
-       
+    public static List<detalleVenta> listaProductosPorIdVenta(int idVenta) {
+        List<detalleVenta> prodVendidos = new ArrayList<>();
         try {
             String sql = "SELECT * FROM DetalleVenta where idVenta=?";
 
@@ -178,30 +164,60 @@ public abstract class DetalleVentaData extends Conexion {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 int idProducto = rs.getInt("idProducto");
+                int cantidad = rs.getInt("Cantidad");
+                double precio = rs.getDouble("precioVenta");
                 Producto prod = ProductoData.buscarPorId(idProducto);
-                return prod;
+                detalleVenta dv = new detalleVenta(cantidad, precio, prod);
+                prodVendidos.add(dv);
             }
+            return prodVendidos;
         } catch (SQLException ex) {
             Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
-    // Método para eliminar un detalle de venta existente
-    public static boolean eliminarDetalleVenta(int idVenta) {
+
+// Método para obtener todas las idProducto por idCliente y fechaVenta
+    public static List<Integer> obtenerIdProductosPorClienteYFecha(int idCliente, LocalDate fechaVenta) {
+        List<Integer> idProductos = new ArrayList<>();
         try {
-            String sql = "delete from DetalleVenta WHERE idVenta = ?";
+            String sql = "SELECT dv.idProducto "
+                    + "FROM DetalleVenta dv "
+                    + "JOIN Venta v ON dv.idVenta = v.idVenta "
+                    + "WHERE v.idCliente = ? AND v.fechaVenta = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, idCliente);
+            pstmt.setDate(2, Date.valueOf(fechaVenta));
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int idProducto = rs.getInt("idProducto");
+                idProductos.add(idProducto);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al cargar las idProductos de las ventas");
+        }
+        return idProductos;
+    }
+
+    public static detalleVenta buscaVentaPorID(int idVenta, int idProd) {
+        detalleVenta dv=null;
+        try {
+            String sql = "SELECT * FROM DetalleVenta where idVenta=? and idProducto=?";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, idVenta);
-
-            int rs = pstmt.executeUpdate();
-            if (rs == 1) {
-                return true;
+            pstmt.setInt(2, idProd);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int cantidad = rs.getInt("Cantidad");
+                dv.setCantidad(cantidad);
+                System.out.println("Ventas data" + cantidad);
             }
+            return dv;
         } catch (SQLException ex) {
             Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return null;
     }
 }

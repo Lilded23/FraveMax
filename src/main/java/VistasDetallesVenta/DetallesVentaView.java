@@ -6,17 +6,16 @@ package VistasDetallesVenta;
 
 import com.mycompany.fravemax.ExportPDF;
 import Conexion.DetalleVentaData;
-import Conexion.ProductoData;
 import Conexion.VentaData;
 import Entidades.Cliente;
-import Entidades.Producto;
 import Entidades.Venta;
+import Entidades.detalleVenta;
 import Vistas.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -24,11 +23,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DetallesVentaView extends javax.swing.JPanel {
 
-    private Cliente cliente;
-    private List<Integer> listaIdVenta = new ArrayList();
-    private List<Producto> productosVenta = new ArrayList();
-    private List<Integer> cantidadProd = new ArrayList();
-
+    private List<detalleVenta> productosVendidos = new ArrayList();
+    private Venta ventaRealizada;
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int f, int c) {
@@ -36,55 +32,53 @@ public class DetallesVentaView extends javax.swing.JPanel {
         }
     };
 
-    public DetallesVentaView() {
+    public DetallesVentaView(Venta venta, double total) {
         initComponents();
         agregarCabecera();
-    }
-
-    public DetallesVentaView(Cliente cli, List<Integer> listaIdVenta, double total) {
-        initComponents();
-        this.cliente = cli;
-        this.listaIdVenta = listaIdVenta;
-        jtTotal.setText(String.valueOf(total));
+        this.ventaRealizada = venta;
         configurarCliente();
-        agregarCabecera();
         cargarListaProd();
         llenarTabla();
     }
 
     private void configurarCliente() {
-        jtNombre.setText(cliente.getNombre());
-        jtApellido.setText(cliente.getApellido());
-        jtDni.setText(String.valueOf(cliente.getDni()));
-        jtTel.setText(cliente.getTelefono());
-        jtDomicilio.setText(cliente.getDomiciio());
+        jtNombre.setText(ventaRealizada.getCliente().getNombre());
+        jtApellido.setText(ventaRealizada.getCliente().getApellido());
+        jtDni.setText(String.valueOf(ventaRealizada.getCliente().getDni()));
+        jtTel.setText(ventaRealizada.getCliente().getTelefono());
+        jtDomicilio.setText(ventaRealizada.getCliente().getDomiciio());
     }
 
     private void cargarListaProd() {
-        for (Integer id : listaIdVenta) {
-            Producto prod = DetalleVentaData.buscaVentaPorID(id);
-            int cant = DetalleVentaData.cantidadProd(id);
-            if (prod != null&& cant >0) {
-                productosVenta.add(prod);
-                cantidadProd.add(cant);
+        productosVendidos = DetalleVentaData.listaProductosPorIdVenta(ventaRealizada.getIdVenta());
+        if (productosVendidos.isEmpty()) {
+            int respuesta = JOptionPane.showConfirmDialog(null,
+                    "No se vendio ningun producto, desea eliminar la venta?",
+                    "Eliminar venta", JOptionPane.OK_CANCEL_OPTION);
+            if (respuesta == JOptionPane.OK_OPTION) {
+                VentaData.eliminarVenta(ventaRealizada.getIdVenta());
+                this.setVisible(false);
+                Principal.mostrarVentas();
             }
+        } else {
+            double total = 0;
+            for (detalleVenta producto : productosVendidos) {
+                total = total + producto.getPrecioVenta();
+            }
+            jtTotal.setText(String.valueOf(total));
         }
     }
 
+
     private void llenarTabla() {
-        if (productosVenta.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No se vendio ningun Producto");
-        } else {
-            for (int i = 0; i < productosVenta.size(); i++) {
-                Producto producto = productosVenta.get(i);
-                int cantidadVendida = cantidadProd.get(i); 
-                modelo.addRow(new Object[]{
-                    producto.getNombreProducto(),
-                    producto.getDescripcion(),
-                    cantidadVendida,
-                    producto.getPrecioActual(),});
-            }
-        }
+        productosVendidos.forEach(producto -> {
+            modelo.addRow(new Object[]{
+                producto.getProducto().getNombreProducto(),
+                producto.getProducto().getDescripcion(),
+                producto.getCantidad(),
+                "$ " + producto.getPrecioVenta(),});
+        });
+
     }
 
     @SuppressWarnings("unchecked")
@@ -116,7 +110,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
 
         jLabel1.setText("Detalle de venta:");
 
-        jtDomicilio.setEnabled(false);
+        jtDomicilio.setEditable(false);
 
         jLabel2.setText("Datos del Cliente.");
 
@@ -137,7 +131,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jtTablaProd);
 
-        jtNombre.setEnabled(false);
+        jtNombre.setEditable(false);
 
         jLabel4.setText("Apellido:");
 
@@ -148,7 +142,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
             }
         });
 
-        jtApellido.setEnabled(false);
+        jtApellido.setEditable(false);
         jtApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtApellidoActionPerformed(evt);
@@ -157,9 +151,16 @@ public class DetallesVentaView extends javax.swing.JPanel {
 
         jLabel9.setText("Total  Venta:");
 
-        jtTel.setEnabled(false);
+        jtTel.setEditable(false);
 
-        jtDni.setEnabled(false);
+        jtTotal.setEditable(false);
+        jtTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtTotalActionPerformed(evt);
+            }
+        });
+
+        jtDni.setEditable(false);
 
         jbImprimir.setText("Imprimir");
         jbImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -301,14 +302,28 @@ public class DetallesVentaView extends javax.swing.JPanel {
                 domicilioCliente, total, jtTablaProd, nombreArchivo);
     }//GEN-LAST:event_jbImprimirActionPerformed
 
+    private void jtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtTotalActionPerformed
+
     private void agregarCabecera() {
         modelo.addColumn("Nombre del Producto");
         modelo.addColumn("Descripcion");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Precio");
         jtTablaProd.setModel(modelo);
+        ajustarCabeceras();
+        RealizarVentaview.centrarTabla(jtTablaProd);
     }
 
+    private void ajustarCabeceras() {
+        TableColumnModel columnModel = jtTablaProd.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(75);
+        columnModel.getColumn(1).setPreferredWidth(170);
+        columnModel.getColumn(2).setPreferredWidth(75);
+        columnModel.getColumn(3).setPreferredWidth(85);
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Detalles;

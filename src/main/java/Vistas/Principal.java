@@ -9,6 +9,7 @@ import Conexion.*;
 import Vistas.VistaClientes.ClientesVistas;
 import VistasDetallesVenta.DetallesVentaView;
 import VistasDetallesVenta.RealizarVentaview;
+import VistasDetallesVenta.Ventas;
 import VistasProducto.Buscar;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.mycompany.fravemax.FraveMax;
@@ -36,7 +37,7 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     private static ClientesVistas clientesVistas;
-    public static Ventas vistaVentas;
+    public static Boletas vistaVentas;
 
     public Principal() {
         initComponents();
@@ -52,6 +53,14 @@ public class Principal extends javax.swing.JFrame {
         tablero.revalidate();
         tablero.repaint();
     }
+    
+        public static void mostrarBoletas() {
+        tablero.removeAll();
+        tablero.add(new Boletas());
+        tablero.revalidate();
+        tablero.repaint();
+    }
+    
 
     public static void mostrarFacil() {
         tablero.removeAll();
@@ -60,16 +69,16 @@ public class Principal extends javax.swing.JFrame {
         tablero.repaint();
     }
 
-    public static void mostrarRealizarVenta() {
+    public static void mostrarRealizarVenta(Venta venta) {
         tablero.removeAll();
-        tablero.add(new RealizarVentaview());
+        tablero.add(new RealizarVentaview(venta));
         tablero.revalidate();
         tablero.repaint();
     }
 
-    public static void mostrarDetalle(Cliente cli, List<Integer> listaIdVenta, double total) {
+   public static void mostrarDetalle(Venta venta, double total) {
         tablero.removeAll();
-        tablero.add(new DetallesVentaView(cli, listaIdVenta, total));
+        tablero.add(new DetallesVentaView(venta, total));
         tablero.revalidate();
         tablero.repaint();
     }
@@ -243,7 +252,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void JLVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLVentasMouseClicked
         // TODO add your handling code here:
-        mostrarRealizarVenta();
+        mostrarVentas();
         ClienteSelect = false;
         ProductosSelect = false;
         VentaSelect = true;
@@ -252,7 +261,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void JLBoletasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLBoletasMouseClicked
         // TODO add your handling code here:
-        mostrarVentas();
+        mostrarBoletas();
         ClienteSelect = false;
         ProductosSelect = false;
         VentaSelect = false;

@@ -21,7 +21,6 @@ import java.util.logging.Logger;
 public abstract class ProductoData extends Conexion {
 
     public static List<Producto> listaProducto() {
-        Conectar();
         List<Producto> productos = new ArrayList<>();
         try {
             String sql = "select * from producto";
@@ -52,7 +51,6 @@ public abstract class ProductoData extends Conexion {
     }
 
     public static boolean IngresarNuevoProducto(Producto producto) {
-        Conectar();
         try {
             String sql = "insert into `producto`(nombreProducto, descripcion, precioActual, stock, estado) values (?,?,?,?,?)";
             PreparedStatement sqlPD;
@@ -78,7 +76,6 @@ public abstract class ProductoData extends Conexion {
     }
 
     public static boolean ActualizarStock(int stock, int idProducto) {
-        Conectar();
         try {
             String sql = "update `producto` set `stock`=? where `idProducto`=?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
@@ -94,7 +91,6 @@ public abstract class ProductoData extends Conexion {
     }
 
     public static boolean ActualizarEstado(boolean estado, int idProducto) {
-        Conectar();
         try {
             String sql = "update `producto` set `estado`=? where `idProducto`=?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
@@ -112,7 +108,6 @@ public abstract class ProductoData extends Conexion {
     }
 
     public static Producto buscarPorId(int idProd) {
-        Conectar();
         Producto prodBuscado = null;
         try {
             String sql = "Select * from producto where idProducto=?";
@@ -126,6 +121,7 @@ public abstract class ProductoData extends Conexion {
                 prodBuscado.setNombreProducto(rs.getString("nombreProducto"));
                 prodBuscado.setPrecioActual(rs.getDouble("precioActual"));
                 prodBuscado.setStock(rs.getInt("stock"));
+                prodBuscado.setIdProducto(rs.getInt("idProducto"));
             }
             return prodBuscado;
         } catch (SQLException ex) {
@@ -133,5 +129,5 @@ public abstract class ProductoData extends Conexion {
         }
         return prodBuscado;
     }
-
 }
+
