@@ -16,9 +16,16 @@ public class detalleVenta {
     private double precioVenta;
     private Producto producto;
 
+
     public detalleVenta(int cantidad, Venta venta, double precioVenta, Producto producto) {
         this.cantidad = cantidad;
         this.venta = venta;
+        this.precioVenta = precioVenta;
+        this.producto = producto;
+    }
+
+    public detalleVenta(int cantidad, double precioVenta, Producto producto) {
+        this.cantidad = cantidad;
         this.precioVenta = precioVenta;
         this.producto = producto;
     }

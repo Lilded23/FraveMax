@@ -126,6 +126,7 @@ public abstract class ProductoData extends Conexion {
                 prodBuscado.setNombreProducto(rs.getString("nombreProducto"));
                 prodBuscado.setPrecioActual(rs.getDouble("precioActual"));
                 prodBuscado.setStock(rs.getInt("stock"));
+                prodBuscado.setIdProducto(rs.getInt("idProducto"));
             }
             return prodBuscado;
         } catch (SQLException ex) {
@@ -133,5 +134,5 @@ public abstract class ProductoData extends Conexion {
         }
         return prodBuscado;
     }
-
 }
+

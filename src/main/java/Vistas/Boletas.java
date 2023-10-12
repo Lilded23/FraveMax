@@ -16,14 +16,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author cisco
  */
-public class Ventas extends javax.swing.JPanel {
+public class Boletas extends javax.swing.JPanel {
 
     /**
      * Creates new form Ventas
      */
     LocalDate today;
 
-    public Ventas() {
+    public Boletas() {
         initComponents();
         today = LocalDate.now();
         fecha_textField.setText(today.withDayOfMonth(1).toString());
@@ -335,7 +335,7 @@ public class Ventas extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-Principal.mostrarRealizarVenta();
+
         
     }//GEN-LAST:event_jButton4ActionPerformed
 

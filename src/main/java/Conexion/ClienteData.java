@@ -196,5 +196,32 @@ public abstract class ClienteData extends Conexion {
 
         return clientes;
     }
+    
+    
+    public static Cliente BuscarClienteDNI (int dni) {
+        Conectar();
+        Cliente clienteBuscado = null;
+        try {
+            String sql = "Select * from cliente where DNI=?";
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, dni);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                clienteBuscado = new Cliente();
+                clienteBuscado.setApellido(rs.getString("Apellido"));
+                clienteBuscado.setNombre(rs.getString("Nombre"));
+                clienteBuscado.setDni(rs.getInt("DNI"));
+                clienteBuscado.setDomiciio(rs.getString("Domicilio"));
+                clienteBuscado.setTelefono(rs.getString("Telefono"));
+                clienteBuscado.setIdCliente(Integer.parseInt(rs.getString("idCliente")));
+            }
+            
+            return clienteBuscado;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return clienteBuscado;
+    }
 
 }
