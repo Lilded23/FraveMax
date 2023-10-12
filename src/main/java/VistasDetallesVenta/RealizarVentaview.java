@@ -55,6 +55,15 @@ public final class RealizarVentaview extends javax.swing.JPanel {
         cargarListaProd();
         jsCantidad.setValue(1);
     }
+     public RealizarVentaview(Cliente cliente) {
+        initComponents();
+        this.venta = new Venta(cliente);
+        System.out.println(venta);
+        datosCliente();
+        agregarCabeceras();
+        cargarListaProd();
+        jsCantidad.setValue(1);
+    }
 
     private void datosCliente() {
         DatosCliente.setText("Nombre y Apellido: " + venta.getCliente().getNombre() + " "

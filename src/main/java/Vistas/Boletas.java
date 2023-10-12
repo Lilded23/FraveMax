@@ -304,7 +304,7 @@ public class Boletas extends javax.swing.JPanel {
                         0);
         var ventaSeleccionada = VentaData.buscarVenta(idVenta);
         System.out.println("Quiero ver los detalles de " + ventaSeleccionada);
-        Principal.mostrarDetalle(ventaSeleccionada);
+//        Principal.mostrarDetalle(ventaSeleccionada);
     }//GEN-LAST:event_botonDetallesActionPerformed
 
 
