@@ -134,5 +134,3 @@ public class Modificar extends javax.swing.JPanel {
     //String nombre = jtfNombre.setText(jtfNombre);
     //String descripcion = jtfDescripcion.setText("");
 }
-
-}

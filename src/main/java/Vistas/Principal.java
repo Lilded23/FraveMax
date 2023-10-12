@@ -53,14 +53,20 @@ public class Principal extends javax.swing.JFrame {
         tablero.revalidate();
         tablero.repaint();
     }
-    
-        public static void mostrarBoletas() {
+
+    public static void mostrarBoletas() {
         tablero.removeAll();
         tablero.add(new Boletas());
         tablero.revalidate();
         tablero.repaint();
     }
-    
+
+    public static void mostrarBoletas(Cliente cliente) {
+        tablero.removeAll();
+        tablero.add(new Boletas(cliente));
+        tablero.revalidate();
+        tablero.repaint();
+    }
 
     public static void mostrarFacil() {
         tablero.removeAll();
@@ -76,9 +82,23 @@ public class Principal extends javax.swing.JFrame {
         tablero.repaint();
     }
 
-   public static void mostrarDetalle(Venta venta, double total) {
+    public static void mostrarRealizarVenta(Cliente cliente) {
+        tablero.removeAll();
+        tablero.add(new RealizarVentaview(cliente));
+        tablero.revalidate();
+        tablero.repaint();
+    }
+
+    public static void mostrarDetalle(Venta venta, double total) {
         tablero.removeAll();
         tablero.add(new DetallesVentaView(venta, total));
+        tablero.revalidate();
+        tablero.repaint();
+    }
+
+    public static void mostrarDetalle(Venta venta) {
+        tablero.removeAll();
+        tablero.add(new DetallesVentaView(venta));
         tablero.revalidate();
         tablero.repaint();
     }
@@ -252,7 +272,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void JLVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLVentasMouseClicked
         // TODO add your handling code here:
-        mostrarVentas();
+//        mostrarVentas();
+        mostrarBoletas();
         ClienteSelect = false;
         ProductosSelect = false;
         VentaSelect = true;

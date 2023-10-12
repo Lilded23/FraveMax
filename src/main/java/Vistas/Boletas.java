@@ -30,6 +30,15 @@ public class Boletas extends javax.swing.JPanel {
         campoFechaB.setText(today.toString());
         configurarComboBox();
     }
+    
+    public Boletas(Cliente cliente) {
+        initComponents();
+        today = LocalDate.now();
+        campoFechaA.setText(today.withDayOfMonth(1).toString());
+        campoFechaB.setText(today.toString());
+        configurarComboBox();
+        clientesComboBox.setSelectedItem(cliente);
+    }
 
     private void configurarTabla() {
         try {
@@ -87,7 +96,7 @@ public class Boletas extends javax.swing.JPanel {
                 }
             }
             configurarTabla();
-            
+
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -300,11 +309,13 @@ public class Boletas extends javax.swing.JPanel {
     private void botonDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDetallesActionPerformed
         // TODO add your handling code here:
         var idVenta = (Integer) tablaVentas.getValueAt(
-                        tablaVentas.getSelectedRow(),
-                        0);
+                tablaVentas.getSelectedRow(),
+                0);
         var ventaSeleccionada = VentaData.buscarVenta(idVenta);
-        System.out.println("Quiero ver los detalles de " + ventaSeleccionada);
-//        Principal.mostrarDetalle(ventaSeleccionada);
+
+        Principal.mostrarDetalle(ventaSeleccionada);
+
+
     }//GEN-LAST:event_botonDetallesActionPerformed
 
 
