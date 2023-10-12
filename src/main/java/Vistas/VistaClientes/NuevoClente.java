@@ -4,6 +4,14 @@
  */
 package Vistas.VistaClientes;
 
+import Conexion.ClienteData;
+import Entidades.Cliente;
+import Vistas.FloatingWindow;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jdbar
@@ -13,9 +21,13 @@ public class NuevoClente extends javax.swing.JPanel {
     /**
      * Creates new form NuevoClente
      */
-    public NuevoClente() {
+    
+    private FloatingWindow parentWindow;
+    public NuevoClente(FloatingWindow parentWindow) {
+        this.parentWindow = parentWindow;
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,7 +49,7 @@ public class NuevoClente extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         JTelefono = new javax.swing.JTextField();
         JBNuevo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        JBCerrar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Apellido Cliente");
@@ -67,8 +79,18 @@ public class NuevoClente extends javax.swing.JPanel {
         jLabel5.setText("Telefono");
 
         JBNuevo.setText("Guardar");
+        JBNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBNuevoActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Cancelar");
+        JBCerrar.setText("Cancelar");
+        JBCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBCerrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -101,7 +123,7 @@ public class NuevoClente extends javax.swing.JPanel {
                         .addGap(73, 73, 73))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(75, 75, 75)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JBCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(JBNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(104, 104, 104))
@@ -118,8 +140,8 @@ public class NuevoClente extends javax.swing.JPanel {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JTName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JTApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JTName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JTApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -135,7 +157,7 @@ public class NuevoClente extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JBNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JBCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -148,19 +170,56 @@ public class NuevoClente extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_JTApellidoActionPerformed
 
+    private void JBCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCerrarActionPerformed
+ // TODO add your handling code here: 
+               parentWindow.dispose();   
+    }//GEN-LAST:event_JBCerrarActionPerformed
+
+    private void JBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNuevoActionPerformed
+        // TODO add your handling code here:
+        try {
+           
+            String apellido = JTApellido.getText();
+            String nombre =JTName.getText();
+            String domicilio = JTDomicilio.getText();
+            String telefono = JTelefono.getText();
+            int dni = Integer.parseInt(JTDNI.getText());
+            
+            Cliente cliente = new Cliente(apellido, nombre, domicilio, telefono, dni);
+            
+            ClienteData.crearCliente(cliente);
+            
+            JOptionPane.showMessageDialog(null, "Creado el Cliente " + nombre + " " + apellido);
+            
+//            JTApellido.setText("");
+//            JTDNI.setText("");
+//            JTDomicilio.setText("");
+//            JTName.setText("");
+//            JTelefono.setText("");
+            ClientesVistas.borrarfilasProd();
+            ClientesVistas.cargarDatosClientes();
+            parentWindow.dispose();
+        } catch (NumberFormatException e) {
+            
+            JOptionPane.showMessageDialog(null, "Verifique los datos ingresados");
+        }
+    }//GEN-LAST:event_JBNuevoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBCerrar;
     private javax.swing.JButton JBNuevo;
     private javax.swing.JTextField JTApellido;
     private javax.swing.JTextField JTDNI;
     private javax.swing.JTextField JTDomicilio;
     private javax.swing.JTextField JTName;
     private javax.swing.JTextField JTelefono;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
+
+
 }

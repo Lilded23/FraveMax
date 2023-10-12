@@ -26,10 +26,10 @@ public class Principal extends javax.swing.JFrame {
 
     Color color1 = new Color(0, 122, 255);
     Color backgraoundOriginal = new Color(30, 30, 30);
-    private boolean ClienteSelect = false;
+    private static  boolean ClienteSelect = false;
     private boolean ProductosSelect = false;
     private boolean VentaSelect = false;
-    private boolean BoletaSelect = false;
+    private  boolean BoletaSelect = false;
 
     static String vistaActual;
     /**
@@ -73,12 +73,14 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private static void mostrarListaClientes() {
+        if (!ClienteSelect) {
+           
         ClientesVistas clientesVistas = new ClientesVistas();
         tablero.removeAll();
         tablero.add(clientesVistas);
         tablero.revalidate();
         tablero.repaint();
-
+        }
 
     }
 

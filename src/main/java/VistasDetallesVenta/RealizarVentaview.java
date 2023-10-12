@@ -492,7 +492,7 @@ public final class RealizarVentaview extends javax.swing.JPanel {
 
     private Producto buscaProd() {
         int fila = tablaProd.getSelectedRow();
-        if (fila > 0) {
+        if (fila >= 0) {
             int idProd = (int) tablaProd.getValueAt(fila, 0);
             for (Producto producto : listaProd) {
                 if (producto.getIdProducto() == idProd) {
