@@ -19,7 +19,7 @@ public class FloatingWindow extends JFrame {
     public FloatingWindow() {
 
         setUndecorated(true); // Quitar bordes y decoración
-        setSize(800, 600);
+        setSize(800, 500);
         setLocationRelativeTo(null); // Inicialmente, centrar en la pantalla
 
         // Agregar un MouseAdapter para permitir el arrastre

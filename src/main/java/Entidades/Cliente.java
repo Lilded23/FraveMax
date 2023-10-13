@@ -28,6 +28,15 @@ public class Cliente {
         return dni;
     }
 
+    public Cliente(int idCliente, String apellido, String nombre, String domiciio, String telefono, int dni) {
+        this.idCliente = idCliente;
+        this.apellido = apellido;
+        this.nombre = nombre;
+        this.domiciio = domiciio;
+        this.telefono = telefono;
+        this.dni = dni;
+    }
+
     public void setDni(int dni) {
         this.dni = dni;
     }
@@ -77,7 +86,7 @@ public class Cliente {
 
    @Override
     public String toString() {
-        return idCliente+ " " + apellido  +" "+  nombre +" "+  dni;
+        return idCliente+ " " + apellido  +" "+  nombre +" "+  dni + " " + domiciio + " "+ telefono;
     }
     
     

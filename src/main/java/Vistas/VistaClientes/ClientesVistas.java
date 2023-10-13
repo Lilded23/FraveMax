@@ -5,7 +5,10 @@
 package Vistas.VistaClientes;
 
 import Conexion.ClienteData;
+import Entidades.Cliente;
 import Vistas.FloatingWindow;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,13 +18,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ClientesVistas extends javax.swing.JPanel {
 
-    static DefaultTableModel modelo = new DefaultTableModel();
+    static DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
 
     /**
      * Creates new form ClientesVistas
      */
     public ClientesVistas() {
-        initComponents();      
+        initComponents();
         borrarfilasProd();
         cargarTabla();
         cargarDatosClientes();
@@ -37,7 +45,7 @@ public class ClientesVistas extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        JTBuscarCliente = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -48,9 +56,17 @@ public class ClientesVistas extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Buscar");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        JTBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                JTBuscarClienteActionPerformed(evt);
+            }
+        });
+        JTBuscarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                JTBuscarClienteKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JTBuscarClienteKeyReleased(evt);
             }
         });
 
@@ -79,6 +95,11 @@ public class ClientesVistas extends javax.swing.JPanel {
                 "N° de Cliente", "Nombre", "Apellido", "D.N.I", "Domicilio", "Telefono"
             }
         ));
+        JTClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTClientesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(JTClientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -95,7 +116,7 @@ public class ClientesVistas extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JTBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(302, Short.MAX_VALUE))
             .addComponent(jScrollPane2)
         );
@@ -107,7 +128,7 @@ public class ClientesVistas extends javax.swing.JPanel {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(JTBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
                 .addGap(21, 21, 21)
@@ -125,19 +146,30 @@ public class ClientesVistas extends javax.swing.JPanel {
         int idCliente = -1;
 
         if (selectColumn >= 0 && selectRow >= 0) {
+            
             idCliente = Integer.parseInt(JTClientes.getValueAt(selectRow, selectColumn).toString());
+            
             System.out.println(idCliente);
-            ClienteData.borrarCliente(idCliente);
-            cargarDatosClientes();
+            
+           // Cliente cliente = ClienteData.BuscarClienteDNI(idCliente);
+
+            int confDelete = JOptionPane.showConfirmDialog(null, "Seguro que desea Eleminar" );
+
+            if (confDelete == JOptionPane.YES_OPTION) {
+                System.out.println(idCliente);
+                ClienteData.borrarCliente(idCliente);
+                borrarfilasProd();
+                cargarDatosClientes();
+            }
         } else {
             System.out.println("Error al eliminar al Cliente Seleccionado ");
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void JTBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTBuscarClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_JTBuscarClienteActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -150,17 +182,64 @@ public class ClientesVistas extends javax.swing.JPanel {
         });
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void JTBuscarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTBuscarClienteKeyPressed
+        // TODO add your handling code here:    
+
+    }//GEN-LAST:event_JTBuscarClienteKeyPressed
+
+    private void JTBuscarClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTBuscarClienteKeyReleased
+        // TODO add your handling code here:
+        borrarfilasProd();
+        try {
+            int buscar = Integer.parseInt(JTBuscarCliente.getText());
+            ClienteData.listaClientePorDNI(buscar).forEach(action -> {
+                modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
+            });
+        } catch (NumberFormatException ex) {
+            System.out.println(ex.getMessage());
+            ClienteData.listaCliente().forEach(action -> {
+                modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
+            });
+        }
+
+
+    }//GEN-LAST:event_JTBuscarClienteKeyReleased
+
+    private void JTClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTClientesMouseClicked
+        // TODO add your handling code here:
+        int id = (int) JTClientes.getValueAt(JTClientes.getSelectedRow(), 0);
+        String nombre = JTClientes.getValueAt(JTClientes.getSelectedRow(), 1).toString();
+        String apellido = JTClientes.getValueAt(JTClientes.getSelectedRow(), 2).toString();
+        String domicilio = JTClientes.getValueAt(JTClientes.getSelectedRow(), 4).toString();
+        int dni = (int) JTClientes.getValueAt(JTClientes.getSelectedRow(), 3);
+        String telefono = JTClientes.getValueAt(JTClientes.getSelectedRow(), 5).toString();
+
+        Cliente cliente = new Cliente(id, apellido, nombre, domicilio, telefono, dni);
+        if (evt.getClickCount() >= 2) {
+            System.out.println(nombre + " " + apellido + " " + " " + domicilio + " " + dni + " " + telefono);
+            SwingUtilities.invokeLater(() -> {
+
+                FloatingWindow modificar = new FloatingWindow();
+                NuevoClente modCliente = new NuevoClente(modificar);
+                modCliente.Datos(cliente);
+                modificar.add(modCliente);
+                modificar.repaint();
+                modificar.setVisible(true);
+            });
+        }
+    }//GEN-LAST:event_JTClientesMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField JTBuscarCliente;
     private javax.swing.JTable JTClientes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
     private void cargarTabla() {
-        
+
         modelo.addColumn("N° De Cliente");
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellido");
@@ -173,12 +252,13 @@ public class ClientesVistas extends javax.swing.JPanel {
     }
 
     public static void cargarDatosClientes() {
-        
+        borrarfilasProd();
         ClienteData.listaCliente().forEach(action -> {
-            modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(),action.getTelefono()});
+            modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
         });
-       
+
     }
+
     public static void borrarfilasProd() {
         int f = modelo.getRowCount() - 1;
 

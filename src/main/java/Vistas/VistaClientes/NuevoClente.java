@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
+import com.formdev.flatlaf.icons.FlatFileViewHardDriveIcon;
 
 /**
  *
@@ -21,13 +22,13 @@ public class NuevoClente extends javax.swing.JPanel {
     /**
      * Creates new form NuevoClente
      */
-    
     private FloatingWindow parentWindow;
+    private boolean ejecutarAccion = true;
+
     public NuevoClente(FloatingWindow parentWindow) {
         this.parentWindow = parentWindow;
         initComponents();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -171,37 +172,35 @@ public class NuevoClente extends javax.swing.JPanel {
     }//GEN-LAST:event_JTApellidoActionPerformed
 
     private void JBCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCerrarActionPerformed
- // TODO add your handling code here: 
-               parentWindow.dispose();   
+        // TODO add your handling code here: 
+        parentWindow.dispose();
     }//GEN-LAST:event_JBCerrarActionPerformed
 
     private void JBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNuevoActionPerformed
         // TODO add your handling code here:
-        try {
-           
-            String apellido = JTApellido.getText();
-            String nombre =JTName.getText();
-            String domicilio = JTDomicilio.getText();
-            String telefono = JTelefono.getText();
-            int dni = Integer.parseInt(JTDNI.getText());
-            
-            Cliente cliente = new Cliente(apellido, nombre, domicilio, telefono, dni);
-            
-            ClienteData.crearCliente(cliente);
-            
-            JOptionPane.showMessageDialog(null, "Creado el Cliente " + nombre + " " + apellido);
-            
-//            JTApellido.setText("");
-//            JTDNI.setText("");
-//            JTDomicilio.setText("");
-//            JTName.setText("");
-//            JTelefono.setText("");
-            ClientesVistas.borrarfilasProd();
-            ClientesVistas.cargarDatosClientes();
-            parentWindow.dispose();
-        } catch (NumberFormatException e) {
-            
-            JOptionPane.showMessageDialog(null, "Verifique los datos ingresados");
+        if (ejecutarAccion) {
+
+            try {
+
+                String apellido = JTApellido.getText();
+                String nombre = JTName.getText();
+                String domicilio = JTDomicilio.getText();
+                String telefono = JTelefono.getText();
+                int dni = Integer.parseInt(JTDNI.getText());
+
+                Cliente cliente = new Cliente(apellido, nombre, domicilio, telefono, dni);
+
+                ClienteData.crearCliente(cliente);
+
+                JOptionPane.showMessageDialog(null, "Creado el Cliente " + nombre + " " + apellido);
+
+                ClientesVistas.borrarfilasProd();
+                ClientesVistas.cargarDatosClientes();
+                parentWindow.dispose();
+            } catch (NumberFormatException e) {
+
+                JOptionPane.showMessageDialog(null, "Verifique los datos ingresados");
+            }
         }
     }//GEN-LAST:event_JBNuevoActionPerformed
 
@@ -221,5 +220,49 @@ public class NuevoClente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 
+    public void Datos(Cliente cliente) {
+        JTName.setText(cliente.getNombre());
+        JTApellido.setText(cliente.getApellido());
+        JTDomicilio.setText(cliente.getDomiciio());
+        JTDNI.setText(String.valueOf(cliente.getDni()));
+        JTelefono.setText(cliente.getTelefono());
 
+        System.out.println(cliente.toString());
+
+        JBNuevo.setText("Modificar");
+
+        ejecutarAccion = false;
+        if (!ejecutarAccion) {
+            JBNuevo.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    cliente.setNombre(JTName.getText());
+                    cliente.setApellido(JTApellido.getText());
+                    cliente.setDomiciio(JTDomicilio.getText());
+                    cliente.setDni((Integer.parseInt(JTDNI.getText())));
+                    cliente.setTelefono(JTelefono.getText());
+
+                    System.out.println(cliente.toString());
+                    
+                    int id = cliente.getIdCliente();
+                    
+                    System.out.println("ID: " + id);
+                    
+                    boolean modificar =ClienteData.modifocarCliente(cliente, id);
+
+                    if (modificar) {
+                        System.out.println("Se ejecuto la modificacion");
+                        JOptionPane.showMessageDialog(null, "Se modifico :" +cliente.toString());
+                        ClientesVistas.cargarDatosClientes();
+                    }else{
+                        System.out.println("No se ejecuto la modifiacion");
+                    }
+
+                    parentWindow.dispose();
+                }
+
+            });
+        }
+    }
 }

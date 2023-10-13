@@ -89,16 +89,6 @@ public abstract class ClienteData extends Conexion {
         Conectar();
         try {
 
-//            String sqlEliminarVentas = "ALTER TABLE venta DROP FOREIGN KEY venta_ibfk_1";
-//            PreparedStatement stmtEliminarVentas = conn.prepareStatement(sqlEliminarVentas);
-//            stmtEliminarVentas.setInt(1, idCliente);
-//            stmtEliminarVentas.execute();
-
-            String sqlEliminarDetallesVentas = "ALTER TABLE detalleventa DROP FOREIGN KEY detalleventa_ibfk_1";
-            PreparedStatement stmtEliminarDetallesVentas = conn.prepareStatement(sqlEliminarDetallesVentas);
-            stmtEliminarDetallesVentas.setInt(1, idCliente);
-            stmtEliminarDetallesVentas.execute();
-
             String sql = "delete from `cliente` where idCliente=?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
 
@@ -118,7 +108,7 @@ public abstract class ClienteData extends Conexion {
     public static boolean modifocarCliente(Cliente cliente, int idCliente) {
         Conectar();
         try {
-            String sql = "update `cliente` set `Apellido`=? , `Nombre`=? , `Domicilio`=?,`Telefono`=? where idCliente = ?";
+            String sql = "UPDATE `cliente` SET `Apellido`=?,`Nombre`=?,`DNI`=?,`Domicilio`=?,`Telefono`=? WHERE idCliente = ?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
 
             sqlPD.setString(1, cliente.getApellido());
@@ -128,14 +118,18 @@ public abstract class ClienteData extends Conexion {
             sqlPD.setString(5, cliente.getTelefono());
             sqlPD.setInt(6, idCliente);
 
-            sqlPD.execute();
+            int res = sqlPD.executeUpdate();
+            System.out.println(res);
+            if (res > 0) {
+                return true;
+            }else{
+            return false;
+            }
 
-            return true;
         } catch (SQLException e) {
             System.out.println("Error al modifificar CLIENTE " + e.getMessage());
+            return false;
         }
-
-        return false;
 
     }
 
@@ -187,8 +181,6 @@ public abstract class ClienteData extends Conexion {
                 cliente.setIdCliente(Integer.parseInt(res.getString("idCliente")));
 
                 clientes.add(cliente);
-
-                return clientes;
             }
         } catch (NumberFormatException | SQLException e) {
             System.out.println("Erro al buscar por dni" + e.getMessage());
@@ -196,9 +188,8 @@ public abstract class ClienteData extends Conexion {
 
         return clientes;
     }
-    
-    
-    public static Cliente BuscarClienteDNI (int dni) {
+
+    public static Cliente BuscarClienteDNI(int dni) {
         Conectar();
         Cliente clienteBuscado = null;
         try {
@@ -215,12 +206,12 @@ public abstract class ClienteData extends Conexion {
                 clienteBuscado.setTelefono(rs.getString("Telefono"));
                 clienteBuscado.setIdCliente(Integer.parseInt(rs.getString("idCliente")));
             }
-            
+
             return clienteBuscado;
         } catch (SQLException ex) {
             Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return clienteBuscado;
     }
 
