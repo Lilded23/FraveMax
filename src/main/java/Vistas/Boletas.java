@@ -9,6 +9,8 @@ import Conexion.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -207,6 +209,11 @@ public class Boletas extends javax.swing.JPanel {
         });
 
         proTip.setText("Formato de fecha: yyyy-mm-dd");
+        proTip.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                proTipMouseClicked(evt);
+            }
+        });
 
         botonDetalles.setText("Detalles");
         botonDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -317,6 +324,27 @@ public class Boletas extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_botonDetallesActionPerformed
+
+    private void proTipMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_proTipMouseClicked
+        // TODO add your handling code here:
+         Thread th = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {   
+                    int y = proTip.getY();
+                    while (proTip.getX() < 420) {
+                        Thread.sleep((long) 8);
+                        proTip.setLocation(proTip.getX()+1, y);
+                        repaint();
+                    }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Boletas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        });
+        th.start();
+    }//GEN-LAST:event_proTipMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
