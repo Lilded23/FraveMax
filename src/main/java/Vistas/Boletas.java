@@ -26,19 +26,28 @@ public class Boletas extends javax.swing.JPanel {
     public Boletas() {
         initComponents();
         today = LocalDate.now();
-        fecha_textField.setText(today.withDayOfMonth(1).toString());
-        fechaB_textField.setText(today.toString());
+        campoFechaA.setText(today.withDayOfMonth(1).toString());
+        campoFechaB.setText(today.toString());
         configurarComboBox();
+    }
+    
+    public Boletas(Cliente cliente) {
+        initComponents();
+        today = LocalDate.now();
+        campoFechaA.setText(today.withDayOfMonth(1).toString());
+        campoFechaB.setText(today.toString());
+        configurarComboBox();
+        clientesComboBox.setSelectedItem(cliente);
     }
 
     private void configurarTabla() {
         try {
             var modeloTabla = new DefaultTableModel(
-                    new String[]{"idCliente", "idVenta", "fecha"}, 0
+                    new String[]{"idVenta", "fecha"}, 0
             );
-            var fecha = Date.valueOf(fecha_textField.getText()).toLocalDate();
-            var fechaB = Date.valueOf(fechaB_textField.getText()).toLocalDate();
-            var cliente = (Cliente) clientesCB.getSelectedItem();
+            var fecha = Date.valueOf(campoFechaA.getText()).toLocalDate();
+            var fechaB = Date.valueOf(campoFechaB.getText()).toLocalDate();
+            var cliente = (Cliente) clientesComboBox.getSelectedItem();
             var lista = cliente != null
                     ? VentaData.buscarVentas(cliente, fecha, fechaB)
                     : VentaData.listarVentas();
@@ -47,14 +56,13 @@ public class Boletas extends javax.swing.JPanel {
             lista.forEach((Venta venta) -> {
                 var fulano = venta.getCliente();
                 Object[] rowData = {
-                    fulano.getIdCliente(),
                     venta.getIdVenta(),
                     venta.getFechaVenta().toString()
                 };
                 modeloTabla.addRow(rowData);
             });
-            VentaData.Conectar();
             tablaVentas.setModel(modeloTabla);
+            tablaVentas.setDefaultEditor(Object.class, null);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -62,32 +70,33 @@ public class Boletas extends javax.swing.JPanel {
 
     public void configurarComboBox() {
         try {
-            var param = jTextField3.getText().toLowerCase();
-        var key = param.replaceAll("[\\d]", "");
-        var val = param.replaceAll("[\\D]", "");
+            var param = campoDNI.getText().toLowerCase();
+            var key = param.replaceAll("[\\d]", "");
+            var val = param.replaceAll("[\\D]", "");
 
-        var listaClientes = ClienteData.listaCliente();
-        var modeloClientesCB = new DefaultComboBoxModel<Cliente>();
-        modeloClientesCB.addAll(listaClientes);
+            var listaClientes = ClienteData.listaCliente();
+            var modeloClientesCB = new DefaultComboBoxModel<Cliente>();
+            modeloClientesCB.addAll(listaClientes);
 
-        clientesCB.setModel(modeloClientesCB);
+            clientesComboBox.setModel(modeloClientesCB);
 
-        for (Cliente cliente : listaClientes) {
-            String idCliente = String.valueOf(cliente.getIdCliente());
-            if ("id#".equals(key)) {
-                if (idCliente.startsWith(val)) {
-                    clientesCB.getModel().setSelectedItem(cliente);
-                    break;
-                }
-            } else {
-                String dniCliente = String.valueOf(cliente.getDni());
-                if (dniCliente.startsWith(val)) {
-                    clientesCB.getModel().setSelectedItem(cliente);
-                    break;
+            for (Cliente cliente : listaClientes) {
+                String idCliente = String.valueOf(cliente.getIdCliente());
+                if ("id#".equals(key)) {
+                    if (idCliente.startsWith(val)) {
+                        clientesComboBox.getModel().setSelectedItem(cliente);
+                        break;
+                    }
+                } else {
+                    String dniCliente = String.valueOf(cliente.getDni());
+                    if (dniCliente.startsWith(val)) {
+                        clientesComboBox.getModel().setSelectedItem(cliente);
+                        break;
+                    }
                 }
             }
-        }
-        configurarTabla();
+            configurarTabla();
+
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -102,21 +111,19 @@ public class Boletas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        fecha_textField = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        fechaB_textField = new javax.swing.JTextField();
+        dniLabel = new javax.swing.JLabel();
+        fechaLabel = new javax.swing.JLabel();
+        campoFechaA = new javax.swing.JTextField();
+        fechaLabel2 = new javax.swing.JLabel();
+        campoFechaB = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVentas = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        clientesCB = new javax.swing.JComboBox<Cliente>();
-        jTextField3 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        clientesComboBox = new javax.swing.JComboBox<Cliente>();
+        campoDNI = new javax.swing.JTextField();
+        botonBuscar = new javax.swing.JButton();
+        proTip = new javax.swing.JLabel();
+        botonDetalles = new javax.swing.JButton();
 
         addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
             public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
@@ -126,37 +133,37 @@ public class Boletas extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Buscar DNI");
+        dniLabel.setText("Buscar DNI");
 
-        jLabel2.setText("Fecha ");
+        fechaLabel.setText("Fecha ");
 
-        fecha_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        fecha_textField.addActionListener(new java.awt.event.ActionListener() {
+        campoFechaA.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        campoFechaA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fecha_textFieldActionPerformed(evt);
+                campoFechaAActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("hasta");
+        fechaLabel2.setText("hasta");
 
-        fechaB_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        campoFechaB.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         tablaVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "idCliente", "idVenta", "Fecha"
+                "idVenta", "Fecha"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -168,7 +175,9 @@ public class Boletas extends javax.swing.JPanel {
             }
         });
         tablaVentas.setFillsViewportHeight(true);
+        tablaVentas.setShowGrid(true);
         jScrollPane1.setViewportView(tablaVentas);
+        tablaVentas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         jButton1.setText("Nueva");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -177,46 +186,32 @@ public class Boletas extends javax.swing.JPanel {
             }
         });
 
-        clientesCB.setModel(new javax.swing.DefaultComboBoxModel<Cliente>());
-        clientesCB.addActionListener(new java.awt.event.ActionListener() {
+        clientesComboBox.setModel(new javax.swing.DefaultComboBoxModel<Cliente>());
+        clientesComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clientesCBActionPerformed(evt);
+                clientesComboBoxActionPerformed(evt);
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        campoDNI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                campoDNIActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Fetch");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonBuscar.setText("Buscar");
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonBuscarActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Formato de fecha: yyyy-mm-dd");
+        proTip.setText("Formato de fecha: yyyy-mm-dd");
 
-        jButton3.setText("Ver detalles");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        botonDetalles.setText("Detalles");
+        botonDetalles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("Realizar Venta");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("Cambiar vista");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                botonDetallesActionPerformed(evt);
             }
         });
 
@@ -231,29 +226,25 @@ public class Boletas extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(dniLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
-                            .addComponent(clientesCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(campoDNI, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                            .addComponent(clientesComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(43, 43, 43)
-                        .addComponent(jLabel2)
+                        .addComponent(fechaLabel)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(fecha_textField, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                                .addComponent(campoFechaA, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)
+                                .addComponent(fechaLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fechaB_textField, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(campoFechaB, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                            .addComponent(botonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addComponent(proTip)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
+                        .addComponent(botonDetalles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
                 .addContainerGap())
@@ -264,102 +255,83 @@ public class Boletas extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(fechaB_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(fecha_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
+                        .addComponent(campoFechaB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fechaLabel2)
+                        .addComponent(campoFechaA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fechaLabel))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)))
+                        .addComponent(campoDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dniLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(clientesCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(clientesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jLabel5)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(proTip)
+                    .addComponent(botonDetalles))
                 .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fecha_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecha_textFieldActionPerformed
+    private void campoFechaAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoFechaAActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fecha_textFieldActionPerformed
+    }//GEN-LAST:event_campoFechaAActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void campoDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDNIActionPerformed
         // TODO add your handling code here:
         configurarComboBox();
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_campoDNIActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
         configurarTabla();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        var cliente = (Cliente) clientesCB.getSelectedItem();
-        var nueva = new Venta(cliente);
-        VentaData.guardarVenta(nueva);
-        configurarTabla();
-        System.out.println(nueva);
+        var cliente = (Cliente) clientesComboBox.getSelectedItem();
+        Principal.mostrarRealizarVenta(cliente);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void clientesCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesCBActionPerformed
+    private void clientesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesComboBoxActionPerformed
         // TODO add your handling code here:
         configurarTabla();
-    }//GEN-LAST:event_clientesCBActionPerformed
+    }//GEN-LAST:event_clientesComboBoxActionPerformed
 
     private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
         // TODO add your handling code here:
     }//GEN-LAST:event_formAncestorResized
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void botonDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDetallesActionPerformed
         // TODO add your handling code here:
-        try {
-            var row = tablaVentas.getSelectedRow();
-            int idVenta = (int) tablaVentas.getValueAt(row, 1);
-            var venta = VentaData.buscarVenta(idVenta);
-            System.out.println(venta);
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
-        }
+        var idVenta = (Integer) tablaVentas.getValueAt(
+                tablaVentas.getSelectedRow(),
+                0);
+        var ventaSeleccionada = VentaData.buscarVenta(idVenta);
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+        Principal.mostrarDetalle(ventaSeleccionada);
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
 
-        
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        Principal.mostrarFacil();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_botonDetallesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Cliente> clientesCB;
-    private javax.swing.JTextField fechaB_textField;
-    private javax.swing.JTextField fecha_textField;
+    private javax.swing.JButton botonBuscar;
+    private javax.swing.JButton botonDetalles;
+    private javax.swing.JTextField campoDNI;
+    private javax.swing.JTextField campoFechaA;
+    private javax.swing.JTextField campoFechaB;
+    private javax.swing.JComboBox<Cliente> clientesComboBox;
+    private javax.swing.JLabel dniLabel;
+    private javax.swing.JLabel fechaLabel;
+    private javax.swing.JLabel fechaLabel2;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel proTip;
     private javax.swing.JTable tablaVentas;
     // End of variables declaration//GEN-END:variables
 }

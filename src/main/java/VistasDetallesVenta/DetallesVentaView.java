@@ -40,6 +40,15 @@ public class DetallesVentaView extends javax.swing.JPanel {
         cargarListaProd();
         llenarTabla();
     }
+    
+    public DetallesVentaView(Venta venta) {
+        initComponents();
+        agregarCabecera();
+        this.ventaRealizada = venta;
+        configurarCliente();
+        cargarListaProd();
+        llenarTabla();
+    }
 
     private void configurarCliente() {
         jtNombre.setText(ventaRealizada.getCliente().getNombre());
