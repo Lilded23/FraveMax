@@ -10,8 +10,6 @@ import Vistas.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -332,7 +330,7 @@ public final class RealizarVentaview extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setText("TOTAL:");
+        jLabel3.setText("TOTAL :   $");
 
         jlTotal.setText("0");
 

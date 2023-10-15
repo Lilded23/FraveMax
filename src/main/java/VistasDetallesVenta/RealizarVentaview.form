@@ -402,7 +402,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="TOTAL:"/>
+                <Property name="text" type="java.lang.String" value="TOTAL :   $"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jlTotal">

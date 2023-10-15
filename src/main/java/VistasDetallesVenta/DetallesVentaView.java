@@ -9,7 +9,6 @@ import Conexion.DetalleVentaData;
 import Entidades.Venta;
 import Entidades.detalleVenta;
 import Vistas.Principal;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +20,6 @@ import javax.swing.table.TableColumnModel;
  */
 public class DetallesVentaView extends javax.swing.JPanel {
 
-    Point location = getLocation();
     private List<detalleVenta> productosVendidos = new ArrayList();
     private Venta ventaRealizada;
     private DefaultTableModel modelo = new DefaultTableModel() {
