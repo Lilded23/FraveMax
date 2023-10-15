@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Buscar extends javax.swing.JPanel {
     
-    static DefaultTableModel modelo = new DefaultTableModel();
+    private DefaultTableModel modelo = new DefaultTableModel();
 
     /**
      * Creates new form Buscar

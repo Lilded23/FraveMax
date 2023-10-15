@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Vistas;
+package VistasDetallesVenta;
 
 import Entidades.*;
 import Conexion.*;
+import Vistas.Principal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collections;
@@ -120,7 +121,6 @@ public class Boletas extends javax.swing.JPanel {
         campoFechaB = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVentas = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         clientesComboBox = new javax.swing.JComboBox<Cliente>();
         campoDNI = new javax.swing.JTextField();
         botonBuscar = new javax.swing.JButton();
@@ -177,16 +177,8 @@ public class Boletas extends javax.swing.JPanel {
             }
         });
         tablaVentas.setFillsViewportHeight(true);
-        tablaVentas.setShowGrid(true);
         jScrollPane1.setViewportView(tablaVentas);
         tablaVentas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
-        jButton1.setText("Nueva");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         clientesComboBox.setModel(new javax.swing.DefaultComboBoxModel<Cliente>());
         clientesComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -251,9 +243,7 @@ public class Boletas extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(proTip)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonDetalles)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(botonDetalles)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -277,7 +267,6 @@ public class Boletas extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
                     .addComponent(proTip)
                     .addComponent(botonDetalles))
                 .addGap(14, 14, 14))
@@ -297,12 +286,6 @@ public class Boletas extends javax.swing.JPanel {
         // TODO add your handling code here:
         configurarTabla();
     }//GEN-LAST:event_botonBuscarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        var cliente = (Cliente) clientesComboBox.getSelectedItem();
-        Principal.mostrarRealizarVenta(cliente);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void clientesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesComboBoxActionPerformed
         // TODO add your handling code here:
@@ -357,7 +340,6 @@ public class Boletas extends javax.swing.JPanel {
     private javax.swing.JLabel dniLabel;
     private javax.swing.JLabel fechaLabel;
     private javax.swing.JLabel fechaLabel2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel proTip;
     private javax.swing.JTable tablaVentas;

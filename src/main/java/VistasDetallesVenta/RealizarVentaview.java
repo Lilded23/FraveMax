@@ -46,25 +46,15 @@ public final class RealizarVentaview extends javax.swing.JPanel {
         initComponents();
     }
 
-    public RealizarVentaview(Venta venta) {
-        initComponents();
-        this.venta = venta;
-        System.out.println(venta);
-        datosCliente();
-        agregarCabeceras();
-        cargarListaProd();
-        jsCantidad.setValue(1);
-    }
-     public RealizarVentaview(Cliente cliente) {
+    public RealizarVentaview(Cliente cliente) {
         initComponents();
         this.venta = new Venta(cliente);
-        System.out.println(venta);
+        VentaData.guardarVenta(venta);
         datosCliente();
         agregarCabeceras();
         cargarListaProd();
         jsCantidad.setValue(1);
     }
-     
 
     private void datosCliente() {
         DatosCliente.setText("Nombre y Apellido: " + venta.getCliente().getNombre() + " "
@@ -154,7 +144,11 @@ public final class RealizarVentaview extends javax.swing.JPanel {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0));
         jLabel2 = new javax.swing.JLabel();
         DatosCliente = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jbVolver = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jlProducto = new javax.swing.JLabel();
+        jlDescripcion = new javax.swing.JLabel();
 
         addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
             public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
@@ -193,6 +187,20 @@ public final class RealizarVentaview extends javax.swing.JPanel {
             }
         });
         tablaProd.setFillsViewportHeight(true);
+        tablaProd.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tablaProdAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        tablaProd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaProdMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaProd);
 
         jtNombreProd.addActionListener(new java.awt.event.ActionListener() {
@@ -263,12 +271,16 @@ public final class RealizarVentaview extends javax.swing.JPanel {
 
         DatosCliente.setText("jLabel2");
 
-        jButton1.setText("Volver");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbVolver.setText("Volver");
+        jbVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbVolverActionPerformed(evt);
             }
         });
+
+        jLabel4.setText("Producto:");
+
+        jLabel5.setText("Descripcion:");
 
         javax.swing.GroupLayout jpVentaLayout = new javax.swing.GroupLayout(jpVenta);
         jpVenta.setLayout(jpVentaLayout);
@@ -284,21 +296,31 @@ public final class RealizarVentaview extends javax.swing.JPanel {
                     .addGroup(jpVentaLayout.createSequentialGroup()
                         .addGroup(jpVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpVentaLayout.createSequentialGroup()
-                                .addGap(108, 108, 108)
-                                .addComponent(jLabel7))
-                            .addGroup(jpVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpVentaLayout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jsCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jbAgregar))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
-                            .addComponent(jButton1)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jsCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbAgregar))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                             .addGroup(jpVentaLayout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jpVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jpVentaLayout.createSequentialGroup()
+                                        .addGap(108, 108, 108)
+                                        .addComponent(jLabel7))
+                                    .addComponent(jbVolver)
+                                    .addGroup(jpVentaLayout.createSequentialGroup()
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jtNombreProd, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jpVentaLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jtNombreProd, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jlProducto))
+                            .addGroup(jpVentaLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlDescripcion)))
                         .addGroup(jpVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpVentaLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -342,7 +364,15 @@ public final class RealizarVentaview extends javax.swing.JPanel {
                         .addGap(12, 12, 12)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jlProducto))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jlDescripcion)))
                     .addGroup(jpVentaLayout.createSequentialGroup()
                         .addGroup(jpVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtNombreProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,7 +389,7 @@ public final class RealizarVentaview extends javax.swing.JPanel {
                     .addComponent(jbEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(jbVolver)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpVentaLayout.createSequentialGroup()
                         .addComponent(jbFin)
                         .addContainerGap())))
@@ -431,14 +461,21 @@ public final class RealizarVentaview extends javax.swing.JPanel {
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFinActionPerformed
-        int respuesta = JOptionPane.showConfirmDialog(null,
-                "Confirmacion de la venta",
-                "Confirmación", JOptionPane.OK_CANCEL_OPTION);
-        if (respuesta == JOptionPane.OK_OPTION) {
-            Principal.mostrarDetalle(venta, total);
+        if (jtTablaDetalles.getRowCount() == 0) {
+            VentaData.eliminarVenta(venta.getIdVenta());
+            Principal.mostrarListaClientes();
+            JOptionPane.showMessageDialog(this, "Se elimino la venta por falta de productos");
+            this.setVisible(false);
+            Principal.ClienteSelect = false;
+            Principal.mostrarListaClientes();
+        } else {
+            int respuesta = JOptionPane.showConfirmDialog(null,
+                    "Confirmacion de la venta",
+                    "Confirmación", JOptionPane.OK_CANCEL_OPTION);
+            if (respuesta == JOptionPane.OK_OPTION) {
+                Principal.mostrarDetalle(venta);
+            }
         }
-
-
     }//GEN-LAST:event_jbFinActionPerformed
 
     private void jtNombreProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNombreProdKeyReleased
@@ -464,12 +501,28 @@ public final class RealizarVentaview extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtNombreProdActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//       Principal.mostrarVentas();
-        Principal.mostrarBoletas(this.venta.getCliente());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
+        if (jtTablaDetalles.getRowCount() == 0) {
+            VentaData.eliminarVenta(venta.getIdVenta());
+            JOptionPane.showMessageDialog(this, "Se elimino la venta por falta de productos");
+            this.setVisible(false);
+            Principal.ClienteSelect = false;
+            Principal.mostrarListaClientes();
+        }
+    }//GEN-LAST:event_jbVolverActionPerformed
 
-   private void listaProductos() {
+    private void tablaProdAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tablaProdAncestorAdded
+
+    }//GEN-LAST:event_tablaProdAncestorAdded
+
+    private void tablaProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProdMouseClicked
+        int fila = tablaProd.getSelectedRow();
+        String nombre = (String) tablaProd.getValueAt(fila, 1);
+        String descripcion = (String) tablaProd.getValueAt(fila, 2);
+        jlProducto.setText(nombre);
+        jlDescripcion.setText(descripcion);    }//GEN-LAST:event_tablaProdMouseClicked
+
+    private void listaProductos() {
         if (listaProd.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay Productos en el sistema");
         } else {
@@ -542,10 +595,11 @@ public final class RealizarVentaview extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DatosCliente;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -554,6 +608,9 @@ public final class RealizarVentaview extends javax.swing.JPanel {
     private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbFin;
+    private javax.swing.JButton jbVolver;
+    private javax.swing.JLabel jlDescripcion;
+    private javax.swing.JLabel jlProducto;
     private javax.swing.JPanel jpVenta;
     private javax.swing.JSpinner jsCantidad;
     private javax.swing.JTextField jtNombreProd;

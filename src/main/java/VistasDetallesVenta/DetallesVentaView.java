@@ -32,15 +32,6 @@ public class DetallesVentaView extends javax.swing.JPanel {
         }
     };
 
-    public DetallesVentaView(Venta venta, double total) {
-        initComponents();
-        agregarCabecera();
-        this.ventaRealizada = venta;
-        configurarCliente();
-        cargarListaProd();
-        llenarTabla();
-    }
-    
     public DetallesVentaView(Venta venta) {
         initComponents();
         agregarCabecera();
@@ -60,24 +51,12 @@ public class DetallesVentaView extends javax.swing.JPanel {
 
     private void cargarListaProd() {
         productosVendidos = DetalleVentaData.listaProductosPorIdVenta(ventaRealizada.getIdVenta());
-        if (productosVendidos.isEmpty()) {
-            int respuesta = JOptionPane.showConfirmDialog(null,
-                    "No se vendio ningun producto, desea eliminar la venta?",
-                    "Eliminar venta", JOptionPane.OK_CANCEL_OPTION);
-            if (respuesta == JOptionPane.OK_OPTION) {
-                VentaData.eliminarVenta(ventaRealizada.getIdVenta());
-                this.setVisible(false);
-                Principal.mostrarVentas();
-            }
-        } else {
-            double total = 0;
-            for (detalleVenta producto : productosVendidos) {
-                total = total + producto.getPrecioVenta();
-            }
-            jtTotal.setText(String.valueOf(total));
+        double total = 0;
+        for (detalleVenta producto : productosVendidos) {
+            total = total + producto.getPrecioVenta();
         }
+        jtTotal.setText(String.valueOf(total));
     }
-
 
     private void llenarTabla() {
         productosVendidos.forEach(producto -> {
@@ -296,7 +275,14 @@ public class DetallesVentaView extends javax.swing.JPanel {
     }//GEN-LAST:event_jtApellidoActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        Principal.mostrarVentas();
+        if (Principal.ClienteSelect) {
+            this.setVisible(false);
+            Principal.ClienteSelect = false;
+            Principal.mostrarListaClientes();
+        } else {
+            Principal.mostrarBoletas();
+        }
+
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImprimirActionPerformed

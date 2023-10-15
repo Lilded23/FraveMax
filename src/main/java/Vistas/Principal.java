@@ -4,20 +4,15 @@
  */
 package Vistas;
 
+import VistasDetallesVenta.Boletas;
 import Entidades.*;
-import Conexion.*;
+
 import Vistas.VistaClientes.ClientesVistas;
 import VistasDetallesVenta.DetallesVentaView;
 import VistasDetallesVenta.RealizarVentaview;
-import VistasDetallesVenta.Ventas;
 import VistasProducto.Buscar;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.mycompany.fravemax.FraveMax;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,7 +22,7 @@ public class Principal extends javax.swing.JFrame {
 
     Color color1 = new Color(0, 122, 255);
     Color backgraoundOriginal = new Color(30, 30, 30);
-    private static boolean ClienteSelect = false;
+    public static boolean ClienteSelect = false;
     private boolean ProductosSelect = false;
     private boolean VentaSelect = false;
     private boolean BoletaSelect = false;
@@ -45,13 +40,6 @@ public class Principal extends javax.swing.JFrame {
 //        vistaVentas = new Ventas();
 //        mostrarVentas();
         clientesVistas = new ClientesVistas();
-    }
-
-    public static void mostrarVentas() {
-        tablero.removeAll();
-        tablero.add(new Ventas());
-        tablero.revalidate();
-        tablero.repaint();
     }
 
     public static void mostrarBoletas() {
@@ -75,23 +63,9 @@ public class Principal extends javax.swing.JFrame {
         tablero.repaint();
     }
 
-    public static void mostrarRealizarVenta(Venta venta) {
-        tablero.removeAll();
-        tablero.add(new RealizarVentaview(venta));
-        tablero.revalidate();
-        tablero.repaint();
-    }
-
     public static void mostrarRealizarVenta(Cliente cliente) {
         tablero.removeAll();
         tablero.add(new RealizarVentaview(cliente));
-        tablero.revalidate();
-        tablero.repaint();
-    }
-
-    public static void mostrarDetalle(Venta venta, double total) {
-        tablero.removeAll();
-        tablero.add(new DetallesVentaView(venta, total));
         tablero.revalidate();
         tablero.repaint();
     }
@@ -103,7 +77,7 @@ public class Principal extends javax.swing.JFrame {
         tablero.repaint();
     }
 
-    private static void mostrarListaClientes() {
+    public static void mostrarListaClientes() {
         if (!ClienteSelect) {
 
             tablero.removeAll();
@@ -182,7 +156,7 @@ public class Principal extends javax.swing.JFrame {
 
         JLVentas.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         JLVentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        JLVentas.setText("Ventas");
+        JLVentas.setText("Detalle Ventas");
         JLVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JLVentas.setOpaque(true);
         JLVentas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -225,10 +199,13 @@ public class Principal extends javax.swing.JFrame {
             .addComponent(JLCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(JLProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(JLVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(JLBoletas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JLBoletas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -244,9 +221,8 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(JLVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
-                .addComponent(JLBoletas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
+                .addComponent(JLBoletas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         tablero.setMinimumSize(new java.awt.Dimension(800, 600));
