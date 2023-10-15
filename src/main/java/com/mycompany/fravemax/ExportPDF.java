@@ -15,7 +15,7 @@ import javax.swing.JTable;
 
 public class ExportPDF {
 
-    public static void exportToPDF(String nombre, String apellido, int dni, String telefono, String domicilio, String total, JTable tabla, String nombreArchivo) {
+    public static void exportToPDF(String nombre, String apellido, String dni, String telefono, String domicilio, String total, JTable tabla, String nombreArchivo,String idVenta) {
         Document document = new Document();
 
         try {
@@ -23,16 +23,18 @@ public class ExportPDF {
             document.open();
 
             // Agregar los datos del cliente al PDF
-            document.add(new Paragraph("Fravemax Empresa lider en Electrodomesticos"));
+            document.add(new Paragraph("                                                Fravemax Empresa lider en Electrodomesticos"));
             document.add(new Paragraph("\n"));
-            document.add(new Paragraph("Ticket de compra"));
+            document.add(new Paragraph("                 Ticket de compra "));
+            document.add(new Paragraph("\n"));
+            document.add(new Paragraph("                 Numero de venta: " + idVenta));
             document.add(new Paragraph("                 - - - - - - - - - - - - - - - - - - - - - - - Datos del Cliente - - - - - - - - - - - - - - - - - - - - - - - "));
             document.add(new Paragraph("\n"));
-            document.add(new Paragraph("Nombre: " + nombre));
-            document.add(new Paragraph("Apellido: " + apellido));
-            document.add(new Paragraph("DNI: " + dni));
-            document.add(new Paragraph("Teléfono: " + telefono));
-            document.add(new Paragraph("Domicilio: " + domicilio));
+            document.add(new Paragraph("                 Nombre: " + nombre));
+            document.add(new Paragraph("                 Apellido: " + apellido));
+            document.add(new Paragraph("                 DNI: " + dni));
+            document.add(new Paragraph("                 Teléfono: " + telefono));
+            document.add(new Paragraph("                 Domicilio: " + domicilio));
             document.add(new Paragraph("\n"));
 
             // Agregar los datos de la tabla al PDF
