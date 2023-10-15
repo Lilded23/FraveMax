@@ -68,8 +68,8 @@ public final class RealizarVentaview extends javax.swing.JPanel {
         modeloProd.addColumn("Descripcion");
         modeloProd.addColumn("Precio");
         modeloProd.addColumn("Stock");
-        tablaProd.setModel(modeloProd);
-        centrarTabla(tablaProd);
+        jtTablaProd.setModel(modeloProd);
+        centrarTabla(jtTablaProd);
         //Cabeceras de Detalles de Compra
         modeloDetalle.addColumn("ID");
         modeloDetalle.addColumn("Producto");
@@ -82,7 +82,7 @@ public final class RealizarVentaview extends javax.swing.JPanel {
     }
 
     private void borrarfilasProd() {
-        int f = tablaProd.getRowCount() - 1;
+        int f = jtTablaProd.getRowCount() - 1;
 
         for (int i = f; i >= 0; i--) {
             modeloProd.removeRow(i);
@@ -91,7 +91,7 @@ public final class RealizarVentaview extends javax.swing.JPanel {
 
     private void ajustarCabeceras() {
         //Cabeceras de Productos
-        TableColumnModel columnModel = tablaProd.getColumnModel();
+        TableColumnModel columnModel = jtTablaProd.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(25);
         columnModel.getColumn(1).setPreferredWidth(75);
         columnModel.getColumn(2).setPreferredWidth(170);
@@ -127,7 +127,7 @@ public final class RealizarVentaview extends javax.swing.JPanel {
 
         jpVenta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaProd = new javax.swing.JTable();
+        jtTablaProd = new javax.swing.JTable();
         jtNombreProd = new javax.swing.JTextField();
         jbFin = new javax.swing.JButton();
         jbAgregar = new javax.swing.JButton();
@@ -160,7 +160,7 @@ public final class RealizarVentaview extends javax.swing.JPanel {
 
         jpVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        tablaProd.setModel(new javax.swing.table.DefaultTableModel(
+        jtTablaProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -186,22 +186,22 @@ public final class RealizarVentaview extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tablaProd.setFillsViewportHeight(true);
-        tablaProd.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
+        jtTablaProd.setFillsViewportHeight(true);
+        jtTablaProd.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                tablaProdAncestorAdded(evt);
+                jtTablaProdAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
-        });
-        tablaProd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaProdMouseClicked(evt);
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        jScrollPane1.setViewportView(tablaProd);
+        jtTablaProd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtTablaProdMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtTablaProd);
 
         jtNombreProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +214,7 @@ public final class RealizarVentaview extends javax.swing.JPanel {
             }
         });
 
-        jbFin.setText("Finalizar compra");
+        jbFin.setText("Finalizar venta");
         jbFin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbFinActionPerformed(evt);
@@ -311,16 +311,16 @@ public final class RealizarVentaview extends javax.swing.JPanel {
                                     .addGroup(jpVentaLayout.createSequentialGroup()
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jtNombreProd, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jpVentaLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlProducto))
-                            .addGroup(jpVentaLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlDescripcion)))
+                                        .addComponent(jtNombreProd, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jpVentaLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jlProducto))
+                                    .addGroup(jpVentaLayout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jlDescripcion)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGroup(jpVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpVentaLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -511,16 +511,16 @@ public final class RealizarVentaview extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jbVolverActionPerformed
 
-    private void tablaProdAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tablaProdAncestorAdded
+    private void jtTablaProdAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jtTablaProdAncestorAdded
 
-    }//GEN-LAST:event_tablaProdAncestorAdded
+    }//GEN-LAST:event_jtTablaProdAncestorAdded
 
-    private void tablaProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProdMouseClicked
-        int fila = tablaProd.getSelectedRow();
-        String nombre = (String) tablaProd.getValueAt(fila, 1);
-        String descripcion = (String) tablaProd.getValueAt(fila, 2);
+    private void jtTablaProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTablaProdMouseClicked
+        int fila = jtTablaProd.getSelectedRow();
+        String nombre = (String) jtTablaProd.getValueAt(fila, 1);
+        String descripcion = (String) jtTablaProd.getValueAt(fila, 2);
         jlProducto.setText(nombre);
-        jlDescripcion.setText(descripcion);    }//GEN-LAST:event_tablaProdMouseClicked
+        jlDescripcion.setText(descripcion);    }//GEN-LAST:event_jtTablaProdMouseClicked
 
     private void listaProductos() {
         if (listaProd.isEmpty()) {
@@ -549,9 +549,9 @@ public final class RealizarVentaview extends javax.swing.JPanel {
     }
 
     private Producto buscaProd() {
-        int fila = tablaProd.getSelectedRow();
+        int fila = jtTablaProd.getSelectedRow();
         if (fila >= 0) {
-            int idProd = (int) tablaProd.getValueAt(fila, 0);
+            int idProd = (int) jtTablaProd.getValueAt(fila, 0);
             for (Producto producto : listaProd) {
                 if (producto.getIdProducto() == idProd) {
                     return producto;
@@ -615,7 +615,7 @@ public final class RealizarVentaview extends javax.swing.JPanel {
     private javax.swing.JSpinner jsCantidad;
     private javax.swing.JTextField jtNombreProd;
     private javax.swing.JTable jtTablaDetalles;
+    private javax.swing.JTable jtTablaProd;
     private javax.swing.JTextField jtTotal;
-    private javax.swing.JTable tablaProd;
     // End of variables declaration//GEN-END:variables
 }
