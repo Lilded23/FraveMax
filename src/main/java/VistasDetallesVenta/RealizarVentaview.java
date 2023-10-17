@@ -103,7 +103,6 @@ public final class RealizarVentaview extends javax.swing.JPanel {
         columnModelDetalles.getColumn(4).setPreferredWidth(75);
     }
 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -216,9 +215,9 @@ public final class RealizarVentaview extends javax.swing.JPanel {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jtTablaProdAncestorAdded(evt);
             }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jtTablaProd.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -293,9 +292,9 @@ public final class RealizarVentaview extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpPoductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                .addGroup(jpPoductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpPoductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -500,7 +499,7 @@ public final class RealizarVentaview extends javax.swing.JPanel {
         String nombreBuscado = jtNombreProd.getText().toLowerCase();
         if (!nombreBuscado.isEmpty()) {
             for (Producto prod : listaProd) {
-                if (prod.getNombreProducto().toLowerCase().contains(nombreBuscado)) {
+                if (prod.getNombreProducto().toLowerCase().contains(nombreBuscado) || prod.getDescripcion().toLowerCase().contains(nombreBuscado)) {
                     modeloProd.addRow(new Object[]{
                         prod.getIdProducto(),
                         prod.getNombreProducto(),
@@ -520,11 +519,18 @@ public final class RealizarVentaview extends javax.swing.JPanel {
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
         if (jtTablaDetalles.getRowCount() == 0) {
-            VentaData.eliminarVenta(venta.getIdVenta());
-            JOptionPane.showMessageDialog(this, "Se elimino la venta por falta de productos");
-            this.setVisible(false);
-            Principal.ClienteSelect = false;
-            Principal.mostrarListaClientes();
+            int res = JOptionPane.showConfirmDialog(
+                    this,
+                    "¿Cancelar venta?",
+                    "Confirmar",
+                    JOptionPane.OK_CANCEL_OPTION);
+            if (res == 0) {
+                VentaData.eliminarVenta(venta.getIdVenta());
+                this.setVisible(false);
+                Principal.ClienteSelect = false;
+                Principal.mostrarListaClientes();
+            }
+
         }
     }//GEN-LAST:event_jbVolverActionPerformed
 

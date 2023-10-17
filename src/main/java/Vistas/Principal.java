@@ -25,7 +25,6 @@ public class Principal extends javax.swing.JFrame {
     public static boolean ClienteSelect = false;
     private boolean ProductosSelect = false;
     private boolean VentaSelect = false;
-    private boolean BoletaSelect = false;
 
     static String vistaActual;
     /**
@@ -110,15 +109,16 @@ public class Principal extends javax.swing.JFrame {
         JLCliente = new javax.swing.JLabel();
         JLProductos = new javax.swing.JLabel();
         JLVentas = new javax.swing.JLabel();
-        JLBoletas = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 1), new java.awt.Dimension(0, 1), new java.awt.Dimension(32767, 1));
         tablero = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("FraveMax");
+        setMinimumSize(new java.awt.Dimension(800, 600));
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Ventas");
+        jLabel1.setText("FraveMax");
 
         JLCliente.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         JLCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -156,7 +156,7 @@ public class Principal extends javax.swing.JFrame {
 
         JLVentas.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         JLVentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        JLVentas.setText("Detalle Ventas");
+        JLVentas.setText("Ventas");
         JLVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JLVentas.setOpaque(true);
         JLVentas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -171,23 +171,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        JLBoletas.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        JLBoletas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        JLBoletas.setText("Boletas");
-        JLBoletas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        JLBoletas.setOpaque(true);
-        JLBoletas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JLBoletasMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                JLBoletasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                JLBoletasMouseExited(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -196,12 +179,8 @@ public class Principal extends javax.swing.JFrame {
             .addComponent(JLProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(JLVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JLBoletas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(222, Short.MAX_VALUE)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
@@ -221,8 +200,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(JLVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
-                .addComponent(JLBoletas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(363, Short.MAX_VALUE))
         );
 
         tablero.setMinimumSize(new java.awt.Dimension(800, 600));
@@ -253,17 +231,7 @@ public class Principal extends javax.swing.JFrame {
         ClienteSelect = false;
         ProductosSelect = false;
         VentaSelect = true;
-        BoletaSelect = false;
     }//GEN-LAST:event_JLVentasMouseClicked
-
-    private void JLBoletasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLBoletasMouseClicked
-        // TODO add your handling code here:
-        mostrarBoletas();
-        ClienteSelect = false;
-        ProductosSelect = false;
-        VentaSelect = false;
-        BoletaSelect = true;
-    }//GEN-LAST:event_JLBoletasMouseClicked
 
     private void JLClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLClienteMouseClicked
         // TODO add your handling code here:
@@ -271,7 +239,6 @@ public class Principal extends javax.swing.JFrame {
         ClienteSelect = true;
         ProductosSelect = false;
         VentaSelect = false;
-        BoletaSelect = false;
     }//GEN-LAST:event_JLClienteMouseClicked
 
     private void JLProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLProductosMouseClicked
@@ -280,7 +247,6 @@ public class Principal extends javax.swing.JFrame {
         ClienteSelect = false;
         ProductosSelect = true;
         VentaSelect = false;
-        BoletaSelect = false;
     }//GEN-LAST:event_JLProductosMouseClicked
 
     private void JLClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLClienteMouseEntered
@@ -292,7 +258,11 @@ public class Principal extends javax.swing.JFrame {
     private void JLClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLClienteMouseExited
         // TODO add your handling code here:
         JLCliente.setBackground(color1);
-        setColor(ClienteSelect, ProductosSelect, VentaSelect, BoletaSelect);
+        setColor(
+                ClienteSelect,
+                ProductosSelect,
+                VentaSelect
+        );
 
     }//GEN-LAST:event_JLClienteMouseExited
 
@@ -304,7 +274,10 @@ public class Principal extends javax.swing.JFrame {
     private void JLProductosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLProductosMouseExited
         // TODO add your handling code here:
         JLProductos.setBackground(backgraoundOriginal);
-        setColor(ClienteSelect, ProductosSelect, VentaSelect, BoletaSelect);
+        setColor(ClienteSelect,
+                ProductosSelect,
+                VentaSelect
+        );
 
     }//GEN-LAST:event_JLProductosMouseExited
 
@@ -316,21 +289,9 @@ public class Principal extends javax.swing.JFrame {
     private void JLVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLVentasMouseExited
         // TODO add your handling code here:
         JLVentas.setBackground(backgraoundOriginal);
-        setColor(ClienteSelect, ProductosSelect, VentaSelect, BoletaSelect);
+        setColor(ClienteSelect, ProductosSelect, VentaSelect);
 
     }//GEN-LAST:event_JLVentasMouseExited
-
-    private void JLBoletasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLBoletasMouseEntered
-        // TODO add your handling code here
-        JLBoletas.setBackground(color1);
-    }//GEN-LAST:event_JLBoletasMouseEntered
-
-    private void JLBoletasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLBoletasMouseExited
-        // TODO add your handling code here:
-        JLBoletas.setBackground(backgraoundOriginal);
-        setColor(ClienteSelect, ProductosSelect, VentaSelect, BoletaSelect);
-
-    }//GEN-LAST:event_JLBoletasMouseExited
 
     /**
      * @param args the command line arguments
@@ -369,7 +330,6 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel JLBoletas;
     private javax.swing.JLabel JLCliente;
     private javax.swing.JLabel JLProductos;
     private javax.swing.JLabel JLVentas;
@@ -379,12 +339,10 @@ public class Principal extends javax.swing.JFrame {
     private static javax.swing.JPanel tablero;
     // End of variables declaration//GEN-END:variables
 
-    private void setColor(boolean ClienteSelect, boolean ProductoSelect, boolean VentasSelect, boolean BoletasSelect) {
+    private void setColor(boolean ClienteSelect, boolean ProductoSelect, boolean VentasSelect) {
 
         JLCliente.setBackground(ClienteSelect ? color1 : backgraoundOriginal);
         JLProductos.setBackground(ProductoSelect ? color1 : backgraoundOriginal);
         JLVentas.setBackground(VentasSelect ? color1 : backgraoundOriginal);
-        JLBoletas.setBackground(BoletasSelect ? color1 : backgraoundOriginal);
-
     }
 }

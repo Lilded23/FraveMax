@@ -27,6 +27,7 @@ public class NuevoClente extends javax.swing.JPanel {
 
     public NuevoClente(FloatingWindow parentWindow) {
         this.parentWindow = parentWindow;
+        
         initComponents();
     }
 
@@ -171,11 +172,6 @@ public class NuevoClente extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_JTApellidoActionPerformed
 
-    private void JBCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCerrarActionPerformed
-        // TODO add your handling code here: 
-        parentWindow.dispose();
-    }//GEN-LAST:event_JBCerrarActionPerformed
-
     private void JBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNuevoActionPerformed
         // TODO add your handling code here:
         if (ejecutarAccion) {
@@ -203,6 +199,11 @@ public class NuevoClente extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_JBNuevoActionPerformed
+
+    private void JBCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCerrarActionPerformed
+        // TODO add your handling code here:
+        parentWindow.dispose();
+    }//GEN-LAST:event_JBCerrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
