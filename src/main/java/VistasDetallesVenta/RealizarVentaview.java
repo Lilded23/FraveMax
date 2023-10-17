@@ -518,19 +518,17 @@ public final class RealizarVentaview extends javax.swing.JPanel {
     }//GEN-LAST:event_jtNombreProdActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
-        if (jtTablaDetalles.getRowCount() == 0) {
-            int res = JOptionPane.showConfirmDialog(
-                    this,
-                    "¿Cancelar venta?",
-                    "Confirmar",
-                    JOptionPane.OK_CANCEL_OPTION);
-            if (res == 0) {
-                VentaData.eliminarVenta(venta.getIdVenta());
-                this.setVisible(false);
-                Principal.ClienteSelect = false;
-                Principal.mostrarListaClientes();
-            }
 
+        int res = JOptionPane.showConfirmDialog(
+                this,
+                "¿Anular venta?",
+                "Confirmar",
+                JOptionPane.OK_CANCEL_OPTION);
+        if (res == 0) {
+            VentaData.eliminarVenta(venta.getIdVenta());
+            this.setVisible(false);
+            Principal.ClienteSelect = false;
+            Principal.mostrarListaClientes();
         }
     }//GEN-LAST:event_jbVolverActionPerformed
 
