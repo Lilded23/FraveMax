@@ -232,7 +232,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jbSalir.setText("Salir");
+        jbSalir.setText("Volver");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSalirActionPerformed(evt);

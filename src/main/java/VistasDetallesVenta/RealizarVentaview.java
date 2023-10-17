@@ -518,7 +518,6 @@ public final class RealizarVentaview extends javax.swing.JPanel {
     }//GEN-LAST:event_jtNombreProdActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
-
         int res = JOptionPane.showConfirmDialog(
                 this,
                 "¿Anular venta?",
@@ -548,12 +547,14 @@ public final class RealizarVentaview extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "No hay Productos en el sistema");
         } else {
             listaProd.forEach(producto -> {
-                modeloProd.addRow(new Object[]{
+                if (producto.isEstado() && producto.getStock() > 0) {
+                    modeloProd.addRow(new Object[]{
                     producto.getIdProducto(),
                     producto.getNombreProducto(),
                     producto.getDescripcion(),
                     "$ " + producto.getPrecioActual(),
                     producto.getStock(),});
+                }
             });
         }
     }
