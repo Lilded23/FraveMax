@@ -42,6 +42,24 @@ public abstract class DetalleVentaData extends Conexion {
     }
 
 // Método para eliminar un detalle de venta existente
+    
+    public static boolean eliminarDetalleVenta(int idVenta) {
+        try {
+            String sql = "delete from DetalleVenta WHERE idVenta = ?";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, idVenta);
+
+            int rs = pstmt.executeUpdate();
+            if (rs == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
     public static boolean eliminarDetalleVenta(int idVenta, int idProd) {
         try {
             String sql = "delete from DetalleVenta WHERE idVenta = ? and idProducto=?";

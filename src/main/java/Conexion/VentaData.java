@@ -41,10 +41,11 @@ public abstract class VentaData extends Conexion {
     public static void eliminarVenta(int id) {
         Conectar();
         try {
+            DetalleVentaData.eliminarDetalleVenta(id);
             String sql = "delete from venta where idVenta = ?";
             var ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
-            ps.executeUpdate();
+            ps.executeUpdate(); 
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(VentaData.class.getName()).log(Level.SEVERE, null, ex);
