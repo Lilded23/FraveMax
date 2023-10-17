@@ -8,9 +8,11 @@ package Vistas;
  *
  * @author jdbar
  */
+import java.awt.Color;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.LineBorder;
 
 public class FloatingWindow extends JFrame {
 
@@ -18,9 +20,14 @@ public class FloatingWindow extends JFrame {
 
     public FloatingWindow() {
 
-//        setUndecorated(true); // Quitar bordes y decoración
-        setSize(800, 500);
+        setUndecorated(true); // Quitar bordes y decoración
+        setSize(800, 450);
         setLocationRelativeTo(null); // Inicialmente, centrar en la pantalla
+
+        Color borderColor = new Color(66, 73, 73); //Color del borde
+        int borderWidth = 2; // Ancho del borde en pixeles
+        LineBorder lineBorder = new LineBorder(borderColor, borderWidth);
+        getRootPane().setBorder(lineBorder); //Llamo al panel principal y seteo el borde
 
         // Agregar un MouseAdapter para permitir el arrastre
         addMouseListener(new MouseAdapter() {
