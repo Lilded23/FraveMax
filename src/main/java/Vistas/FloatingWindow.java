@@ -9,6 +9,7 @@ package Vistas;
  * @author jdbar
  */
 import java.awt.Color;
+import java.awt.HeadlessException;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -37,6 +38,7 @@ public class FloatingWindow extends JFrame {
                 lastY = e.getYOnScreen();
             }
         });
+        
 
         addMouseMotionListener(new MouseAdapter() {
             @Override
@@ -48,5 +50,9 @@ public class FloatingWindow extends JFrame {
                 lastY = e.getYOnScreen();
             }
         });
+    }
+
+    public FloatingWindow(String title) throws HeadlessException {
+        super(title);
     }
 }

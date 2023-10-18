@@ -265,11 +265,11 @@ public class Boletas extends javax.swing.JPanel {
                     .addComponent(botonBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(proTip)
                     .addComponent(botonDetalles))
-                .addGap(14, 14, 14))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
