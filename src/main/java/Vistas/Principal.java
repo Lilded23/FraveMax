@@ -9,7 +9,7 @@ import Entidades.*;
 
 import Vistas.VistaClientes.ClientesVistas;
 import VistasDetallesVenta.DetallesVentaView;
-import VistasDetallesVenta.RealizarVentaview;
+import VistasDetallesVenta.RealizarVentaView;
 import VistasProducto.Buscar;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.Color;
@@ -64,7 +64,7 @@ public class Principal extends javax.swing.JFrame {
 
     public static void mostrarRealizarVenta(Cliente cliente) {
         tablero.removeAll();
-        tablero.add(new RealizarVentaview(cliente));
+        tablero.add(new RealizarVentaView(cliente));
         tablero.revalidate();
         tablero.repaint();
     }

@@ -17,7 +17,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author cisco
  */
-public final class RealizarVentaview extends javax.swing.JPanel {
+public final class RealizarVentaView extends javax.swing.JPanel {
 
     List<Producto> listaProd = new ArrayList();
     private double total = 0;
@@ -40,11 +40,11 @@ public final class RealizarVentaview extends javax.swing.JPanel {
     /**
      * Creates new form Ventas
      */
-    public RealizarVentaview() {
+    public RealizarVentaView() {
         initComponents();
     }
 
-    public RealizarVentaview(Cliente cliente) {
+    public RealizarVentaView(Cliente cliente) {
         initComponents();
         this.venta = new Venta(cliente);
         VentaData.guardarVenta(venta);
@@ -212,10 +212,10 @@ public final class RealizarVentaview extends javax.swing.JPanel {
         });
         jtTablaProd.setFillsViewportHeight(true);
         jtTablaProd.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jtTablaProdAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -524,10 +524,26 @@ public final class RealizarVentaview extends javax.swing.JPanel {
                 "Confirmar",
                 JOptionPane.OK_CANCEL_OPTION);
         if (res == 0) {
-            VentaData.eliminarVenta(venta.getIdVenta());
-            this.setVisible(false);
-            Principal.ClienteSelect = false;
-            Principal.mostrarListaClientes();
+            if (jtTablaDetalles.getRowCount() == 0) {
+                DetalleVentaData.eliminarDetalleVenta(venta.getIdVenta());
+                VentaData.eliminarVenta(venta.getIdVenta());
+                this.setVisible(false);
+                Principal.ClienteSelect = false;
+                Principal.mostrarListaClientes();
+            } else {
+                Producto prod;
+                for (int i = 0; i < modeloDetalle.getRowCount(); i++) {
+                    int idProducto = (int) modeloDetalle.getValueAt(i, 0);
+                    int cantidad = (int) modeloDetalle.getValueAt(i, 3);
+                    prod = ProductoData.buscarPorId(idProducto);
+                    actualizarStock(false, prod, cantidad);
+                }
+
+                VentaData.eliminarVenta(venta.getIdVenta());
+                this.setVisible(false);
+                Principal.ClienteSelect = false;
+                Principal.mostrarListaClientes();
+            }
         }
     }//GEN-LAST:event_jbVolverActionPerformed
 
@@ -549,11 +565,11 @@ public final class RealizarVentaview extends javax.swing.JPanel {
             listaProd.forEach(producto -> {
                 if (producto.isEstado() && producto.getStock() > 0) {
                     modeloProd.addRow(new Object[]{
-                    producto.getIdProducto(),
-                    producto.getNombreProducto(),
-                    producto.getDescripcion(),
-                    "$ " + producto.getPrecioActual(),
-                    producto.getStock(),});
+                        producto.getIdProducto(),
+                        producto.getNombreProducto(),
+                        producto.getDescripcion(),
+                        "$ " + producto.getPrecioActual(),
+                        producto.getStock(),});
                 }
             });
         }
