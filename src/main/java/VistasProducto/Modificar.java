@@ -59,6 +59,11 @@ public class Modificar extends javax.swing.JPanel {
         jLabel5.setText("STOCK:");
 
         jbNuevo.setText("Nuevo");
+        jbNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbNuevoMouseClicked(evt);
+            }
+        });
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNuevoActionPerformed(evt);
@@ -76,7 +81,6 @@ public class Modificar extends javax.swing.JPanel {
 
         jCheckBox1.setText("Activo");
 
-        JStock.setEditor(new javax.swing.JSpinner.NumberEditor(JStock, ""));
         JStock.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 JStockKeyPressed(evt);
@@ -150,23 +154,6 @@ public class Modificar extends javax.swing.JPanel {
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         // TODO add your handling code here:
-        if (ejecutarAccion) {
-            try {
-                String nombre = jtfNombre.getText();
-                String des = JTDescripcion.getText();
-                int stock = Integer.parseInt((String) JStock.getValue());
-                double precio = Double.parseDouble(jtfPrecioActual.getText());
-                boolean estado = jCheckBox1.isEnabled();
-
-                Producto prod = new Producto(nombre, des, precio, stock, estado);
-
-                ProductoData.IngresarNuevoProducto(prod);
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al guardar el Producto");
-            }
-        }
-
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -191,6 +178,32 @@ public class Modificar extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Esta ingresando un valor no valido");
         }
     }//GEN-LAST:event_JStockKeyPressed
+
+    private void jbNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbNuevoMouseClicked
+        // TODO add your handling code here:   
+        if (ejecutarAccion) {
+            try {
+                String nombre = jtfNombre.getText();
+                String des = JTDescripcion.getText();
+                int stock = (Integer) JStock.getValue();
+                double precio = Double.parseDouble(jtfPrecioActual.getText());
+                boolean estado = jCheckBox1.isSelected();
+
+                Producto prod = new Producto(nombre, des, precio, stock, estado);
+
+                ProductoData.IngresarNuevoProducto(prod);
+
+                JOptionPane.showMessageDialog(null, "Nuevo producto agregado EXITOSAMENTE");
+                
+                Buscar.cargarProductos();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al guardar el Producto");
+                e.printStackTrace();
+            }
+        }
+
+    }//GEN-LAST:event_jbNuevoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -237,12 +250,13 @@ public class Modificar extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Se guardo con Modifico con EXITO el Producto" + producto.toString());
                         Buscar.cargarProductos();
                         parentWindow.dispose();
+
                     } else {
                         JOptionPane.showMessageDialog(null, "Se Produjo un Error al guardar");
                     }
-
                 }
             });
         }
+        ejecutarAccion = false;
     }
 }

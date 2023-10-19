@@ -7,6 +7,7 @@ package VistasProducto;
 import Conexion.ProductoData;
 import Entidades.Producto;
 import Vistas.FloatingWindow;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -87,6 +88,11 @@ public class Buscar extends javax.swing.JPanel {
         });
 
         jbEliminar.setText("Eliminar");
+        jbEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbEliminarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -102,8 +108,8 @@ public class Buscar extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,6 +192,29 @@ public class Buscar extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jtProductosMouseClicked
+
+    private void jbEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEliminarMouseClicked
+        // TODO add your handling code here:
+        try {
+            int idProducto = (int) jtProductos.getValueAt(jtProductos.getSelectedRow(), 0);
+
+            System.out.println(idProducto);
+
+            int res = JOptionPane.showConfirmDialog(null, "Desea eliminar este producto");
+
+            if (JOptionPane.YES_OPTION == res) {
+                if (ProductoData.borrarProducto(idProducto)) {
+                    JOptionPane.showMessageDialog(null, "Borrado con exito");
+                    cargarProductos();
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "No se selecciono un Producto");
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_jbEliminarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,6 +9,7 @@ import Entidades.Producto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -61,7 +62,7 @@ public abstract class ProductoData extends Conexion {
             sqlPD.setString(2, producto.getDescripcion());
             sqlPD.setDouble(3, producto.getPrecioActual());
             sqlPD.setInt(4, producto.getStock());
-            sqlPD.setBoolean(5, true);
+            sqlPD.setBoolean(5, producto.isEstado());
             sqlPD.executeQuery();
             ResultSet rs = sqlPD.getGeneratedKeys();
             if (rs.next()) {
@@ -139,4 +140,30 @@ public abstract class ProductoData extends Conexion {
         }
         return prodBuscado;
     }
+
+    public static boolean borrarProducto(int idProducto) {
+        String sql = "DELETE FROM `producto` WHERE idProducto = ?";
+
+        try {
+            // Desactivar temporalmente la restricción de clave externa
+            Statement stmt = conn.createStatement();
+            stmt.execute("SET FOREIGN_KEY_CHECKS=0");
+
+            // Preparar la consulta de eliminación
+            PreparedStatement sqlPD = conn.prepareStatement(sql);
+            sqlPD.setInt(1, idProducto);
+
+            // Ejecutar la consulta de eliminación
+            int filaBorrada = sqlPD.executeUpdate();
+
+            // Reactivar la restricción de clave externa
+            stmt.execute("SET FOREIGN_KEY_CHECKS=1");
+
+            return filaBorrada > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
