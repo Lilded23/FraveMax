@@ -31,6 +31,7 @@ public class Principal extends javax.swing.JFrame {
 
     public static ClientesVistas clientesVistas;
     public static Boletas vistaVentas;
+    private static Buscar buscar;
 
     public Principal() {
         initComponents();
@@ -39,6 +40,7 @@ public class Principal extends javax.swing.JFrame {
 //        mostrarVentas();
         clientesVistas = new ClientesVistas();
         vistaVentas = new Boletas();
+        buscar = new Buscar();
         mostrarListaClientes();
     }
 
@@ -87,7 +89,7 @@ public class Principal extends javax.swing.JFrame {
 
     private static void mostrarListaProductos() {
         tablero.removeAll();
-        tablero.add(new Buscar());
+        tablero.add(buscar);
         tablero.revalidate();
         tablero.repaint();
 
