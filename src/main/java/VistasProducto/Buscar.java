@@ -15,8 +15,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Buscar extends javax.swing.JPanel {
 
-    private static DefaultTableModel modelo = new DefaultTableModel(){
-     @Override
+    private static DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
@@ -151,7 +151,6 @@ public class Buscar extends javax.swing.JPanel {
         // TODO add your handling code here:
         FloatingWindow flo = new FloatingWindow();
         Modificar mod = new Modificar(flo);
-        
 
         flo.add(mod);
         flo.revalidate();
@@ -166,20 +165,24 @@ public class Buscar extends javax.swing.JPanel {
         String des = (String) jtProductos.getValueAt(jtProductos.getSelectedRow(), 2);
         int stock = (int) jtProductos.getValueAt(jtProductos.getSelectedRow(), 4);
         double precio = (double) jtProductos.getValueAt(jtProductos.getSelectedRow(), 3);
-        //     boolean estado = jtProductos.getValueAt(jtProductos.getSelectedRow(), 4);
+        String estadoString = (String) jtProductos.getValueAt(jtProductos.getSelectedRow(), 5);
 
-        Producto producto = new Producto(nombre, des, precio, stock, true);//Cambiar estado
-        
-        if(evt.getClickCount() >= 2){
+        System.out.println(estadoString);
+
+        boolean estado = estadoString.equals("Disponible");
+
+        Producto producto = new Producto(idProducto, nombre, des, precio, stock, estado);//Cambiar estado
+
+        if (evt.getClickCount() >= 2) {
             FloatingWindow modificar = new FloatingWindow();
             Modificar mod = new Modificar(modificar);
-            
+
             mod.ModificarProducto(producto);
             modificar.add(mod);
             modificar.revalidate();
             modificar.repaint();
             modificar.setVisible(true);
-            
+
         }
 
     }//GEN-LAST:event_jtProductosMouseClicked
@@ -205,9 +208,11 @@ public class Buscar extends javax.swing.JPanel {
         jtProductos.setModel(modelo);
     }
 
-    private void cargarProductos() {
+    public static void cargarProductos() {
+        borrarfilasProd();
         ProductoData.listaProducto().forEach(producto -> {
-            modelo.addRow(new Object[]{producto.getIdProducto(), producto.getNombreProducto(), producto.getDescripcion(), producto.getPrecioActual(), producto.getStock()});
+            String estado = producto.isEstado() ? "Disponible" : "No Disponible";
+            modelo.addRow(new Object[]{producto.getIdProducto(), producto.getNombreProducto(), producto.getDescripcion(), producto.getPrecioActual(), producto.getStock(), estado});
         });
     }
 

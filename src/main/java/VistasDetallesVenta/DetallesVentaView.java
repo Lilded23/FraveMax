@@ -288,13 +288,14 @@ public class DetallesVentaView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        if (Principal.ClienteSelect) {
-            this.setVisible(false);
-            Principal.ClienteSelect = false;
-            Principal.mostrarListaClientes();
-        } else {
-            Principal.mostrarBoletas();
-        }
+//        if (Principal.ClienteSelect) {
+//            this.setVisible(false);
+//            Principal.ClienteSelect = false;
+//            Principal.mostrarListaClientes();
+//        } else {
+//            Principal.mostrarBoletas();
+//        }
+        Principal.cambiar(Principal.anterior);
 
     }//GEN-LAST:event_jbSalirActionPerformed
 

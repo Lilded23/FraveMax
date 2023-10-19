@@ -7,6 +7,7 @@ package VistasDetallesVenta;
 import Entidades.*;
 import Conexion.*;
 import Vistas.Principal;
+import static Vistas.Principal.cambiar;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class Boletas extends javax.swing.JPanel {
         campoFechaB.setText(today.toString());
         configurarComboBox();
     }
-    
+
     public Boletas(Cliente cliente) {
         initComponents();
         today = LocalDate.now();
@@ -177,6 +178,11 @@ public class Boletas extends javax.swing.JPanel {
             }
         });
         tablaVentas.setFillsViewportHeight(true);
+        tablaVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaVentasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaVentas);
         tablaVentas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
@@ -298,26 +304,27 @@ public class Boletas extends javax.swing.JPanel {
 
     private void botonDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDetallesActionPerformed
         // TODO add your handling code here:
+        actionDetalle();
+    }//GEN-LAST:event_botonDetallesActionPerformed
+    private void actionDetalle() {
         var idVenta = (Integer) tablaVentas.getValueAt(
                 tablaVentas.getSelectedRow(),
                 0);
         var ventaSeleccionada = VentaData.buscarVenta(idVenta);
 
-        Principal.mostrarDetalle(ventaSeleccionada);
-
-
-    }//GEN-LAST:event_botonDetallesActionPerformed
+        Principal.cambiar(new DetallesVentaView(ventaSeleccionada));
+    }
 
     private void proTipMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_proTipMouseClicked
         // TODO add your handling code here:
-         Thread th = new Thread(new Runnable() {
+        Thread th = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {   
+                try {
                     int y = proTip.getY();
                     while (proTip.getX() < 420) {
                         Thread.sleep((long) 8);
-                        proTip.setLocation(proTip.getX()+1, y);
+                        proTip.setLocation(proTip.getX() + 1, y);
                         repaint();
                     }
                 } catch (InterruptedException ex) {
@@ -328,6 +335,13 @@ public class Boletas extends javax.swing.JPanel {
         });
         th.start();
     }//GEN-LAST:event_proTipMouseClicked
+
+    private void tablaVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaVentasMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            actionDetalle();
+        }
+    }//GEN-LAST:event_tablaVentasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

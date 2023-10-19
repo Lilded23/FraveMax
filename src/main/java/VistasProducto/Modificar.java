@@ -76,6 +76,16 @@ public class Modificar extends javax.swing.JPanel {
 
         jCheckBox1.setText("Activo");
 
+        JStock.setEditor(new javax.swing.JSpinner.NumberEditor(JStock, ""));
+        JStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                JStockKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JStockKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,7 +150,6 @@ public class Modificar extends javax.swing.JPanel {
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         // TODO add your handling code here:
-        ejecutarAccion =true;
         if (ejecutarAccion) {
             try {
                 String nombre = jtfNombre.getText();
@@ -165,6 +174,24 @@ public class Modificar extends javax.swing.JPanel {
         parentWindow.dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void JStockKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JStockKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JStockKeyReleased
+
+    private void JStockKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JStockKeyPressed
+        // TODO add your handling code here:
+        try {
+            var e = String.valueOf(evt.getKeyChar());
+
+            System.out.println(e);
+
+            int verificar = Integer.parseInt(e);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Esta ingresando un valor no valido");
+        }
+    }//GEN-LAST:event_JStockKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner JStock;
@@ -186,7 +213,7 @@ public class Modificar extends javax.swing.JPanel {
         JTDescripcion.setText(producto.getDescripcion());
         jtfPrecioActual.setText(Double.toString(producto.getPrecioActual()));
         JStock.setValue(producto.getStock());
-        jCheckBox1.setEnabled(producto.isEstado());
+        jCheckBox1.setSelected(producto.isEstado());
 
         jbNuevo.setText("Modificar");
 
@@ -199,13 +226,17 @@ public class Modificar extends javax.swing.JPanel {
                     producto.setDescripcion(JTDescripcion.getText());
                     producto.setPrecioActual(Double.parseDouble(jtfPrecioActual.getText()));
                     producto.setStock((int) JStock.getValue());
-                    producto.setEstado(jCheckBox1.isEnabled());
+                    producto.setEstado(jCheckBox1.isSelected());
+
+                    System.out.println(JStock.getValue());
 
                     boolean modificar = ProductoData.ActualizarProducto(producto, producto.getIdProducto());
 
                     if (modificar) {
                         System.out.println("Se ejecuto la modificacion");
                         JOptionPane.showMessageDialog(null, "Se guardo con Modifico con EXITO el Producto" + producto.toString());
+                        Buscar.cargarProductos();
+                        parentWindow.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Se Produjo un Error al guardar");
                     }
