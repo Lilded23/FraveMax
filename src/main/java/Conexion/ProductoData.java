@@ -93,14 +93,18 @@ public abstract class ProductoData extends Conexion {
         return false;
     }
 
-    public static boolean ActualizarEstado(boolean estado, int idProducto) {
+    public static boolean ActualizarProducto(Producto producto, int idProducto) {
         Conectar();
         try {
-            String sql = "update `producto` set `estado`=? where `idProducto`=?";
+            String sql = "UPDATE `producto` SET `nombreProducto`=?,`descripcion`=?,`precioActual`=?,`stock`=?,`estado`=? WHERE idProducto = ?";
             PreparedStatement sqlPD = conn.prepareStatement(sql);
 
-            sqlPD.setBoolean(1, estado);
-            sqlPD.setInt(2, idProducto);
+            sqlPD.setString(1, producto.getNombreProducto());
+            sqlPD.setString(2, producto.getDescripcion());
+            sqlPD.setDouble(3, producto.getPrecioActual());
+            sqlPD.setInt(4, producto.getStock());
+            sqlPD.setBoolean(5, producto.isEstado());
+            sqlPD.setInt(6, idProducto);
 
             sqlPD.execute();
             return true;
@@ -135,4 +139,3 @@ public abstract class ProductoData extends Conexion {
         return prodBuscado;
     }
 }
-

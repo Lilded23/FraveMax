@@ -5,6 +5,8 @@
 package VistasProducto;
 
 import Conexion.ProductoData;
+import Entidades.Producto;
+import Vistas.FloatingWindow;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,8 +14,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Albornoz
  */
 public class Buscar extends javax.swing.JPanel {
-    
-    private DefaultTableModel modelo = new DefaultTableModel();
+
+    private static DefaultTableModel modelo = new DefaultTableModel(){
+     @Override
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
 
     /**
      * Creates new form Buscar
@@ -38,11 +45,16 @@ public class Buscar extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtProductos = new javax.swing.JTable();
         jbNuevo = new javax.swing.JButton();
-        jbModificar = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Buscar producto:");
+
+        jtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtBuscarKeyReleased(evt);
+            }
+        });
 
         jtProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -55,14 +67,22 @@ public class Buscar extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtProductosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtProductos);
 
         jbNuevo.setText("Nuevo");
-
-        jbModificar.setText("Modificar");
-        jbModificar.addActionListener(new java.awt.event.ActionListener() {
+        jbNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbNuevoMouseClicked(evt);
+            }
+        });
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbModificarActionPerformed(evt);
+                jbNuevoActionPerformed(evt);
             }
         });
 
@@ -74,69 +94,129 @@ public class Buscar extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 208, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbNuevo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbEliminar)))
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(214, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbEliminar)
-                    .addComponent(jbModificar)
-                    .addComponent(jbNuevo))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jbNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(jbEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+    private void jtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbModificarActionPerformed
+        borrarfilasProd();
+        String nombreBuscado = jtBuscar.getText().toLowerCase();
+        if (!nombreBuscado.isEmpty()) {
+            for (Producto prod : ProductoData.listaProducto()) {
+                if (prod.getNombreProducto().toLowerCase().contains(nombreBuscado) || prod.getDescripcion().toLowerCase().contains(nombreBuscado)) {
+                    modelo.addRow(new Object[]{
+                        prod.getIdProducto(),
+                        prod.getNombreProducto(),
+                        prod.getDescripcion(),
+                        "$ " + prod.getPrecioActual(),
+                        prod.getStock(),});
+                }
+            }
+        } else {
+            cargarProductos();
+        }
+    }//GEN-LAST:event_jtBuscarKeyReleased
+
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jbNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbNuevoMouseClicked
+        // TODO add your handling code here:
+        FloatingWindow flo = new FloatingWindow();
+        Modificar mod = new Modificar(flo);
+        
+
+        flo.add(mod);
+        flo.revalidate();
+        flo.repaint();
+        flo.setVisible(true);
+    }//GEN-LAST:event_jbNuevoMouseClicked
+
+    private void jtProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMouseClicked
+        // TODO add your handling code here:
+        int idProducto = (int) jtProductos.getValueAt(jtProductos.getSelectedRow(), 0);
+        String nombre = (String) jtProductos.getValueAt(jtProductos.getSelectedRow(), 1);
+        String des = (String) jtProductos.getValueAt(jtProductos.getSelectedRow(), 2);
+        int stock = (int) jtProductos.getValueAt(jtProductos.getSelectedRow(), 4);
+        double precio = (double) jtProductos.getValueAt(jtProductos.getSelectedRow(), 3);
+        //     boolean estado = jtProductos.getValueAt(jtProductos.getSelectedRow(), 4);
+
+        Producto producto = new Producto(nombre, des, precio, stock, true);//Cambiar estado
+        
+        if(evt.getClickCount() >= 2){
+            FloatingWindow modificar = new FloatingWindow();
+            Modificar mod = new Modificar(modificar);
+            
+            mod.ModificarProducto(producto);
+            modificar.add(mod);
+            modificar.revalidate();
+            modificar.repaint();
+            modificar.setVisible(true);
+            
+        }
+
+    }//GEN-LAST:event_jtProductosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbEliminar;
-    private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JTextField jtBuscar;
     private javax.swing.JTable jtProductos;
     // End of variables declaration//GEN-END:variables
 
-private void cargarTabla()  {
-    modelo.addColumn("ID de producto");
-    modelo.addColumn("Nombre");
-    modelo.addColumn("Descripción");
-    modelo.addColumn("Precio actual");
-    modelo.addColumn("Stock");
-    modelo.addColumn("Estado");
-    
-    jtProductos.setModel(modelo);
-}
+    private void cargarTabla() {
+        modelo.addColumn("ID de producto");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Descripción");
+        modelo.addColumn("Precio actual");
+        modelo.addColumn("Stock");
+        modelo.addColumn("Estado");
 
-private void cargarProductos()  {
-    ProductoData.listaProducto().forEach(producto -> {
-         modelo.addRow(new Object[]{producto.getIdProducto(), producto.getNombreProducto(), producto.getDescripcion(), producto.getPrecioActual(), producto.getStock()});
-    });
-}
+        jtProductos.setModel(modelo);
+    }
+
+    private void cargarProductos() {
+        ProductoData.listaProducto().forEach(producto -> {
+            modelo.addRow(new Object[]{producto.getIdProducto(), producto.getNombreProducto(), producto.getDescripcion(), producto.getPrecioActual(), producto.getStock()});
+        });
+    }
+
+    public static void borrarfilasProd() {
+        int f = modelo.getRowCount() - 1;
+
+        for (int i = f; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
 
 }

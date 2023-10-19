@@ -4,6 +4,13 @@
  */
 package VistasProducto;
 
+import Conexion.ProductoData;
+import Entidades.Producto;
+import Vistas.FloatingWindow;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Albornoz
@@ -13,7 +20,11 @@ public class Modificar extends javax.swing.JPanel {
     /**
      * Creates new form Modificar
      */
-    public Modificar() {
+    FloatingWindow parentWindow;
+    boolean ejecutarAccion = true;
+
+    public Modificar(FloatingWindow parentWindow) {
+        this.parentWindow = parentWindow;
         initComponents();
     }
 
@@ -26,19 +37,18 @@ public class Modificar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jtfIdProducto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jtfNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jtfDescripcion = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jtfPrecioActual = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jtfStock = new javax.swing.JTextField();
-        jbActualizar = new javax.swing.JButton();
-
-        jLabel1.setText("ID PRODUCTO:");
+        jbNuevo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        JTDescripcion = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        JStock = new javax.swing.JSpinner();
 
         jLabel2.setText("NOMBRE:");
 
@@ -48,89 +58,160 @@ public class Modificar extends javax.swing.JPanel {
 
         jLabel5.setText("STOCK:");
 
-        jtfStock.addActionListener(new java.awt.event.ActionListener() {
+        jbNuevo.setText("Nuevo");
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfStockActionPerformed(evt);
+                jbNuevoActionPerformed(evt);
             }
         });
 
-        jbActualizar.setText("Actualizar");
+        jButton1.setText("Cancelar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        jLabel6.setText("ESTADO");
+
+        jCheckBox1.setText("Activo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jtfIdProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                    .addComponent(jtfNombre)
-                    .addComponent(jtfDescripcion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jtfPrecioActual, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                    .addComponent(jtfStock))
-                .addGap(149, 149, 149))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107))
+                .addGap(64, 64, 64)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(JTDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                            .addComponent(jtfNombre))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jtfPrecioActual, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(149, 149, 149))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox1)
+                            .addComponent(jLabel6))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfPrecioActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jtfNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(jtfPrecioActual))
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JStock, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(JTDescripcion))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(66, 66, 66))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtfStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfStockActionPerformed
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtfStockActionPerformed
+        ejecutarAccion =true;
+        if (ejecutarAccion) {
+            try {
+                String nombre = jtfNombre.getText();
+                String des = JTDescripcion.getText();
+                int stock = Integer.parseInt((String) JStock.getValue());
+                double precio = Double.parseDouble(jtfPrecioActual.getText());
+                boolean estado = jCheckBox1.isEnabled();
+
+                Producto prod = new Producto(nombre, des, precio, stock, estado);
+
+                ProductoData.IngresarNuevoProducto(prod);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al guardar el Producto");
+            }
+        }
+
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        parentWindow.dispose();
+    }//GEN-LAST:event_jButton1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JSpinner JStock;
+    private javax.swing.JTextField JTDescripcion;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JButton jbActualizar;
-    private javax.swing.JTextField jtfDescripcion;
-    private javax.swing.JTextField jtfIdProducto;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JButton jbNuevo;
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfPrecioActual;
-    private javax.swing.JTextField jtfStock;
     // End of variables declaration//GEN-END:variables
 
-//private void ModificarProducto()    {
-    //int idProducto = jtfIdProducto.setText(jtfIdProducto);
-    //String nombre = jtfNombre.setText(jtfNombre);
-    //String descripcion = jtfDescripcion.setText("");
+    public void ModificarProducto(Producto producto) {
+        jtfNombre.setText(producto.getNombreProducto());
+        JTDescripcion.setText(producto.getDescripcion());
+        jtfPrecioActual.setText(Double.toString(producto.getPrecioActual()));
+        JStock.setValue(producto.getStock());
+        jCheckBox1.setEnabled(producto.isEstado());
+
+        jbNuevo.setText("Modificar");
+
+        ejecutarAccion = false;
+        if (!ejecutarAccion) {
+            jbNuevo.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    producto.setNombreProducto(jtfNombre.getText());
+                    producto.setDescripcion(JTDescripcion.getText());
+                    producto.setPrecioActual(Double.parseDouble(jtfPrecioActual.getText()));
+                    producto.setStock((int) JStock.getValue());
+                    producto.setEstado(jCheckBox1.isEnabled());
+
+                    boolean modificar = ProductoData.ActualizarProducto(producto, producto.getIdProducto());
+
+                    if (modificar) {
+                        System.out.println("Se ejecuto la modificacion");
+                        JOptionPane.showMessageDialog(null, "Se guardo con Modifico con EXITO el Producto" + producto.toString());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Se Produjo un Error al guardar");
+                    }
+
+                }
+            });
+        }
+    }
 }

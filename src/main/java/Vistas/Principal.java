@@ -55,12 +55,6 @@ public class Principal extends javax.swing.JFrame {
         tablero.repaint();
     }
 
-    public static void mostrarFacil() {
-        tablero.removeAll();
-        tablero.add(new facil());
-        tablero.revalidate();
-        tablero.repaint();
-    }
 
     public static void mostrarRealizarVenta(Cliente cliente) {
         tablero.removeAll();

@@ -122,8 +122,8 @@ public abstract class ClienteData extends Conexion {
             System.out.println(res);
             if (res > 0) {
                 return true;
-            }else{
-            return false;
+            } else {
+                return false;
             }
 
         } catch (SQLException e) {
@@ -213,6 +213,37 @@ public abstract class ClienteData extends Conexion {
         }
 
         return clienteBuscado;
+    }
+
+    public static List<Cliente> ClientesPorNombreApellido(String name) {
+        Conectar();
+        List<Cliente> clientes = new ArrayList<>();
+        try {
+            String sql = "select * from `cliente` where Nombre like ? or Apellido like ?";
+            PreparedStatement sqlPD = conn.prepareStatement(sql);
+
+            sqlPD.setString(1, name + "%");
+            sqlPD.setString(2, name + "%");
+
+            ResultSet res = sqlPD.executeQuery();
+
+            while (res.next()) {
+                Cliente cliente = new Cliente();
+
+                cliente.setApellido(res.getString("Apellido"));
+                cliente.setNombre(res.getString("Nombre"));
+                cliente.setDni(res.getInt("DNI"));
+                cliente.setDomiciio(res.getString("Domicilio"));
+                cliente.setTelefono(res.getString("Telefono"));
+                cliente.setIdCliente(Integer.parseInt(res.getString("idCliente")));
+
+                clientes.add(cliente);
+            }
+        } catch (NumberFormatException | SQLException e) {
+            System.out.println("Erro al buscar por dni" + e.getMessage());
+        }
+
+        return clientes;
     }
 
 }

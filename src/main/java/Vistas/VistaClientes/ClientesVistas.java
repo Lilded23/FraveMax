@@ -52,8 +52,6 @@ public class ClientesVistas extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         JTClientes = new javax.swing.JTable();
         jbRealizarVenta = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
 
         setPreferredSize(new java.awt.Dimension(701, 477));
 
@@ -114,10 +112,6 @@ public class ClientesVistas extends javax.swing.JPanel {
             }
         });
 
-        jRadioButton1.setText("jRadioButton1");
-
-        jRadioButton2.setText("jRadioButton2");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,41 +121,33 @@ public class ClientesVistas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbRealizarVenta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
+                        .addGap(69, 69, 69)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton2))
-                            .addComponent(JTBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(JTBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 219, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JTBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JTBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jbRealizarVenta))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jbRealizarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -215,16 +201,27 @@ public class ClientesVistas extends javax.swing.JPanel {
     private void JTBuscarClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTBuscarClienteKeyReleased
         // TODO add your handling code here:
         borrarfilasProd();
-        try {
-            int buscar = Integer.parseInt(JTBuscarCliente.getText());
-            ClienteData.listaClientePorDNI(buscar).forEach(action -> {
-                modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
-            });
-        } catch (NumberFormatException ex) {
-            System.out.println(ex.getMessage());
-            ClienteData.listaCliente().forEach(action -> {
-                modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
-            });
+        String buscar = JTBuscarCliente.getText();
+        if (buscar.matches("^[a-zA-Z0-9]+$")) {
+            try {
+                int buscarDNI = Integer.parseInt(buscar);
+                ClienteData.listaClientePorDNI(buscarDNI).forEach(action -> {
+                    modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
+                });
+            } catch (NumberFormatException ex) {
+                ClienteData.ClientesPorNombreApellido(buscar).forEach(action -> {
+                    modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
+                });
+            }
+        } else {
+            if (buscar.isEmpty()) {
+                ClienteData.listaCliente().forEach(action -> {
+                    modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
+                });
+            }else{
+            JOptionPane.showMessageDialog(null, "Caracter no valido");
+            }
+
         }
 
 
@@ -261,8 +258,8 @@ public class ClientesVistas extends javax.swing.JPanel {
             Cliente cliente = ClienteData.BuscarCliente(idCliente);
             Principal.mostrarRealizarVenta(cliente);
         } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente antes de hacer una venta", 
-                    "Error cliente nulo",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente antes de hacer una venta",
+                    "Error cliente nulo", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jbRealizarVentaActionPerformed
@@ -274,8 +271,6 @@ public class ClientesVistas extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbRealizarVenta;
     // End of variables declaration//GEN-END:variables
