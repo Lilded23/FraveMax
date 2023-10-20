@@ -11,11 +11,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 
 public class ExportPDF {
 
-    public static void exportToPDF(String nombre, String apellido, String dni, String telefono, String domicilio, String total, JTable tabla, String nombreArchivo,String idVenta) {
+    public static void exportToPDF(String nombre, String apellido, String dni, String telefono, String domicilio, String total, JTable tabla, String nombreArchivo, String idVenta) {
         Document document = new Document();
 
         try {
@@ -60,15 +63,18 @@ public class ExportPDF {
     }
 
     private static void abrirPDF(String nombreArchivo) {
-        try {
-            File archivoPDF = new File(nombreArchivo);
-            if (archivoPDF.exists()) {
-                Desktop.getDesktop().open(archivoPDF);
-            } else {
-                System.out.println("El archivo PDF no existe.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        File archivoPDF = new File(nombreArchivo);
+        if (archivoPDF.exists()) {
+            SwingUtilities.invokeLater(() -> {
+                try {
+                    Desktop.getDesktop().open(archivoPDF);
+                } catch (IOException ex) {
+                    Logger.getLogger(ExportPDF.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+
+        } else {
+            System.out.println("El archivo PDF no existe.");
         }
     }
 }
