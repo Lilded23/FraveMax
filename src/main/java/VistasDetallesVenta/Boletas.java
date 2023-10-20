@@ -316,24 +316,27 @@ public class Boletas extends javax.swing.JPanel {
     }
 
     private void proTipMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_proTipMouseClicked
-        // TODO add your handling code here:
-        Thread th = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    int y = proTip.getY();
-                    while (proTip.getX() < 420) {
-                        Thread.sleep((long) 8);
-                        proTip.setLocation(proTip.getX() + 1, y);
-                        repaint();
-                    }
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Boletas.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
 
-        });
-        th.start();
+        if (evt.getClickCount() == 8) {
+            Thread th = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        int y = proTip.getY();
+                        while (proTip.getX() < 420) {
+                            Thread.sleep((long) 8);
+                            proTip.setLocation(proTip.getX() + 1, y);
+                            repaint();
+                        }
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Boletas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+            });
+            th.start();
+        }
+
     }//GEN-LAST:event_proTipMouseClicked
 
     private void tablaVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaVentasMouseClicked

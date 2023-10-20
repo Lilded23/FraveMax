@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 
 public class ExportPDF {
 
-    public static void exportToPDF(String nombre, String apellido, String dni, String telefono, String domicilio, String total, JTable tabla, String nombreArchivo, String idVenta) {
+    public static void exportToPDF(String nombre, String apellido, String dni, String telefono, String domicilio, String total, JTable tabla, String nombreArchivo, String idVenta, String fecha) {
         Document document = new Document();
 
         try {
@@ -31,6 +31,7 @@ public class ExportPDF {
             document.add(new Paragraph("                 Ticket de compra "));
             document.add(new Paragraph("\n"));
             document.add(new Paragraph("                 Numero de venta: " + idVenta));
+            document.add(new Paragraph("                Fecha de venta: " + fecha));
             document.add(new Paragraph("                 - - - - - - - - - - - - - - - - - - - - - - - Datos del Cliente - - - - - - - - - - - - - - - - - - - - - - - "));
             document.add(new Paragraph("\n"));
             document.add(new Paragraph("                 Nombre: " + nombre));

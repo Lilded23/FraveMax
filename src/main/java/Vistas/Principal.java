@@ -57,7 +57,7 @@ public class Principal extends javax.swing.JFrame {
     public static void mostrarBoletas() {
         tablero.removeAll();
         vistaVentas.setVisible(true);
-        tablero.add(vistaVentas);
+        tablero.add(new Boletas());
         tablero.revalidate();
         tablero.repaint();
     }

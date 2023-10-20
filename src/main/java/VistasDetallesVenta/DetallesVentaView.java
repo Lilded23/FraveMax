@@ -308,9 +308,10 @@ public class DetallesVentaView extends javax.swing.JPanel {
         String total = jlTotal.getText();
         String nombreArchivo = apellidoCliente + dniCliente + ".pdf";
         String idVenta = String.valueOf(ventaRealizada.getIdVenta());
+        String fecha = String.valueOf(ventaRealizada.getFechaVenta());
 
         ExportPDF.exportToPDF(nombreCliente, apellidoCliente, dniCliente, telefonoCliente,
-                domicilioCliente, total, jtTablaProd, nombreArchivo, idVenta);
+                domicilioCliente, total, jtTablaProd, nombreArchivo, idVenta, fecha);
     }//GEN-LAST:event_jbImprimirActionPerformed
 
     private void agregarCabecera() {
