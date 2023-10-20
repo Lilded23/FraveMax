@@ -27,7 +27,7 @@ public class NuevoClente extends javax.swing.JPanel {
 
     public NuevoClente(FloatingWindow parentWindow) {
         this.parentWindow = parentWindow;
-        
+
         initComponents();
     }
 
@@ -177,25 +177,83 @@ public class NuevoClente extends javax.swing.JPanel {
         if (ejecutarAccion) {
 
             try {
+                System.out.println("Inicio");
+                String apellido = JTApellido.getText().trim();
+                String nombre = JTName.getText().trim();
+                String domicilio = JTDomicilio.getText().trim();
+                String telefono = JTelefono.getText().trim();
+                String dniString = JTDNI.getText().trim();
 
-                String apellido = JTApellido.getText();
-                String nombre = JTName.getText();
-                String domicilio = JTDomicilio.getText();
-                String telefono = JTelefono.getText();
-                int dni = Integer.parseInt(JTDNI.getText());
+                //Verifiar Datos
+                if (apellido.matches(".*[.,?@].*") || apellido.length() > 50) {
+                    throw new RuntimeException("Apellido mal ingresado");
+                }
+                if (nombre.matches(".*[.,?@].*") || nombre.length() > 50) {
+                    throw new RuntimeException("Nombre mal ingresado");
+                }
+                if (domicilio.matches(".*[.,?@].*") || domicilio.length() < 10 || domicilio.length() > 100) {
+                    throw new RuntimeException("Domicilio mal ingresado");
+                }
 
-                Cliente cliente = new Cliente(apellido, nombre, domicilio, telefono, dni);
+                if (telefono.matches(".*[.,?@].*") || telefono.length() < 8) {
+                    throw new RuntimeException("Telefono mal ingresado");
+                }
+  
+                if (dniString.length() >= 8) {
+                    System.out.println("Validacion de dni");
+                    int dni = Integer.parseInt(dniString);
 
-                ClienteData.crearCliente(cliente);
+                    Cliente cliente = new Cliente(apellido, nombre, domicilio, telefono, dni);
+                    if (!ClienteData.crearCliente(cliente)) {
+                        throw new RuntimeException("Error al guardar en la base de datos verifique que DNI ya se encuentre guardado");
+                    }
+                    JOptionPane.showMessageDialog(null, "Creado el Cliente " + nombre + " " + apellido);
+                    ClientesVistas.borrarfilasProd();
+                    ClientesVistas.cargarDatosClientes();
+                    parentWindow.dispose();
 
-                JOptionPane.showMessageDialog(null, "Creado el Cliente " + nombre + " " + apellido);
+//                    int[] digitos = new int[7];
+//
+//                    //Guardar los 7 primeros digitos
+//                    for (int i = 0; i < 7; i++) {
+//                        digitos[i] = dni % 10;
+//                        dni /= 10;
+//                    }
+//
+//                    //sumar los datos
+//                    int sumaPonderada = 0;
+//                    int peso = 2;
+//
+//                    for (int i = 0; i < 7; i++) {
+//                        System.out.println(digitos[i]);
+//                        sumaPonderada += digitos[i] * peso;
+//                        peso++;
+//                    }
+//                    System.out.println("Resultado " + sumaPonderada);
+//
+//                    //Calcular el modulo de la suma
+//                    int resultado = sumaPonderada % 11;
+//                    System.out.println("Resultado " + resultado);
+//                    if (resultado == 0) {
+//                        Cliente cliente = new Cliente(apellido, nombre, domicilio, telefono, dni);
+//                        System.out.println("Se ejecuto");
+//                        if (!ClienteData.crearCliente(cliente)) {
+//                            throw new RuntimeException("Error al guardar en la base de datos verifique que DNI ya se encuentre guardado");
+//                        }
+//                        JOptionPane.showMessageDialog(null, "Creado el Cliente " + nombre + " " + apellido);
+//                        ClientesVistas.borrarfilasProd();
+//                        ClientesVistas.cargarDatosClientes();
+//                        parentWindow.dispose();
+//                    } else {
+//                        throw new RuntimeException("DNI mal ingresado");
+//                    }
+//
+                }else {
+                    throw  new RuntimeException("Error en el dni");
+                }              
+            } catch (Exception e) {
 
-                ClientesVistas.borrarfilasProd();
-                ClientesVistas.cargarDatosClientes();
-                parentWindow.dispose();
-            } catch (NumberFormatException e) {
-
-                JOptionPane.showMessageDialog(null, "Verifique los datos ingresados");
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
     }//GEN-LAST:event_JBNuevoActionPerformed
@@ -245,18 +303,18 @@ public class NuevoClente extends javax.swing.JPanel {
                     cliente.setTelefono(JTelefono.getText());
 
                     System.out.println(cliente.toString());
-                    
+
                     int id = cliente.getIdCliente();
-                    
+
                     System.out.println("ID: " + id);
-                    
-                    boolean modificar =ClienteData.modifocarCliente(cliente, id);
+
+                    boolean modificar = ClienteData.modifocarCliente(cliente, id);
 
                     if (modificar) {
                         System.out.println("Se ejecuto la modificacion");
-                        JOptionPane.showMessageDialog(null, "Se modifico :" +cliente.toString());
+                        JOptionPane.showMessageDialog(null, "Se modifico :" + cliente.toString());
                         ClientesVistas.cargarDatosClientes();
-                    }else{
+                    } else {
                         System.out.println("No se ejecuto la modifiacion");
                     }
 

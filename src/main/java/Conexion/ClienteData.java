@@ -66,17 +66,17 @@ public abstract class ClienteData extends Conexion {
             sqlPD.setString(4, cliente.getDomiciio());
             sqlPD.setString(5, cliente.getTelefono());
 
-            sqlPD.execute();
-
-            ResultSet res = sqlPD.getGeneratedKeys();
-            if (res.next()) {
-                cliente.setIdCliente(res.getInt(1));
-                return true;
-            } else {
-                System.out.println("Error al generar ID ");
+            int filaMod = sqlPD.executeUpdate();
+            if (filaMod > 0) {
+                ResultSet res = sqlPD.getGeneratedKeys();
+                if (res.next()) {
+                    System.out.println("Se ejecuto");
+                    cliente.setIdCliente(res.getInt(1));
+                    return true;
+                } else {
+                    System.out.println("Error al generar ID ");
+                }
             }
-
-            return true;
         } catch (SQLException e) {
             System.out.println("Error al crear CLIENTE" + e.getMessage());
 
