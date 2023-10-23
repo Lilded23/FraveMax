@@ -33,8 +33,9 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
+        clientesVistas = new ClientesVistas();
+        vistaVentas = new Boletas();
         setLocationRelativeTo(null);
-
     }
 
     public static void cambiar(Component vista) {
@@ -62,11 +63,11 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public static void mostrarListaClientes() {
-            tablero.removeAll();
-            tablero.add(new ClientesVistas());
-            tablero.revalidate();
-            tablero.repaint();
-            }
+        tablero.removeAll();
+        tablero.add(new ClientesVistas());
+        tablero.revalidate();
+        tablero.repaint();
+    }
 
     public static void mostrarListaProductos() {
         tablero.removeAll();
