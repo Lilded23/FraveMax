@@ -7,6 +7,7 @@ package Vistas.VistaClientes;
 import Conexion.ClienteData;
 import Entidades.Cliente;
 import Vistas.FloatingWindow;
+import Vistas.Principal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -52,6 +53,8 @@ public class NuevoClente extends javax.swing.JPanel {
         JTelefono = new javax.swing.JTextField();
         JBNuevo = new javax.swing.JButton();
         JBCerrar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        JTCorreo = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Apellido Cliente");
@@ -94,6 +97,9 @@ public class NuevoClente extends javax.swing.JPanel {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Email");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,26 +108,25 @@ public class NuevoClente extends javax.swing.JPanel {
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addGap(276, 276, 276))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(JTDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(JTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JTDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(JTName, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JTApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(JTCorreo)
+                            .addComponent(JTDNI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JTName, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(JTApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel4)
+                                .addComponent(JTDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(73, 73, 73))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(75, 75, 75)
@@ -145,18 +150,23 @@ public class NuevoClente extends javax.swing.JPanel {
                     .addComponent(JTName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JTApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(JTDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JTDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(JTDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                        .addGap(9, 9, 9)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(JTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(JTDomicilio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                    .addComponent(JTCorreo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JBNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JBCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -175,16 +185,15 @@ public class NuevoClente extends javax.swing.JPanel {
     private void JBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNuevoActionPerformed
         // TODO add your handling code here:
         if (ejecutarAccion) {
-
             try {
-                System.out.println("Inicio");
                 String apellido = JTApellido.getText().trim();
                 String nombre = JTName.getText().trim();
                 String domicilio = JTDomicilio.getText().trim();
                 String telefono = JTelefono.getText().trim();
                 String dniString = JTDNI.getText().trim();
+                String correo = JTCorreo.getText().trim();
 
-                //Verifiar Datos
+                // Verificar Datos
                 if (apellido.matches(".*[.,?@].*") || apellido.length() > 50) {
                     throw new RuntimeException("Apellido mal ingresado");
                 }
@@ -194,24 +203,29 @@ public class NuevoClente extends javax.swing.JPanel {
                 if (domicilio.matches(".*[.,?@].*") || domicilio.length() < 10 || domicilio.length() > 100) {
                     throw new RuntimeException("Domicilio mal ingresado");
                 }
-
                 if (telefono.matches(".*[.,?@].*") || telefono.length() < 8) {
                     throw new RuntimeException("Telefono mal ingresado");
                 }
-  
-                if (dniString.length() >= 8) {
-                    System.out.println("Validacion de dni");
-                    int dni = Integer.parseInt(dniString);
+                if (dniString.length() != 8) {
+                    throw new RuntimeException("DNI debe tener exactamente 8 dígitos");
+                }
 
-                    Cliente cliente = new Cliente(apellido, nombre, domicilio, telefono, dni);
-                    if (!ClienteData.crearCliente(cliente)) {
-                        throw new RuntimeException("Error al guardar en la base de datos verifique que DNI ya se encuentre guardado");
-                    }
-                    JOptionPane.showMessageDialog(null, "Creado el Cliente " + nombre + " " + apellido);
-                    ClientesVistas.borrarfilasProd();
-                    ClientesVistas.cargarDatosClientes();
-                    parentWindow.dispose();
+                int dni = Integer.parseInt(dniString);
 
+                Cliente cliente = new Cliente(apellido, nombre, domicilio, telefono, dni, correo);
+                if (!ClienteData.crearCliente(cliente)) {
+                    Principal.mostrarListaClientes();
+                    throw new RuntimeException("Error al guardar en la base de datos verifique que DNI ya se encuentre guardado");
+                }
+                Principal.mostrarListaClientes();
+                JOptionPane.showMessageDialog(null, "Creado el Cliente " + nombre + " " + apellido);
+                parentWindow.dispose();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error al ingresar el DNI. Asegúrate de ingresar un número válido.");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            }
+        }
 //                    int[] digitos = new int[7];
 //
 //                    //Guardar los 7 primeros digitos
@@ -248,14 +262,7 @@ public class NuevoClente extends javax.swing.JPanel {
 //                        throw new RuntimeException("DNI mal ingresado");
 //                    }
 //
-                }else {
-                    throw  new RuntimeException("Error en el dni");
-                }              
-            } catch (Exception e) {
 
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-        }
     }//GEN-LAST:event_JBNuevoActionPerformed
 
     private void JBCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCerrarActionPerformed
@@ -268,6 +275,7 @@ public class NuevoClente extends javax.swing.JPanel {
     private javax.swing.JButton JBCerrar;
     private javax.swing.JButton JBNuevo;
     private javax.swing.JTextField JTApellido;
+    private javax.swing.JTextField JTCorreo;
     private javax.swing.JTextField JTDNI;
     private javax.swing.JTextField JTDomicilio;
     private javax.swing.JTextField JTName;
@@ -277,6 +285,7 @@ public class NuevoClente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 
     public void Datos(Cliente cliente) {
@@ -285,22 +294,22 @@ public class NuevoClente extends javax.swing.JPanel {
         JTDomicilio.setText(cliente.getDomiciio());
         JTDNI.setText(String.valueOf(cliente.getDni()));
         JTelefono.setText(cliente.getTelefono());
+        JTCorreo.setText(cliente.getCorreo());  // Agregar el campo "correo"
 
         System.out.println(cliente.toString());
 
         JBNuevo.setText("Modificar");
-
         ejecutarAccion = false;
         if (!ejecutarAccion) {
             JBNuevo.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
                     cliente.setNombre(JTName.getText());
                     cliente.setApellido(JTApellido.getText());
                     cliente.setDomiciio(JTDomicilio.getText());
-                    cliente.setDni((Integer.parseInt(JTDNI.getText())));
+                    cliente.setDni(Integer.parseInt(JTDNI.getText()));
                     cliente.setTelefono(JTelefono.getText());
+                    cliente.setCorreo(JTCorreo.getText());
 
                     System.out.println(cliente.toString());
 
@@ -311,17 +320,17 @@ public class NuevoClente extends javax.swing.JPanel {
                     boolean modificar = ClienteData.modifocarCliente(cliente, id);
 
                     if (modificar) {
-                        System.out.println("Se ejecuto la modificacion");
-                        JOptionPane.showMessageDialog(null, "Se modifico :" + cliente.toString());
-                        ClientesVistas.cargarDatosClientes();
+                        Principal.mostrarListaClientes();
+                        System.out.println("Se ejecutó la modificación");
+                        JOptionPane.showMessageDialog(null, "Se modificó: " + cliente.toString());
                     } else {
-                        System.out.println("No se ejecuto la modifiacion");
+                        System.out.println("No se ejecutó la modificación");
                     }
 
                     parentWindow.dispose();
                 }
-
             });
         }
     }
+
 }

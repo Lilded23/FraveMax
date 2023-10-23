@@ -8,7 +8,6 @@ import VistasDetallesVenta.Boletas;
 import Entidades.*;
 
 import Vistas.VistaClientes.ClientesVistas;
-import VistasDetallesVenta.DetallesVentaView;
 import VistasDetallesVenta.RealizarVentaView;
 import VistasProducto.Buscar;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
@@ -31,17 +30,11 @@ public class Principal extends javax.swing.JFrame {
 
     public static ClientesVistas clientesVistas;
     public static Boletas vistaVentas;
-    private static Buscar buscar;
 
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
-//        vistaVentas = new Ventas();
-//        mostrarVentas();
-        clientesVistas = new ClientesVistas();
-        vistaVentas = new Boletas();
-        buscar = new Buscar();
-        mostrarListaClientes();
+
     }
 
     public static void cambiar(Component vista) {
@@ -56,15 +49,7 @@ public class Principal extends javax.swing.JFrame {
 
     public static void mostrarBoletas() {
         tablero.removeAll();
-        vistaVentas.setVisible(true);
         tablero.add(new Boletas());
-        tablero.revalidate();
-        tablero.repaint();
-    }
-
-    public static void mostrarBoletas(Cliente cliente) {
-        tablero.removeAll();
-        tablero.add(new Boletas(cliente));
         tablero.revalidate();
         tablero.repaint();
     }
@@ -77,22 +62,17 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public static void mostrarListaClientes() {
-        if (!ClienteSelect) {
-
             tablero.removeAll();
-            tablero.add(clientesVistas);
+            tablero.add(new ClientesVistas());
             tablero.revalidate();
             tablero.repaint();
-        }
+            }
 
-    }
-
-    private static void mostrarListaProductos() {
+    public static void mostrarListaProductos() {
         tablero.removeAll();
-        tablero.add(buscar);
+        tablero.add(new Buscar());
         tablero.revalidate();
         tablero.repaint();
-
     }
 
     /**
@@ -340,7 +320,6 @@ public class Principal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void setColor(boolean ClienteSelect, boolean ProductoSelect, boolean VentasSelect) {
-
         JLCliente.setBackground(ClienteSelect ? color1 : backgraoundOriginal);
         JLProductos.setBackground(ProductoSelect ? color1 : backgraoundOriginal);
         JLVentas.setBackground(VentasSelect ? color1 : backgraoundOriginal);

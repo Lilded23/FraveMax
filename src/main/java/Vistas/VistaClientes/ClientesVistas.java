@@ -8,7 +8,6 @@ import Conexion.ClienteData;
 import Entidades.Cliente;
 import Vistas.FloatingWindow;
 import Vistas.Principal;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ClientesVistas extends javax.swing.JPanel {
 
-    static DefaultTableModel modelo = new DefaultTableModel() {
+    private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int f, int c) {
             return false;
@@ -165,7 +164,7 @@ public class ClientesVistas extends javax.swing.JPanel {
             System.out.println(idCliente);
 
             // Cliente cliente = ClienteData.BuscarClienteDNI(idCliente);
-            int confDelete = JOptionPane.showConfirmDialog(null, "Seguro que desea Eleminar");
+            int confDelete = JOptionPane.showConfirmDialog(null, "Seguro que desea Eliminar");
 
             if (confDelete == JOptionPane.YES_OPTION) {
                 System.out.println(idCliente);
@@ -199,31 +198,28 @@ public class ClientesVistas extends javax.swing.JPanel {
     }//GEN-LAST:event_JTBuscarClienteKeyPressed
 
     private void JTBuscarClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTBuscarClienteKeyReleased
-        // TODO add your handling code here:
         borrarfilasProd();
         String buscar = JTBuscarCliente.getText();
         if (buscar.matches("^[a-zA-Z0-9]+$")) {
             try {
                 int buscarDNI = Integer.parseInt(buscar);
                 ClienteData.listaClientePorDNI(buscarDNI).forEach(action -> {
-                    modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
+                    modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono(), action.getCorreo()});
                 });
             } catch (NumberFormatException ex) {
                 ClienteData.ClientesPorNombreApellido(buscar).forEach(action -> {
-                    modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
+                    modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono(), action.getCorreo()});
                 });
             }
         } else {
             if (buscar.isEmpty()) {
                 ClienteData.listaCliente().forEach(action -> {
-                    modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
+                    modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono(), action.getCorreo()});
                 });
-            }else{
-            JOptionPane.showMessageDialog(null, "Caracter no valido");
+            } else {
+                JOptionPane.showMessageDialog(null, "Caracter no válido");
             }
-
         }
-
 
     }//GEN-LAST:event_JTBuscarClienteKeyReleased
 
@@ -235,8 +231,9 @@ public class ClientesVistas extends javax.swing.JPanel {
         String domicilio = JTClientes.getValueAt(JTClientes.getSelectedRow(), 4).toString();
         int dni = (int) JTClientes.getValueAt(JTClientes.getSelectedRow(), 3);
         String telefono = JTClientes.getValueAt(JTClientes.getSelectedRow(), 5).toString();
+        String email = JTClientes.getValueAt(JTClientes.getSelectedRow(), 6).toString();
 
-        Cliente cliente = new Cliente(id, apellido, nombre, domicilio, telefono, dni);
+        Cliente cliente = new Cliente(id, apellido, nombre, domicilio, telefono, dni, email);
         if (evt.getClickCount() >= 2) {
             System.out.println(nombre + " " + apellido + " " + " " + domicilio + " " + dni + " " + telefono);
             SwingUtilities.invokeLater(() -> {
@@ -282,20 +279,20 @@ public class ClientesVistas extends javax.swing.JPanel {
         modelo.addColumn("D.N.I");
         modelo.addColumn("Domicilio");
         modelo.addColumn("Telefono");
+        modelo.addColumn("Correo");
 
         JTClientes.setModel(modelo);
 
     }
 
-    public static void cargarDatosClientes() {
+    public void cargarDatosClientes() {
         borrarfilasProd();
         ClienteData.listaCliente().forEach(action -> {
-            modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono()});
+            modelo.addRow(new Object[]{action.getIdCliente(), action.getNombre(), action.getApellido(), action.getDni(), action.getDomiciio(), action.getTelefono(), action.getCorreo()});
         });
-
     }
 
-    public static void borrarfilasProd() {
+    public void borrarfilasProd() {
         int f = modelo.getRowCount() - 1;
 
         for (int i = f; i >= 0; i--) {

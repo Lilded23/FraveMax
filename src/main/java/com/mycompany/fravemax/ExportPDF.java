@@ -1,5 +1,6 @@
 package com.mycompany.fravemax;
 
+import Entidades.Venta;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -18,7 +19,7 @@ import javax.swing.SwingUtilities;
 
 public class ExportPDF {
 
-    public static void exportToPDF(String nombre, String apellido, String dni, String telefono, String domicilio, String total, JTable tabla, String nombreArchivo, String idVenta, String fecha) {
+    public static void exportToPDF(JTable tabla, String nombreArchivo, Venta venta, String total) {
         Document document = new Document();
 
         try {
@@ -30,15 +31,15 @@ public class ExportPDF {
             document.add(new Paragraph("\n"));
             document.add(new Paragraph("                 Ticket de compra "));
             document.add(new Paragraph("\n"));
-            document.add(new Paragraph("                 Numero de venta: " + idVenta));
-            document.add(new Paragraph("                Fecha de venta: " + fecha));
+            document.add(new Paragraph("                 Numero de venta: " + venta.getIdVenta()));
+            document.add(new Paragraph("                 Fecha de venta: " + venta.getFechaVenta()));
             document.add(new Paragraph("                 - - - - - - - - - - - - - - - - - - - - - - - Datos del Cliente - - - - - - - - - - - - - - - - - - - - - - - "));
             document.add(new Paragraph("\n"));
-            document.add(new Paragraph("                 Nombre: " + nombre));
-            document.add(new Paragraph("                 Apellido: " + apellido));
-            document.add(new Paragraph("                 DNI: " + dni));
-            document.add(new Paragraph("                 Teléfono: " + telefono));
-            document.add(new Paragraph("                 Domicilio: " + domicilio));
+            document.add(new Paragraph("                 Nombre: " + venta.getCliente().getNombre()));
+            document.add(new Paragraph("                 Apellido: " + venta.getCliente().getApellido()));
+            document.add(new Paragraph("                 DNI: " + venta.getCliente().getDni()));
+            document.add(new Paragraph("                 Teléfono: " + venta.getCliente().getTelefono()));
+            document.add(new Paragraph("                 Domicilio: " + venta.getCliente().getDomiciio()));
             document.add(new Paragraph("\n"));
 
             // Agregar los datos de la tabla al PDF
@@ -54,8 +55,7 @@ public class ExportPDF {
                 }
             }
             document.add(pdfTable);
-            document.add(new Paragraph("                                                                                                            TOTAL : $" + total));
-            abrirPDF(nombreArchivo);
+            document.add(new Paragraph("                                                                                                            TOTAL : $" + total));         
         } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         } finally {
@@ -63,7 +63,7 @@ public class ExportPDF {
         }
     }
 
-    private static void abrirPDF(String nombreArchivo) {
+    public static void abrirPDF(String nombreArchivo) {
         File archivoPDF = new File(nombreArchivo);
         if (archivoPDF.exists()) {
             SwingUtilities.invokeLater(() -> {

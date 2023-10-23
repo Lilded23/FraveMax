@@ -165,5 +165,18 @@ public abstract class ProductoData extends Conexion {
             return false;
         }
     }
-
+    
+//        public static boolean borrarProducto(int idProducto) {
+//        String sql = "update producto set estado=0 WHERE idProducto = ?";
+//        try {
+//            PreparedStatement sqlPD = conn.prepareStatement(sql);
+//            sqlPD.setInt(1, idProducto);
+//            int filaBorrada = sqlPD.executeUpdate();
+//            return filaBorrada > 0;
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return false;
+//    }
 }

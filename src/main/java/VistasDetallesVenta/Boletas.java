@@ -35,15 +35,6 @@ public class Boletas extends javax.swing.JPanel {
         configurarComboBox();
     }
 
-    public Boletas(Cliente cliente) {
-        initComponents();
-        today = LocalDate.now();
-        campoFechaA.setText(today.withDayOfMonth(1).toString());
-        campoFechaB.setText(today.toString());
-        configurarComboBox();
-        clientesComboBox.setSelectedItem(cliente);
-    }
-
     private void configurarTabla() {
         try {
             var modeloTabla = new DefaultTableModel(
@@ -77,7 +68,6 @@ public class Boletas extends javax.swing.JPanel {
             var param = campoDNI.getText().toLowerCase();
             var key = param.replaceAll("[\\d]", "");
             var val = param.replaceAll("[\\D]", "");
-
             var listaClientes = ClienteData.listaCliente();
             var modeloClientesCB = new DefaultComboBoxModel<Cliente>();
             modeloClientesCB.addAll(listaClientes);
@@ -91,6 +81,9 @@ public class Boletas extends javax.swing.JPanel {
                         clientesComboBox.getModel().setSelectedItem(cliente);
                         break;
                     }
+                } else if (param.isBlank()) {
+                    clientesComboBox.setSelectedItem(null);
+                    break;
                 } else {
                     String dniCliente = String.valueOf(cliente.getDni());
                     if (dniCliente.startsWith(val)) {
@@ -99,6 +92,7 @@ public class Boletas extends javax.swing.JPanel {
                     }
                 }
             }
+
             configurarTabla();
 
         } catch (Exception ex) {
@@ -150,6 +144,11 @@ public class Boletas extends javax.swing.JPanel {
         fechaLabel2.setText("hasta");
 
         campoFechaB.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        campoFechaB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoFechaBActionPerformed(evt);
+            }
+        });
 
         tablaVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -280,7 +279,7 @@ public class Boletas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoFechaAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoFechaAActionPerformed
-        // TODO add your handling code here:
+        configurarTabla();
     }//GEN-LAST:event_campoFechaAActionPerformed
 
     private void campoDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDNIActionPerformed
@@ -345,6 +344,10 @@ public class Boletas extends javax.swing.JPanel {
             actionDetalle();
         }
     }//GEN-LAST:event_tablaVentasMouseClicked
+
+    private void campoFechaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoFechaBActionPerformed
+        configurarTabla();
+    }//GEN-LAST:event_campoFechaBActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

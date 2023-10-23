@@ -15,13 +15,33 @@ public class Cliente {
     private String domiciio;
     private String telefono;
     private int dni;
+    private String correo;
 
-    public Cliente(String apellido, String nombre, String domiciio, String telefono , int dni) {
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String email) {
+        this.correo = email;
+    }
+
+    public Cliente(String apellido, String nombre, String domiciio, String telefono , int dni,String correo) {
         this.apellido = apellido;
         this.nombre = nombre;
         this.domiciio = domiciio;
         this.telefono = telefono;
         this.dni= dni;
+        this.correo=correo;
+    }
+
+    public Cliente(int idCliente, String apellido, String nombre, String domiciio, String telefono, int dni, String email) {
+        this.idCliente = idCliente;
+        this.apellido = apellido;
+        this.nombre = nombre;
+        this.domiciio = domiciio;
+        this.telefono = telefono;
+        this.dni = dni;
+        this.correo = email;
     }
 
     public int getDni() {
@@ -88,6 +108,5 @@ public class Cliente {
     public String toString() {
         return idCliente+ " " + apellido  +" "+  nombre +" "+  dni + " " + domiciio + " "+ telefono;
     }
-    
     
 }

@@ -455,6 +455,10 @@ public final class RealizarVentaView extends javax.swing.JPanel {
     }//GEN-LAST:event_jsCantidadStateChanged
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
+        btnAgrega();
+    }//GEN-LAST:event_jbAgregarActionPerformed
+
+    private void btnAgrega() {
         int cantidad = (int) jsCantidad.getValue();
         Producto productoSeleccionado = buscaProd();
         boolean conStock = actualizarStock(true, productoSeleccionado, cantidad);
@@ -469,13 +473,11 @@ public final class RealizarVentaView extends javax.swing.JPanel {
                 dv.getCantidad(),
                 "$ " + dv.getCantidad() * productoSeleccionado.getPrecioActual(),});
             jlTotal.setText(String.valueOf(total));
-
             cargarListaProd();
             jtNombreProd.setText("");
             jsCantidad.setValue(1);
         }
-    }//GEN-LAST:event_jbAgregarActionPerformed
-
+    }
     private void jbFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFinActionPerformed
         if (jtTablaDetalles.getRowCount() == 0) {
             VentaData.eliminarVenta(venta.getIdVenta());
@@ -553,11 +555,18 @@ public final class RealizarVentaView extends javax.swing.JPanel {
     }//GEN-LAST:event_jtTablaProdAncestorAdded
 
     private void jtTablaProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTablaProdMouseClicked
-        int fila = jtTablaProd.getSelectedRow();
-        String nombre = (String) jtTablaProd.getValueAt(fila, 1);
-        String descripcion = (String) jtTablaProd.getValueAt(fila, 2);
-        jlProducto.setText(nombre);
-        jlDescripcion.setText(descripcion);    }//GEN-LAST:event_jtTablaProdMouseClicked
+        if (evt.getClickCount() == 2) {
+            btnAgrega();
+        } else {
+            int fila = jtTablaProd.getSelectedRow();
+            String nombre = (String) jtTablaProd.getValueAt(fila, 1);
+            String descripcion = (String) jtTablaProd.getValueAt(fila, 2);
+            jlProducto.setText(nombre);
+            jlDescripcion.setText(descripcion);
+        }
+
+
+    }//GEN-LAST:event_jtTablaProdMouseClicked
 
     private void listaProductos() {
         if (listaProd.isEmpty()) {

@@ -4,13 +4,17 @@
  */
 package VistasDetallesVenta;
 
+import Conexion.ClienteData;
 import com.mycompany.fravemax.ExportPDF;
 import Conexion.DetalleVentaData;
 import Entidades.Venta;
 import Entidades.detalleVenta;
 import Vistas.Principal;
+import com.mycompany.fravemax.EnviarTicket;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -44,6 +48,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
         jlDni.setText(String.valueOf(ventaRealizada.getCliente().getDni()));
         jlTel.setText(ventaRealizada.getCliente().getTelefono());
         jlDom.setText(ventaRealizada.getCliente().getDomiciio());
+        jlCorreo.setText(ventaRealizada.getCliente().getCorreo());
     }
 
     private void cargarListaProd() {
@@ -83,6 +88,8 @@ public class DetallesVentaView extends javax.swing.JPanel {
         jlDni = new javax.swing.JLabel();
         jlDom = new javax.swing.JLabel();
         jpIconUser = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jlCorreo = new javax.swing.JLabel();
         PanelProductos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTablaProd = new javax.swing.JTable();
@@ -90,6 +97,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
         jlTotal = new javax.swing.JLabel();
         jbSalir = new javax.swing.JButton();
         jbImprimir = new javax.swing.JButton();
+        jbEnviarCorreo = new javax.swing.JButton();
 
         PanelDatosCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 18))); // NOI18N
 
@@ -125,6 +133,12 @@ public class DetallesVentaView extends javax.swing.JPanel {
 
         jpIconUser.setLayout(new java.awt.BorderLayout());
 
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel8.setText("Correo:");
+
+        jlCorreo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jlCorreo.setText("Correo");
+
         javax.swing.GroupLayout PanelDatosClienteLayout = new javax.swing.GroupLayout(PanelDatosCliente);
         PanelDatosCliente.setLayout(PanelDatosClienteLayout);
         PanelDatosClienteLayout.setHorizontalGroup(
@@ -132,6 +146,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
             .addGroup(PanelDatosClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -150,7 +165,8 @@ public class DetallesVentaView extends javax.swing.JPanel {
                     .addGroup(PanelDatosClienteLayout.createSequentialGroup()
                         .addGroup(PanelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlTel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlDom, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jlDom, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         PanelDatosClienteLayout.setVerticalGroup(
@@ -176,7 +192,11 @@ public class DetallesVentaView extends javax.swing.JPanel {
                 .addGroup(PanelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jlDom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(PanelDatosClienteLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jpIconUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,7 +244,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
             PanelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelProductosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -246,20 +266,29 @@ public class DetallesVentaView extends javax.swing.JPanel {
             }
         });
 
+        jbEnviarCorreo.setText("Enviar Correo");
+        jbEnviarCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEnviarCorreoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DetallesLayout = new javax.swing.GroupLayout(Detalles);
         Detalles.setLayout(DetallesLayout);
         DetallesLayout.setHorizontalGroup(
             DetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelProductos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(DetallesLayout.createSequentialGroup()
-                .addGroup(DetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DetallesLayout.createSequentialGroup()
-                        .addGap(443, 443, 443)
-                        .addComponent(jbSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(PanelDatosCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(PanelDatosCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(DetallesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(347, 347, 347)
+                .addComponent(jbEnviarCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jbImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12))
         );
         DetallesLayout.setVerticalGroup(
             DetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,7 +300,8 @@ public class DetallesVentaView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbImprimir)
-                    .addComponent(jbSalir))
+                    .addComponent(jbSalir)
+                    .addComponent(jbEnviarCorreo))
                 .addContainerGap())
         );
 
@@ -288,31 +318,49 @@ public class DetallesVentaView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-//        if (Principal.ClienteSelect) {
-//            this.setVisible(false);
-//            Principal.ClienteSelect = false;
-//            Principal.mostrarListaClientes();
-//        } else {
-//            Principal.mostrarBoletas();
-//        }
-        Principal.cambiar(Principal.anterior);
-
+        Principal.mostrarListaClientes();
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImprimirActionPerformed
-        String nombreCliente = jlNombre.getText();
+        String nombreArchivo = CrearPDF();
+        String total = jlTotal.getText();
+        ExportPDF.abrirPDF(nombreArchivo);
+    }//GEN-LAST:event_jbImprimirActionPerformed
+
+    private void jbEnviarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEnviarCorreoActionPerformed
+        String correoCliente = ventaRealizada.getCliente().getCorreo();
+        if (correoCliente.isEmpty()) {
+            int response = JOptionPane.showConfirmDialog(null, "El cliente no tiene un correo registrado. ¿Desea agregar un correo para recibir el ticket?", "Agregar Correo", JOptionPane.YES_NO_OPTION);
+            if (response == JOptionPane.YES_OPTION) {
+                String nuevoCorreo = JOptionPane.showInputDialog("Por favor, ingrese el correo del cliente:");
+                if (nuevoCorreo != null) {  // El usuario ingresó un correo
+                    String nombreArchivo = CrearPDF();
+                    EnviarTicket.crearEmail(nuevoCorreo, new File(nombreArchivo), nombreArchivo, ventaRealizada);
+                    boolean envioCorrecto = EnviarTicket.sendEmail();
+                    if (envioCorrecto) {
+                        int idCliente = ventaRealizada.getCliente().getIdCliente();
+                        ClienteData.agregaCorreo(nuevoCorreo, idCliente);
+                        jlCorreo.setText(nuevoCorreo);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se ingresó un correo. No se enviará el ticket.");
+                }
+            }
+        } else {
+            String nombreArchivo = CrearPDF();
+            EnviarTicket.crearEmail(correoCliente, new File(nombreArchivo), nombreArchivo, ventaRealizada);
+            EnviarTicket.sendEmail();
+        }
+    }//GEN-LAST:event_jbEnviarCorreoActionPerformed
+
+    private String CrearPDF() {
         String apellidoCliente = jlApellido.getText();
         String dniCliente = jlDni.getText();
-        String telefonoCliente = jlTel.getText();
-        String domicilioCliente = jlDom.getText();
         String total = jlTotal.getText();
         String nombreArchivo = apellidoCliente + dniCliente + ".pdf";
-        String idVenta = String.valueOf(ventaRealizada.getIdVenta());
-        String fecha = String.valueOf(ventaRealizada.getFechaVenta());
-
-        ExportPDF.exportToPDF(nombreCliente, apellidoCliente, dniCliente, telefonoCliente,
-                domicilioCliente, total, jtTablaProd, nombreArchivo, idVenta, fecha);
-    }//GEN-LAST:event_jbImprimirActionPerformed
+        ExportPDF.exportToPDF(jtTablaProd, nombreArchivo, ventaRealizada, total);
+        return nombreArchivo;
+    }
 
     private void agregarCabecera() {
         modelo.addColumn("Nombre del Producto");
@@ -342,11 +390,14 @@ public class DetallesVentaView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbEnviarCorreo;
     private javax.swing.JButton jbImprimir;
     private javax.swing.JButton jbSalir;
     private javax.swing.JLabel jlApellido;
+    private javax.swing.JLabel jlCorreo;
     private javax.swing.JLabel jlDni;
     private javax.swing.JLabel jlDom;
     private javax.swing.JLabel jlNombre;
