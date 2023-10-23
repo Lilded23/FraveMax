@@ -491,8 +491,9 @@ public final class RealizarVentaView extends javax.swing.JPanel {
                     "Confirmacion de la venta",
                     "Confirmación", JOptionPane.OK_CANCEL_OPTION);
             if (respuesta == JOptionPane.OK_OPTION) {
-                Principal.anterior = Principal.clientesVistas;
+                
                 Principal.cambiar(new DetallesVentaView(venta));
+                Principal.anterior = Principal.clientesVistas;
             }
         }
     }//GEN-LAST:event_jbFinActionPerformed

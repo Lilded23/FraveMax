@@ -319,7 +319,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
         
-        Principal.cambiar(Principal.clientesVistas);
+        Principal.cambiar(Principal.anterior);
     }//GEN-LAST:event_jbVolverActionPerformed
 
     private void jbImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImprimirActionPerformed
