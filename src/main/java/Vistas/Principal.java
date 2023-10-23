@@ -206,7 +206,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void JLVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLVentasMouseClicked
         // TODO add your handling code here:
-
         mostrarBoletas();
         ClienteSelect = false;
         ProductosSelect = false;

@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Buscar extends javax.swing.JPanel {
 
-    private static DefaultTableModel modelo = new DefaultTableModel() {
+    private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int f, int c) {
             return false;
@@ -91,6 +91,11 @@ public class Buscar extends javax.swing.JPanel {
         jbEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbEliminarMouseClicked(evt);
+            }
+        });
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
             }
         });
 
@@ -216,6 +221,10 @@ public class Buscar extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jbEliminarMouseClicked
 
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -237,7 +246,7 @@ public class Buscar extends javax.swing.JPanel {
         jtProductos.setModel(modelo);
     }
 
-    public static void cargarProductos() {
+    public void cargarProductos() {
         borrarfilasProd();
         ProductoData.listaProducto().forEach(producto -> {
             String estado = producto.isEstado() ? "Disponible" : "No Disponible";
@@ -245,7 +254,7 @@ public class Buscar extends javax.swing.JPanel {
         });
     }
 
-    public static void borrarfilasProd() {
+    public void borrarfilasProd() {
         int f = modelo.getRowCount() - 1;
 
         for (int i = f; i >= 0; i--) {

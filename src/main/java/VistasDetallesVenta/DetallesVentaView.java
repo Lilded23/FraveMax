@@ -95,7 +95,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
         jtTablaProd = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jlTotal = new javax.swing.JLabel();
-        jbSalir = new javax.swing.JButton();
+        jbVolver = new javax.swing.JButton();
         jbImprimir = new javax.swing.JButton();
         jbEnviarCorreo = new javax.swing.JButton();
 
@@ -252,10 +252,10 @@ public class DetallesVentaView extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jbSalir.setText("Volver");
-        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+        jbVolver.setText("Volver");
+        jbVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalirActionPerformed(evt);
+                jbVolverActionPerformed(evt);
             }
         });
 
@@ -283,7 +283,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(DetallesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jbSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(347, 347, 347)
                 .addComponent(jbEnviarCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -300,7 +300,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbImprimir)
-                    .addComponent(jbSalir)
+                    .addComponent(jbVolver)
                     .addComponent(jbEnviarCorreo))
                 .addContainerGap())
         );
@@ -317,9 +317,9 @@ public class DetallesVentaView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        Principal.mostrarListaClientes();
-    }//GEN-LAST:event_jbSalirActionPerformed
+    private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
+        Principal.cambiar(Principal.anterior);
+    }//GEN-LAST:event_jbVolverActionPerformed
 
     private void jbImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImprimirActionPerformed
         String nombreArchivo = CrearPDF();
@@ -395,7 +395,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbEnviarCorreo;
     private javax.swing.JButton jbImprimir;
-    private javax.swing.JButton jbSalir;
+    private javax.swing.JButton jbVolver;
     private javax.swing.JLabel jlApellido;
     private javax.swing.JLabel jlCorreo;
     private javax.swing.JLabel jlDni;
