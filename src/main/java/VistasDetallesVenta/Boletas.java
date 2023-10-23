@@ -45,7 +45,7 @@ public class Boletas extends javax.swing.JPanel {
             var cliente = (Cliente) clientesComboBox.getSelectedItem();
             var lista = cliente != null
                     ? VentaData.buscarVentas(cliente, fecha, fechaB)
-                    : VentaData.listarVentas();
+                    : VentaData.buscarVentas(fecha, fechaB);
 
             Collections.reverse(lista);
             lista.forEach((Venta venta) -> {
