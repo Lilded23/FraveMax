@@ -253,7 +253,9 @@ public class ClientesVistas extends javax.swing.JPanel {
         if (fila != -1) {
             int idCliente = (int) JTClientes.getValueAt(fila, 0);
             Cliente cliente = ClienteData.BuscarCliente(idCliente);
+            Principal.anterior = Principal.clientesVistas;
             Principal.mostrarRealizarVenta(cliente);
+            
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente antes de hacer una venta",
                     "Error cliente nulo", JOptionPane.ERROR_MESSAGE);
