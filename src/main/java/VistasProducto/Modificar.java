@@ -7,6 +7,7 @@ package VistasProducto;
 import Conexion.ProductoData;
 import Entidades.Producto;
 import Vistas.FloatingWindow;
+import Vistas.Principal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -194,9 +195,7 @@ public class Modificar extends javax.swing.JPanel {
                 ProductoData.IngresarNuevoProducto(prod);
 
                 JOptionPane.showMessageDialog(null, "Nuevo producto agregado EXITOSAMENTE");
-                
-                Buscar.cargarProductos();
-
+                Principal.mostrarListaProductos();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al guardar el Producto");
                 e.printStackTrace();
@@ -247,11 +246,11 @@ public class Modificar extends javax.swing.JPanel {
 
                     if (modificar) {
                         System.out.println("Se ejecuto la modificacion");
+                        Principal.mostrarListaProductos();
                         JOptionPane.showMessageDialog(null, "Se guardo con Modifico con EXITO el Producto" + producto.toString());
-                        Buscar.cargarProductos();
                         parentWindow.dispose();
-
                     } else {
+                        Principal.mostrarListaProductos();
                         JOptionPane.showMessageDialog(null, "Se Produjo un Error al guardar");
                     }
                 }

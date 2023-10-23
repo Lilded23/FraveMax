@@ -38,7 +38,7 @@
               </Group>
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jbSalir" max="32767" attributes="0"/>
+                  <Component id="jbVolver" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="347" max="-2" attributes="0"/>
                   <Component id="jbEnviarCorreo" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -57,7 +57,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jbImprimir" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jbSalir" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbVolver" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbEnviarCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -345,12 +345,12 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jbSalir">
+        <Component class="javax.swing.JButton" name="jbVolver">
           <Properties>
             <Property name="text" type="java.lang.String" value="Volver"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbSalirActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbVolverActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbImprimir">
