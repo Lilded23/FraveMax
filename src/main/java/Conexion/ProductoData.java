@@ -113,8 +113,9 @@ public abstract class ProductoData extends Conexion {
         } catch (Exception e) {
             System.out.println("Error al modificar PRODUCTO " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
-        return false;
+
     }
 
     public static Producto buscarPorId(int idProd) {
@@ -165,7 +166,7 @@ public abstract class ProductoData extends Conexion {
             return false;
         }
     }
-    
+
 //        public static boolean borrarProducto(int idProducto) {
 //        String sql = "update producto set estado=0 WHERE idProducto = ?";
 //        try {
