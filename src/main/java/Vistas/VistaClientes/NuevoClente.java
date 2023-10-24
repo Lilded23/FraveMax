@@ -301,36 +301,71 @@ public class NuevoClente extends javax.swing.JPanel {
         JBNuevo.setText("Modificar");
         ejecutarAccion = false;
         if (!ejecutarAccion) {
-            JBNuevo.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    cliente.setNombre(JTName.getText());
-                    cliente.setApellido(JTApellido.getText());
-                    cliente.setDomiciio(JTDomicilio.getText());
-                    cliente.setDni(Integer.parseInt(JTDNI.getText()));
-                    cliente.setTelefono(JTelefono.getText());
-                    cliente.setCorreo(JTCorreo.getText());
+            try {
+                JBNuevo.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            String apellido = JTApellido.getText().trim();
+                            String nombre = JTName.getText().trim();
+                            String domicilio = JTDomicilio.getText().trim();
+                            String telefono = JTelefono.getText().trim();
+                            String dniString = JTDNI.getText().trim();
+                            String correo = JTCorreo.getText().trim();
 
-                    System.out.println(cliente.toString());
+                            // Verificar Datos
+                            if (apellido.matches(".*[.,?@].*") || apellido.length() > 50) {
+                                throw new RuntimeException("Apellido mal ingresado");
+                            }
+                            if (nombre.matches(".*[.,?@].*") || nombre.length() > 50) {
+                                throw new RuntimeException("Nombre mal ingresado");
+                            }
+                            if (domicilio.matches(".*[.,?@].*") || domicilio.length() < 10 || domicilio.length() > 100) {
+                                throw new RuntimeException("Domicilio mal ingresado");
+                            }
+                            if (telefono.matches(".*[.,?@].*") || telefono.length() < 8) {
+                                throw new RuntimeException("Telefono mal ingresado");
+                            }
+                            if (dniString.length() != 8) {
+                                throw new RuntimeException("DNI debe tener exactamente 8 dígitos");
+                            }
 
-                    int id = cliente.getIdCliente();
+                            int dni = Integer.parseInt(dniString);
 
-                    System.out.println("ID: " + id);
+                            cliente.setNombre(nombre);
+                            cliente.setApellido(apellido);
+                            cliente.setDomiciio(domicilio);
+                            cliente.setDni(dni);
+                            cliente.setTelefono(telefono);
+                            cliente.setCorreo(correo);
 
-                    boolean modificar = ClienteData.modifocarCliente(cliente, id);
+                            System.out.println(cliente.toString());
 
-                    if (modificar) {
-                        Principal.mostrarListaClientes();
-                        System.out.println("Se ejecutó la modificación");
-                        JOptionPane.showMessageDialog(null, "Se modificó: " + cliente.toString());
-                    } else {
-                        System.out.println("No se ejecutó la modificación");
+                            int id = cliente.getIdCliente();
+
+                            System.out.println("ID: " + id);
+
+                            boolean modificar = ClienteData.modifocarCliente(cliente, id);
+
+                            if (modificar) {
+                                Principal.mostrarListaClientes();
+                                System.out.println("Se ejecutó la modificación");
+                                JOptionPane.showMessageDialog(null, "Se modificó: " + cliente.toString());
+                            } else {
+                                System.out.println("No se ejecutó la modificación");
+                            }
+
+                            parentWindow.dispose();
+                        } catch (RuntimeException ex) {
+                            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                        }
                     }
-
-                    parentWindow.dispose();
-                }
-            });
+                });
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         }
+
     }
 
 }

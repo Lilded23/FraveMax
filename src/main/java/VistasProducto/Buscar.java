@@ -205,7 +205,8 @@ public class Buscar extends javax.swing.JPanel {
 
             System.out.println(idProducto);
 
-            int res = JOptionPane.showConfirmDialog(null, "Desea eliminar este producto");
+            int res = JOptionPane.showConfirmDialog(null, "Desea eliminar este producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
 
             if (JOptionPane.YES_OPTION == res) {
                 if (ProductoData.borrarProducto(idProducto)) {

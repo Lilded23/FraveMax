@@ -190,6 +190,10 @@ public class Modificar extends javax.swing.JPanel {
                 double precio = Double.parseDouble(jtfPrecioActual.getText());
                 boolean estado = jCheckBox1.isSelected();
 
+                if (nombre.matches(".*[.,?@].*")) {
+                    throw new RuntimeException("Error al ingresar el producto");
+                }
+
                 Producto prod = new Producto(nombre, des, precio, stock, estado);
 
                 ProductoData.IngresarNuevoProducto(prod);
@@ -231,30 +235,40 @@ public class Modificar extends javax.swing.JPanel {
 
         ejecutarAccion = false;
         if (!ejecutarAccion) {
-            jbNuevo.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    producto.setNombreProducto(jtfNombre.getText());
-                    producto.setDescripcion(JTDescripcion.getText());
-                    producto.setPrecioActual(Double.parseDouble(jtfPrecioActual.getText()));
-                    producto.setStock((int) JStock.getValue());
-                    producto.setEstado(jCheckBox1.isSelected());
 
-                    System.out.println(JStock.getValue());
+            try {
+                jbNuevo.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (jtfNombre.getText().matches(".*[.,?@].*")) {
+                            throw new RuntimeException("Error al ingresar el producto");
+                        }
 
-                    boolean modificar = ProductoData.ActualizarProducto(producto, producto.getIdProducto());
+                        producto.setNombreProducto(jtfNombre.getText());
+                        producto.setDescripcion(JTDescripcion.getText());
+                        producto.setPrecioActual(Double.parseDouble(jtfPrecioActual.getText()));
+                        producto.setStock((int) JStock.getValue());
+                        producto.setEstado(jCheckBox1.isSelected());
 
-                    if (modificar) {
-                        System.out.println("Se ejecuto la modificacion");
-                        Principal.mostrarListaProductos();
-                        JOptionPane.showMessageDialog(null, "Se guardo con Modifico con EXITO el Producto" + producto.toString());
-                        parentWindow.dispose();
-                    } else {
-                        Principal.mostrarListaProductos();
-                        JOptionPane.showMessageDialog(null, "Se Produjo un Error al guardar");
+                        System.out.println(JStock.getValue());
+
+                        boolean modificar = ProductoData.ActualizarProducto(producto, producto.getIdProducto());
+
+                        if (modificar) {
+                            System.out.println("Se ejecuto la modificacion");
+                            Principal.mostrarListaProductos();
+                            JOptionPane.showMessageDialog(null, "Se guardo con Modifico con EXITO el Producto" + producto.toString());
+                            parentWindow.dispose();
+                        } else {
+                            Principal.mostrarListaProductos();
+                            JOptionPane.showMessageDialog(null, "Se Produjo un Error al guardar");
+                        }
                     }
-                }
-            });
+                });
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                e.printStackTrace();
+            }
         }
         ejecutarAccion = false;
     }
