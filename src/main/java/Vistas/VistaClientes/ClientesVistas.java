@@ -72,7 +72,7 @@ public class ClientesVistas extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(204, 0, 0));
+        jButton1.setBackground(new java.awt.Color(153, 0, 0));
         jButton1.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jButton1.setText("Eliminar");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -112,7 +112,7 @@ public class ClientesVistas extends javax.swing.JPanel {
 
         jbRealizarVenta.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.background"));
         jbRealizarVenta.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
-        jbRealizarVenta.setText("Realizar Venta");
+        jbRealizarVenta.setText("Nueva venta");
         jbRealizarVenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbRealizarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,13 +193,7 @@ public class ClientesVistas extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(() -> {
-            FloatingWindow floatingWindow = new FloatingWindow();
-            NuevoClente cliente = new NuevoClente(floatingWindow);
-            floatingWindow.add(cliente);
-            floatingWindow.repaint();
-            floatingWindow.setVisible(true);
-        });
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void JTBuscarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTBuscarClienteKeyPressed
@@ -234,6 +228,23 @@ public class ClientesVistas extends javax.swing.JPanel {
 
     private void JTClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTClientesMouseClicked
         // TODO add your handling code here:
+//        preguntale_a_david(evt);
+        if (evt.getClickCount() == 2)
+            realizarVenta();
+    }//GEN-LAST:event_JTClientesMouseClicked
+    public void realizarVenta() {
+        int fila = JTClientes.getSelectedRow();
+        if (fila != -1) {
+            int idCliente = (int) JTClientes.getValueAt(fila, 0);
+            Cliente cliente = ClienteData.BuscarCliente(idCliente);
+            Principal.mostrarRealizarVenta(cliente);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente antes de hacer una venta",
+                    "Error cliente nulo", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void preguntale_a_david(java.awt.event.MouseEvent evt) {
         int id = (int) JTClientes.getValueAt(JTClientes.getSelectedRow(), 0);
         String nombre = JTClientes.getValueAt(JTClientes.getSelectedRow(), 1).toString();
         String apellido = JTClientes.getValueAt(JTClientes.getSelectedRow(), 2).toString();
@@ -255,8 +266,7 @@ public class ClientesVistas extends javax.swing.JPanel {
                 modificar.setVisible(true);
             });
         }
-    }//GEN-LAST:event_JTClientesMouseClicked
-
+    }
     private void jbRealizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRealizarVentaActionPerformed
         int fila = JTClientes.getSelectedRow();
         if (fila != -1) {
@@ -265,7 +275,7 @@ public class ClientesVistas extends javax.swing.JPanel {
             Principal.mostrarRealizarVenta(cliente);
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente antes de hacer una venta",
-                "Error cliente nulo", JOptionPane.ERROR_MESSAGE);
+                    "Error cliente nulo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbRealizarVentaActionPerformed
 
