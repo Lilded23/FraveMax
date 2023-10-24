@@ -253,20 +253,25 @@ public class DetallesVentaView extends javax.swing.JPanel {
         );
 
         jbVolver.setText("Volver");
+        jbVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbVolverActionPerformed(evt);
             }
         });
 
-        jbImprimir.setText("Imprimir");
+        jbImprimir.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.background"));
+        jbImprimir.setText("Imprimir PDF");
+        jbImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbImprimirActionPerformed(evt);
             }
         });
 
+        jbEnviarCorreo.setBackground(new java.awt.Color(0, 153, 0));
         jbEnviarCorreo.setText("Enviar Correo");
+        jbEnviarCorreo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbEnviarCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEnviarCorreoActionPerformed(evt);
@@ -279,16 +284,16 @@ public class DetallesVentaView extends javax.swing.JPanel {
             DetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelProductos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(DetallesLayout.createSequentialGroup()
-                .addComponent(PanelDatosCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(DetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PanelDatosCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(DetallesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jbVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(359, 359, 359)
+                        .addComponent(jbImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbEnviarCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(DetallesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jbVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(347, 347, 347)
-                .addComponent(jbEnviarCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jbImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
         );
         DetallesLayout.setVerticalGroup(
             DetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

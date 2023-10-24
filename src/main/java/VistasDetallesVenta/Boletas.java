@@ -198,7 +198,9 @@ public class Boletas extends javax.swing.JPanel {
             }
         });
 
+        botonBuscar.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.background"));
         botonBuscar.setText("Buscar");
+        botonBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonBuscarActionPerformed(evt);
@@ -212,7 +214,10 @@ public class Boletas extends javax.swing.JPanel {
             }
         });
 
+        botonDetalles.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.background"));
+        botonDetalles.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         botonDetalles.setText("Detalles");
+        botonDetalles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonDetalles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonDetallesActionPerformed(evt);
@@ -269,7 +274,7 @@ public class Boletas extends javax.swing.JPanel {
                     .addComponent(clientesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(proTip)

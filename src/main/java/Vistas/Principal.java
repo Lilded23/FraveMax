@@ -13,6 +13,14 @@ import VistasProducto.Buscar;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -32,10 +40,12 @@ public class Principal extends javax.swing.JFrame {
     public static Boletas vistaVentas;
 
     public Principal() {
-        initComponents();
+
+        initComponents();        
         clientesVistas = new ClientesVistas();
         vistaVentas = new Boletas();
         setLocationRelativeTo(null);
+
     }
 
     public static void cambiar(Component vista) {
@@ -97,11 +107,12 @@ public class Principal extends javax.swing.JFrame {
         setTitle("FraveMax");
         setMinimumSize(new java.awt.Dimension(800, 600));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("FraveMax");
 
-        JLCliente.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        JLCliente.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         JLCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         JLCliente.setText("Clientes");
         JLCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -118,7 +129,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        JLProductos.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        JLProductos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         JLProductos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         JLProductos.setText("Productos");
         JLProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -135,7 +146,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        JLVentas.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        JLVentas.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         JLVentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         JLVentas.setText("Ventas");
         JLVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -160,19 +171,19 @@ public class Principal extends javax.swing.JFrame {
             .addComponent(JLProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(JLVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(222, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(JLCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -181,7 +192,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(JLVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(363, Short.MAX_VALUE))
+                .addContainerGap(366, Short.MAX_VALUE))
         );
 
         tablero.setMinimumSize(new java.awt.Dimension(800, 600));
@@ -193,8 +204,8 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(tablero, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tablero, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
