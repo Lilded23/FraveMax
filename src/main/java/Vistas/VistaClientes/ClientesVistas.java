@@ -51,6 +51,7 @@ public class ClientesVistas extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         JTClientes = new javax.swing.JTable();
         jbRealizarVenta = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(701, 477));
 
@@ -120,6 +121,16 @@ public class ClientesVistas extends javax.swing.JPanel {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(153, 153, 0));
+        jButton3.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jButton3.setText("Editar");
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,11 +140,13 @@ public class ClientesVistas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbRealizarVenta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
+                        .addComponent(jbRealizarVenta))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -151,11 +164,11 @@ public class ClientesVistas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbRealizarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jButton3)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbRealizarVenta))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -192,8 +205,13 @@ public class ClientesVistas extends javax.swing.JPanel {
     }//GEN-LAST:event_JTBuscarClienteActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        FloatingWindow nuevoCliente = new FloatingWindow();
+        NuevoClente modCliente = new NuevoClente(nuevoCliente);
+        nuevoCliente.add(modCliente);
+        nuevoCliente.repaint();
+        nuevoCliente.setVisible(true);
 
+//        preguntale_a_david(evt);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void JTBuscarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTBuscarClienteKeyPressed
@@ -232,6 +250,7 @@ public class ClientesVistas extends javax.swing.JPanel {
         if (evt.getClickCount() == 2)
             realizarVenta();
     }//GEN-LAST:event_JTClientesMouseClicked
+    
     public void realizarVenta() {
         int fila = JTClientes.getSelectedRow();
         if (fila != -1) {
@@ -244,7 +263,7 @@ public class ClientesVistas extends javax.swing.JPanel {
         }
     }
 
-    private void preguntale_a_david(java.awt.event.MouseEvent evt) {
+    private void preguntale_a_david() {
         int id = (int) JTClientes.getValueAt(JTClientes.getSelectedRow(), 0);
         String nombre = JTClientes.getValueAt(JTClientes.getSelectedRow(), 1).toString();
         String apellido = JTClientes.getValueAt(JTClientes.getSelectedRow(), 2).toString();
@@ -254,7 +273,7 @@ public class ClientesVistas extends javax.swing.JPanel {
         String email = JTClientes.getValueAt(JTClientes.getSelectedRow(), 6).toString();
 
         Cliente cliente = new Cliente(id, apellido, nombre, domicilio, telefono, dni, email);
-        if (evt.getClickCount() >= 2) {
+//        if (evt.getClickCount() >= 2) {
             System.out.println(nombre + " " + apellido + " " + " " + domicilio + " " + dni + " " + telefono);
             SwingUtilities.invokeLater(() -> {
 
@@ -265,19 +284,16 @@ public class ClientesVistas extends javax.swing.JPanel {
                 modificar.repaint();
                 modificar.setVisible(true);
             });
-        }
+//        }
     }
     private void jbRealizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRealizarVentaActionPerformed
-        int fila = JTClientes.getSelectedRow();
-        if (fila != -1) {
-            int idCliente = (int) JTClientes.getValueAt(fila, 0);
-            Cliente cliente = ClienteData.BuscarCliente(idCliente);
-            Principal.mostrarRealizarVenta(cliente);
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente antes de hacer una venta",
-                    "Error cliente nulo", JOptionPane.ERROR_MESSAGE);
-        }
+        realizarVenta();
     }//GEN-LAST:event_jbRealizarVentaActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        preguntale_a_david();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -285,6 +301,7 @@ public class ClientesVistas extends javax.swing.JPanel {
     private javax.swing.JTable JTClientes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbRealizarVenta;
