@@ -295,7 +295,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="266" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="238" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel9" alignment="3" max="32767" attributes="0"/>
@@ -348,6 +348,9 @@
         </Container>
         <Component class="javax.swing.JButton" name="jbVolver">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="E:\Argentina Pograma\Desarrollo de Aplicaciones\Proyecto Final\FraveMax\src\main\res\img\icons8-atr&#xe1;s-30.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Volver"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor de Mano"/>
@@ -359,8 +362,8 @@
         </Component>
         <Component class="javax.swing.JButton" name="jbImprimir">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="7a" id="Button.default.background" palette="3" red="0" type="palette"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="E:\Argentina Pograma\Desarrollo de Aplicaciones\Proyecto Final\FraveMax\src\main\res\img\icons8-impresora-trazador-30.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Imprimir PDF"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -373,8 +376,8 @@
         </Component>
         <Component class="javax.swing.JButton" name="jbEnviarCorreo">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="99" red="0" type="rgb"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="E:\Argentina Pograma\Desarrollo de Aplicaciones\Proyecto Final\FraveMax\src\main\res\img\icons8-enviar-correo-electr&#xf3;nico-masivo-30.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Enviar Correo"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">

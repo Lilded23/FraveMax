@@ -12,6 +12,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 /**
  *
@@ -52,6 +54,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         agregarCabeceras();
         cargarListaProd();
         jsCantidad.setValue(1);
+        iconosButtons();
     }
 
     private void datosCliente() {
@@ -103,6 +106,10 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         columnModelDetalles.getColumn(4).setPreferredWidth(75);
     }
 
+    private void iconosButtons() {
+   
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -146,9 +153,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
             }
         });
 
-        jpVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        jbFin.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.background"));
+        jbFin.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-carro-rápido-30.png")); // NOI18N
         jbFin.setText("Finalizar venta");
         jbFin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbFin.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +166,9 @@ public final class RealizarVentaView extends javax.swing.JPanel {
 
         DatosCliente.setText("Nombre y dni cliente");
 
+        jbVolver.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-atrás-30.png")); // NOI18N
         jbVolver.setText("Volver");
+        jbVolver.setAlignmentY(0.2F);
         jbVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,10 +222,10 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         });
         jtTablaProd.setFillsViewportHeight(true);
         jtTablaProd.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jtTablaProdAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -230,7 +237,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jtTablaProd);
 
-        jbAgregar.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        jbAgregar.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-añadir-20.png")); // NOI18N
         jbAgregar.setText("Agregar");
         jbAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +273,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtNombreProd, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 31, Short.MAX_VALUE))
+                        .addGap(0, 32, Short.MAX_VALUE))
                     .addGroup(jpPoductosLayout.createSequentialGroup()
                         .addGroup(jpPoductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -276,8 +283,9 @@ public final class RealizarVentaView extends javax.swing.JPanel {
                             .addComponent(jlProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jlDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jpPoductosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jsCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbAgregar)))
@@ -293,7 +301,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpPoductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -325,7 +333,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jtTablaDetalles);
 
-        jbEliminar.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
+        jbEliminar.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-menos-20.png")); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -350,13 +358,13 @@ public final class RealizarVentaView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jlTotal)
                 .addContainerGap())
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
         );
         jpDetallesLayout.setVerticalGroup(
             jpDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpDetallesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbEliminar)
@@ -495,7 +503,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
                     "Confirmacion de la venta",
                     "Confirmación", JOptionPane.OK_CANCEL_OPTION);
             if (respuesta == JOptionPane.OK_OPTION) {
-                
+
                 Principal.cambiar(new DetallesVentaView(venta));
                 Principal.anterior = Principal.clientesVistas;
             }

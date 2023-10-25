@@ -110,10 +110,12 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\iconFrave.png")); // NOI18N
         jLabel1.setText("FraveMax");
 
         JLCliente.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         JLCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLCliente.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-clientes-30.png")); // NOI18N
         JLCliente.setText("Clientes");
         JLCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JLCliente.setOpaque(true);
@@ -131,6 +133,7 @@ public class Principal extends javax.swing.JFrame {
 
         JLProductos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         JLProductos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLProductos.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-accesorios-30.png")); // NOI18N
         JLProductos.setText("Productos");
         JLProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JLProductos.setOpaque(true);
@@ -148,6 +151,7 @@ public class Principal extends javax.swing.JFrame {
 
         JLVentas.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         JLVentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLVentas.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-ventas-totales-30.png")); // NOI18N
         JLVentas.setText("Ventas");
         JLVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JLVentas.setOpaque(true);
@@ -192,7 +196,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(JLVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(366, Short.MAX_VALUE))
+                .addContainerGap(304, Short.MAX_VALUE))
         );
 
         tablero.setMinimumSize(new java.awt.Dimension(800, 600));
