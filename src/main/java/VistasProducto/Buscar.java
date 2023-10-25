@@ -75,8 +75,8 @@ public class Buscar extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jtProductos);
 
-        jbNuevo.setBackground(new java.awt.Color(0, 153, 0));
         jbNuevo.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jbNuevo.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-añadir-20.png")); // NOI18N
         jbNuevo.setText("Nuevo");
         jbNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -89,8 +89,8 @@ public class Buscar extends javax.swing.JPanel {
             }
         });
 
-        jbEliminar.setBackground(new java.awt.Color(153, 0, 0));
         jbEliminar.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jbEliminar.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-menos-20.png")); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -130,7 +130,7 @@ public class Buscar extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo)

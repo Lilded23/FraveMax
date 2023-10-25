@@ -151,7 +151,7 @@ public class Principal extends javax.swing.JFrame {
 
         JLVentas.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         JLVentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        JLVentas.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-ventas-totales-30.png")); // NOI18N
+        JLVentas.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-panel-de-detalles-30.png")); // NOI18N
         JLVentas.setText("Ventas");
         JLVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JLVentas.setOpaque(true);
