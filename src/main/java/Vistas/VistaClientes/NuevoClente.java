@@ -206,9 +206,10 @@ public class NuevoClente extends javax.swing.JPanel {
                 if (nombre.matches(".*[.,?@0-9].*") || nombre.isEmpty()) {
                     throw new RuntimeException("Nombre mal ingresado");
                 }
-                if (!domicilio.matches("^[A-Za-z0-9, ]+$") || domicilio.length() < 10 || domicilio.length() > 100) {
+                if (!domicilio.matches(".*[A-Za-z, ].*") || domicilio.length() < 10 || domicilio.length() > 100) {
                     throw new RuntimeException("Domicilio mal ingresado");
                 }
+
                 if (!telefono.matches("[0-9]+") || telefono.length() < 6) {
                     throw new RuntimeException("Telefono mal ingresado");
                 }
@@ -330,7 +331,7 @@ public class NuevoClente extends javax.swing.JPanel {
                             if (nombre.matches(".*[.,?@].*") || nombre.isEmpty()) {
                                 throw new RuntimeException("Nombre mal ingresado");
                             }
-                            if (!domicilio.matches("^[A-Za-z0-9, ]+$") || domicilio.length() < 10 || domicilio.length() > 100) {
+                            if (!domicilio.matches(".*[A-Za-z, ].*") || domicilio.length() < 10 || domicilio.length() > 100) {
                                 throw new RuntimeException("Domicilio mal ingresado");
                             }
                             if (!telefono.matches("^[0-9]+$") || telefono.length() < 8) {

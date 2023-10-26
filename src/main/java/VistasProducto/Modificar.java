@@ -216,6 +216,10 @@ public class Modificar extends javax.swing.JPanel {
                     throw new RuntimeException("Stock tiene mayor 0 ");
                 }
 
+                if (precio < 1) {
+                    throw new RuntimeException("El precio debe ser mayor o 1");
+                }
+
                 Producto prod = new Producto(nombre, des, precio, stock, estado);
 
                 ProductoData.IngresarNuevoProducto(prod);
@@ -273,6 +277,7 @@ public class Modificar extends javax.swing.JPanel {
                             String nombre = jtfNombre.getText();
                             String des = JTDescripcion.getText();
                             int stock = (Integer) JStock.getValue();
+                            double precioActual = Double.parseDouble(jtfPrecioActual.getText());
 
                             if (!nombre.matches("^[A-Za-z0-9\"'.,\\s]*$")) {
                                 throw new RuntimeException("Error al ingresar el producto");
@@ -285,7 +290,7 @@ public class Modificar extends javax.swing.JPanel {
                             if (stock < 0) {
                                 throw new RuntimeException("El stock debe ser mayor o igual a 0");
                             }
-                            double precioActual = Double.parseDouble(jtfPrecioActual.getText());
+
                             if (precioActual < 1) {
                                 throw new RuntimeException("El precio debe ser mayor o 1");
                             }
