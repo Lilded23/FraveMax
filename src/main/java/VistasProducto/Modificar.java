@@ -11,6 +11,7 @@ import Vistas.Principal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import java.lang.NumberFormatException;
 
 /**
  *
@@ -194,8 +195,16 @@ public class Modificar extends javax.swing.JPanel {
                 double precio = Double.parseDouble(jtfPrecioActual.getText());
                 boolean estado = jCheckBox1.isSelected();
 
-                if (nombre.matches(".*[.,?@].*")) {
+                if (!nombre.matches("^[A-Za-z0-9\"'.,\\s]*$")) {
                     throw new RuntimeException("Error al ingresar el producto");
+                }
+
+                if (des.isEmpty()) {
+                    throw new RuntimeException("La casilla de descripcion no puede estar vacio ");
+                }
+
+                if (stock < 0) {
+                    throw new RuntimeException("Stock tiene mayor 0 ");
                 }
 
                 Producto prod = new Producto(nombre, des, precio, stock, estado);
@@ -204,9 +213,12 @@ public class Modificar extends javax.swing.JPanel {
 
                 JOptionPane.showMessageDialog(null, "Nuevo producto agregado EXITOSAMENTE");
                 Principal.mostrarListaProductos();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al guardar el Producto");
-                e.printStackTrace();
+                parentWindow.dispose();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } catch (RuntimeException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                // e.printStackTrace();
             }
         }
 
@@ -244,36 +256,52 @@ public class Modificar extends javax.swing.JPanel {
                 jbNuevo.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (jtfNombre.getText().matches(".*[.,?@].*")) {
-                            throw new RuntimeException("Error al ingresar el producto");
+                        try {
+                            String nombre = jtfNombre.getText();
+                            String des = JTDescripcion.getText();
+                            int stock = (Integer) JStock.getValue();
+
+                            if (!nombre.matches("^[A-Za-z0-9\"'.,\\s]*$")) {
+                                throw new RuntimeException("Error al ingresar el producto");
+                            }
+
+                            if (des.isEmpty()) {
+                                throw new RuntimeException("La casilla de descripción no puede estar vacía");
+                            }
+
+                            if (stock < 0) {
+                                throw new RuntimeException("El stock debe ser mayor o igual a 0");
+                            }
+
+                            producto.setNombreProducto(jtfNombre.getText());
+                            producto.setDescripcion(JTDescripcion.getText());
+                            producto.setPrecioActual(Double.parseDouble(jtfPrecioActual.getText()));
+                            producto.setStock((int) JStock.getValue());
+                            producto.setEstado(jCheckBox1.isSelected());
+
+                            System.out.println(JStock.getValue());
+
+                            boolean modificar = ProductoData.ActualizarProducto(producto, producto.getIdProducto());
+
+                            if (modificar) {
+                                System.out.println("Se ejecutó la modificación");
+                                Principal.mostrarListaProductos();
+                                JOptionPane.showMessageDialog(null, "Se guardó con éxito el Producto" + producto.toString());
+                                parentWindow.dispose();
+                            } else {
+                                Principal.mostrarListaProductos();
+                                JOptionPane.showMessageDialog(null, "Se produjo un error al guardar");
+                            }
+                        } catch (RuntimeException ex) {
+                            JOptionPane.showMessageDialog(null, ex.getMessage());
                         }
-
-                        producto.setNombreProducto(jtfNombre.getText());
-                        producto.setDescripcion(JTDescripcion.getText());
-                        producto.setPrecioActual(Double.parseDouble(jtfPrecioActual.getText()));
-                        producto.setStock((int) JStock.getValue());
-                        producto.setEstado(jCheckBox1.isSelected());
-
-                        System.out.println(JStock.getValue());
-
-                        boolean modificar = ProductoData.ActualizarProducto(producto, producto.getIdProducto());
-
-                        if (modificar) {
-                            System.out.println("Se ejecuto la modificacion");
-                            Principal.mostrarListaProductos();
-                            JOptionPane.showMessageDialog(null, "Se guardo con Modifico con EXITO el Producto" + producto.toString());
-                            parentWindow.dispose();
-                        } else {
-                            Principal.mostrarListaProductos();
-                            JOptionPane.showMessageDialog(null, "Se Produjo un Error al guardar");
-                        }
+                        ejecutarAccion = false;
                     }
                 });
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                e.printStackTrace();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
-        ejecutarAccion = false;
     }
+
 }

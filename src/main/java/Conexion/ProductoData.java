@@ -142,42 +142,42 @@ public abstract class ProductoData extends Conexion {
         return prodBuscado;
     }
 
-    public static boolean borrarProducto(int idProducto) {
-        String sql = "DELETE FROM `producto` WHERE idProducto = ?";
-
-        try {
-            // Desactivar temporalmente la restricción de clave externa
-            Statement stmt = conn.createStatement();
-            stmt.execute("SET FOREIGN_KEY_CHECKS=0");
-
-            // Preparar la consulta de eliminación
-            PreparedStatement sqlPD = conn.prepareStatement(sql);
-            sqlPD.setInt(1, idProducto);
-
-            // Ejecutar la consulta de eliminación
-            int filaBorrada = sqlPD.executeUpdate();
-
-            // Reactivar la restricción de clave externa
-            stmt.execute("SET FOREIGN_KEY_CHECKS=1");
-
-            return filaBorrada > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-//        public static boolean borrarProducto(int idProducto) {
-//        String sql = "update producto set estado=0 WHERE idProducto = ?";
+//    public static boolean borrarProducto(int idProducto) {
+//        String sql = "DELETE FROM `producto` WHERE idProducto = ?";
+//
 //        try {
+//             Desactivar temporalmente la restricción de clave externa
+//            Statement stmt = conn.createStatement();
+//            stmt.execute("SET FOREIGN_KEY_CHECKS=0");
+//
+//             Preparar la consulta de eliminación
 //            PreparedStatement sqlPD = conn.prepareStatement(sql);
 //            sqlPD.setInt(1, idProducto);
-//            int filaBorrada = sqlPD.executeUpdate();
-//            return filaBorrada > 0;
 //
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
+//             Ejecutar la consulta de eliminación
+//            int filaBorrada = sqlPD.executeUpdate();
+//
+//             Reactivar la restricción de clave externa
+//            stmt.execute("SET FOREIGN_KEY_CHECKS=1");
+//
+//            return filaBorrada > 0;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
 //        }
-//        return false;
 //    }
+
+        public static boolean borrarProducto(int idProducto) {
+        String sql = "update producto set estado=0 WHERE idProducto = ?";
+        try {
+            PreparedStatement sqlPD = conn.prepareStatement(sql);
+            sqlPD.setInt(1, idProducto);
+            int filaBorrada = sqlPD.executeUpdate();
+            return filaBorrada > 0;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

@@ -200,17 +200,13 @@ public class NuevoClente extends javax.swing.JPanel {
                 String correo = JTCorreo.getText().trim();
 
                 // Verificar Datos
-                if (apellido.matches(".*[.,?@0-9].*")
-                        || apellido.length() < 1
-                        || apellido.length() > 20) {
+                if (apellido.matches(".*[.,?@0-9].*") || apellido.isEmpty()) {
                     throw new RuntimeException("Apellido mal ingresado");
                 }
-                if (nombre.matches(".*[.,?@0-9].*")
-                        || nombre.length() > 50
-                        || nombre.length() < 2) {
+                if (nombre.matches(".*[.,?@0-9].*") || nombre.isEmpty()) {
                     throw new RuntimeException("Nombre mal ingresado");
                 }
-                if (domicilio.matches("[\\W]") || domicilio.length() < 10 || domicilio.length() > 100) {
+                if (!domicilio.matches("^[A-Za-z0-9, ]+$") || domicilio.length() < 10 || domicilio.length() > 100) {
                     throw new RuntimeException("Domicilio mal ingresado");
                 }
                 if (!telefono.matches("[0-9]+") || telefono.length() < 6) {
@@ -219,10 +215,9 @@ public class NuevoClente extends javax.swing.JPanel {
                 if (dniString.length() != 8) {
                     throw new RuntimeException("DNI debe tener exactamente 8 dígitos");
                 }
-                if (correo.matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")) {
-                    throw new RuntimeException("Correo no valido");
+                if (!correo.matches("^[A-Za-z0-9+_.-]+@.$")) {
+                    throw new IllegalArgumentException("Correo mal ingresado");
                 }
-
                 int dni = Integer.parseInt(dniString);
 
                 Cliente cliente = new Cliente(apellido, nombre, domicilio, telefono, dni, correo);
@@ -327,17 +322,20 @@ public class NuevoClente extends javax.swing.JPanel {
                             String correo = JTCorreo.getText().trim();
 
                             // Verificar Datos
-                            if (apellido.matches(".*[.,?@].*") || apellido.length() > 50) {
+                            if (apellido.matches(".*[.,?@].*") || apellido.isEmpty()) {
                                 throw new RuntimeException("Apellido mal ingresado");
                             }
-                            if (nombre.matches(".*[.,?@].*") || nombre.length() > 50) {
+                            if (nombre.matches(".*[.,?@].*") || nombre.isEmpty()) {
                                 throw new RuntimeException("Nombre mal ingresado");
                             }
-                            if (domicilio.matches(".*[.,?@].*") || domicilio.length() < 10 || domicilio.length() > 100) {
+                            if (!domicilio.matches("^[A-Za-z0-9, ]+$") || domicilio.length() < 10 || domicilio.length() > 100) {
                                 throw new RuntimeException("Domicilio mal ingresado");
                             }
-                            if (telefono.matches(".*[.,?@].*") || telefono.length() < 8) {
+                            if (!telefono.matches("^[0-9]+$") || telefono.length() < 8) {
                                 throw new RuntimeException("Telefono mal ingresado");
+                            }
+                            if (!correo.matches("^[A-Za-z0-9_\\-.@]+$") || telefono.length() < 8) {
+                                throw new RuntimeException("Correo mal ingresado mal ingresado");
                             }
                             if (dniString.length() != 8) {
                                 throw new RuntimeException("DNI debe tener exactamente 8 dígitos");
