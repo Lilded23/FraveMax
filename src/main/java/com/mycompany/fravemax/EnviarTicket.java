@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
@@ -29,6 +28,14 @@ public class EnviarTicket {
     private static Session mSession;
     private static MimeMessage mCorreo;
 
+ /**
+ * Crea un correo electrónico con un ticket adjunto y lo configura con los datos proporcionados.
+ *
+ * @param correoCliente    Correo del cliente al que se enviará el correo.
+ * @param ticket           Archivo que se adjuntará al correo.
+ * @param nombreArchivo    Nombre del archivo adjunto.
+ * @param venta            Detalles de la venta asociada al ticket.
+ */
     public static void crearEmail(String correoCliente, File ticket, String nombreArchivo, Venta venta) {
         String asunto = "Ticket de compra FraveMax";
         String contenido = "Estimado/a  " + venta.getCliente().getNombre() + " " + venta.getCliente().getApellido()
@@ -70,6 +77,11 @@ public class EnviarTicket {
         }
     }
 
+/**
+ * Envía el correo electrónico previamente configurado.
+ *
+ * @return `true` si el correo se envía correctamente, `false` en caso de error.
+ */
     public static boolean sendEmail() {
         try {
             Transport mTransport = mSession.getTransport("smtp");

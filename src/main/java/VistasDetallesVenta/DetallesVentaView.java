@@ -42,6 +42,9 @@ public class DetallesVentaView extends javax.swing.JPanel {
         llenarTabla();
     }
 
+    /**
+     * Configura la información del cliente en la interfaz.
+     */
     private void configurarCliente() {
         jlNombre.setText(ventaRealizada.getCliente().getNombre());
         jlApellido.setText(ventaRealizada.getCliente().getApellido());
@@ -51,15 +54,22 @@ public class DetallesVentaView extends javax.swing.JPanel {
         jlCorreo.setText(ventaRealizada.getCliente().getCorreo());
     }
 
+    /**
+     * Carga la lista de productos vendidos y actualiza el monto total de la
+     * venta.
+     */
     private void cargarListaProd() {
         productosVendidos = DetalleVentaData.listaProductosPorIdVenta(ventaRealizada.getIdVenta());
         double total = 0;
         for (detalleVenta producto : productosVendidos) {
-            total = total + producto.getPrecioVenta();
+            total += producto.getPrecioVenta();
         }
         jlTotal.setText(String.valueOf(total));
     }
 
+    /**
+     * Llena la tabla con los detalles de los productos vendidos.
+     */
     private void llenarTabla() {
         productosVendidos.forEach(producto -> {
             modelo.addRow(new Object[]{
@@ -68,7 +78,6 @@ public class DetallesVentaView extends javax.swing.JPanel {
                 producto.getCantidad(),
                 "$ " + producto.getPrecioVenta(),});
         });
-
     }
 
     @SuppressWarnings("unchecked")
@@ -328,23 +337,39 @@ public class DetallesVentaView extends javax.swing.JPanel {
         Principal.cambiar(Principal.anterior);
     }//GEN-LAST:event_jbVolverActionPerformed
 
+    /**
+     * Abre un archivo PDF generado y lo muestra al usuario.
+     */
     private void jbImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImprimirActionPerformed
+        // Crea un archivo PDF y obtiene su nombre F
         String nombreArchivo = CrearPDF();
         String total = jlTotal.getText();
+        // Abre el archivo PDF para imprimir
         ExportPDF.abrirPDF(nombreArchivo);
     }//GEN-LAST:event_jbImprimirActionPerformed
 
+    /**
+     * Envía el ticket de la venta por correo electrónico al cliente.
+     */
     private void jbEnviarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEnviarCorreoActionPerformed
         String correoCliente = ventaRealizada.getCliente().getCorreo();
+        // Verifica si el cliente tiene un correo registrado
         if (correoCliente.isEmpty()) {
             int response = JOptionPane.showConfirmDialog(null, "El cliente no tiene un correo registrado. ¿Desea agregar un correo para recibir el ticket?", "Agregar Correo", JOptionPane.YES_NO_OPTION);
+
+            // Si el usuario elige agregar un correo
             if (response == JOptionPane.YES_OPTION) {
                 String nuevoCorreo = JOptionPane.showInputDialog("Por favor, ingrese el correo del cliente:");
-                if (nuevoCorreo != null) {  // El usuario ingresó un correo
+
+                // Si el usuario ingresa un correo
+                if (nuevoCorreo != null) {
+                    // Crea un archivo PDF del ticket
                     String nombreArchivo = CrearPDF();
+                    // Crea y envía un correo con el archivo PDF adjunto
                     EnviarTicket.crearEmail(nuevoCorreo, new File(nombreArchivo), nombreArchivo, ventaRealizada);
-                    boolean envioCorrecto = EnviarTicket.sendEmail();
-                    if (envioCorrecto) {
+                    boolean envíoCorrecto = EnviarTicket.sendEmail();
+                    // Si el correo se envía con éxito, actualiza el correo del cliente
+                    if (envíoCorrecto) {
                         int idCliente = ventaRealizada.getCliente().getIdCliente();
                         ClienteData.agregaCorreo(nuevoCorreo, idCliente);
                         jlCorreo.setText(nuevoCorreo);
@@ -354,21 +379,36 @@ public class DetallesVentaView extends javax.swing.JPanel {
                 }
             }
         } else {
+            // Si el cliente ya tiene un correo registrado, crea un archivo PDF del ticket y lo envía por correo.
             String nombreArchivo = CrearPDF();
             EnviarTicket.crearEmail(correoCliente, new File(nombreArchivo), nombreArchivo, ventaRealizada);
             EnviarTicket.sendEmail();
         }
     }//GEN-LAST:event_jbEnviarCorreoActionPerformed
 
+    /**
+     * Crea un archivo PDF del ticket de la venta y devuelve el nombre del
+     * archivo.
+     */
     private String CrearPDF() {
         String apellidoCliente = jlApellido.getText();
         String dniCliente = jlDni.getText();
+
+        // Obtiene el total de la venta
         String total = jlTotal.getText();
+
+        // Genera un nombre de archivo PDF basado en el apellido y DNI del cliente
         String nombreArchivo = apellidoCliente + dniCliente + ".pdf";
+
+        // Exporta los detalles de la venta a un archivo PDF
         ExportPDF.exportToPDF(jtTablaProd, nombreArchivo, ventaRealizada, total);
+
         return nombreArchivo;
     }
 
+    /**
+     * Agrega las cabeceras de la tabla de productos, definiendo las columnas.
+     */
     private void agregarCabecera() {
         modelo.addColumn("Nombre del Producto");
         modelo.addColumn("Descripcion");
@@ -379,6 +419,9 @@ public class DetallesVentaView extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Ajusta el ancho de las columnas en la tabla de productos.
+     */
     private void ajustarCabeceras() {
         TableColumnModel columnModel = jtTablaProd.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(90);

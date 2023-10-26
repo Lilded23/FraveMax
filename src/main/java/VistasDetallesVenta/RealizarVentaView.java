@@ -12,12 +12,10 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
 /**
  *
- * @author cisco
+ * @author Victor Angel
  */
 public final class RealizarVentaView extends javax.swing.JPanel {
 
@@ -54,61 +52,75 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         agregarCabeceras();
         cargarListaProd();
         jsCantidad.setValue(1);
-        iconosButtons();
     }
 
-    private void datosCliente() {
-        DatosCliente.setText(venta.getCliente().getNombre() + " "
-                + venta.getCliente().getApellido() + ". DNI: " + venta.getCliente().getDni());
+ /**
+ * Actualiza la etiqueta de datos del cliente con la información del cliente
+ * asociado a la venta.
+ */
+private void datosCliente() {
+    DatosCliente.setText(venta.getCliente().getNombre() + " "
+            + venta.getCliente().getApellido() + ". DNI: " + venta.getCliente().getDni());
+}
+
+/**
+ * Agrega las cabeceras a las tablas de productos y detalles de compra.
+ * Configura las columnas de las tablas.
+ */
+private void agregarCabeceras() {
+    // Cabeceras de Productos
+    modeloProd.addColumn("ID");
+    modeloProd.addColumn("Nombre");
+    modeloProd.addColumn("Descripción");
+    modeloProd.addColumn("Precio");
+    modeloProd.addColumn("Stock");
+    jtTablaProd.setModel(modeloProd);
+
+    // Cabeceras de Detalles de Compra
+    modeloDetalle.addColumn("ID");
+    modeloDetalle.addColumn("Producto");
+    modeloDetalle.addColumn("Descripción");
+    modeloDetalle.addColumn("Cantidad");
+    modeloDetalle.addColumn("Precio");
+    jtTablaDetalles.setModel(modeloDetalle);
+
+    // Ajusta el ancho de las columnas en las tablas
+    ajustarCabeceras();
+}
+
+/**
+ * Elimina todas las filas de la tabla de productos. Este método se utiliza para
+ * borrar los resultados anteriores antes de mostrar una nueva lista de productos.
+ */
+private void borrarfilasProd() {
+    int filas = jtTablaProd.getRowCount() - 1;
+
+    for (int i = filas; i >= 0; i--) {
+        modeloProd.removeRow(i);
     }
+}
 
-    private void agregarCabeceras() {
-        //Cabeceras de Productos
-        modeloProd.addColumn("ID");
-        modeloProd.addColumn("Nombre");
-        modeloProd.addColumn("Descripcion");
-        modeloProd.addColumn("Precio");
-        modeloProd.addColumn("Stock");
-        jtTablaProd.setModel(modeloProd);
-        //Cabeceras de Detalles de Compra
-        modeloDetalle.addColumn("ID");
-        modeloDetalle.addColumn("Producto");
-        modeloDetalle.addColumn("Descripcion");
-        modeloDetalle.addColumn("Cantidad");
-        modeloDetalle.addColumn("Precio");
-        jtTablaDetalles.setModel(modeloDetalle);
-        ajustarCabeceras();
-    }
+/**
+ * Ajusta el ancho de las columnas en las tablas de productos y detalles de compra.
+ * Esto ayuda a que las columnas se ajusten mejor al contenido y sean más legibles.
+ */
+private void ajustarCabeceras() {
+    // Cabeceras de Productos
+    TableColumnModel columnModel = jtTablaProd.getColumnModel();
+    columnModel.getColumn(0).setPreferredWidth(25);  // ID
+    columnModel.getColumn(1).setPreferredWidth(75);  // Nombre
+    columnModel.getColumn(2).setPreferredWidth(170); // Descripción
+    columnModel.getColumn(3).setPreferredWidth(75);  // Precio
+    columnModel.getColumn(4).setPreferredWidth(50);  // Stock
 
-    private void borrarfilasProd() {
-        int f = jtTablaProd.getRowCount() - 1;
-
-        for (int i = f; i >= 0; i--) {
-            modeloProd.removeRow(i);
-        }
-    }
-
-    private void ajustarCabeceras() {
-        //Cabeceras de Productos
-        TableColumnModel columnModel = jtTablaProd.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(25);
-        columnModel.getColumn(1).setPreferredWidth(75);
-        columnModel.getColumn(2).setPreferredWidth(170);
-        columnModel.getColumn(3).setPreferredWidth(75);
-        columnModel.getColumn(4).setPreferredWidth(50);
-
-        //Cabeceras de Detalles de Compra
-        TableColumnModel columnModelDetalles = jtTablaDetalles.getColumnModel();
-        columnModelDetalles.getColumn(0).setPreferredWidth(25);
-        columnModelDetalles.getColumn(1).setPreferredWidth(75);
-        columnModelDetalles.getColumn(2).setPreferredWidth(170);
-        columnModelDetalles.getColumn(3).setPreferredWidth(65);
-        columnModelDetalles.getColumn(4).setPreferredWidth(75);
-    }
-
-    private void iconosButtons() {
-   
-    }
+    // Cabeceras de Detalles de Compra
+    TableColumnModel columnModelDetalles = jtTablaDetalles.getColumnModel();
+    columnModelDetalles.getColumn(0).setPreferredWidth(25);  // ID
+    columnModelDetalles.getColumn(1).setPreferredWidth(75);  // Producto
+    columnModelDetalles.getColumn(2).setPreferredWidth(170); // Descripción
+    columnModelDetalles.getColumn(3).setPreferredWidth(65);  // Cantidad
+    columnModelDetalles.getColumn(4).setPreferredWidth(75);  // Precio
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -444,6 +456,11 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_formAncestorResized
 
+/**
+ * Maneja la acción de eliminar un detalle de venta. Extrae la información de la fila seleccionada
+ * en la tabla de detalles de compra, elimina el detalle de la base de datos y de la tabla, actualiza
+ * el precio total y ajusta el stock del producto correspondiente.
+ */
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         int fila = jtTablaDetalles.getSelectedRow();
         int idProd = (int) jtTablaDetalles.getValueAt(fila, 0);
@@ -470,6 +487,12 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         btnAgrega();
     }//GEN-LAST:event_jbAgregarActionPerformed
 
+/**
+ * Agrega un producto a la lista de detalles de venta. Obtiene la cantidad de productos a agregar,
+ * el producto seleccionado y verifica si hay suficiente stock. Si la validación es exitosa,
+ * se registra el detalle en la base de datos, se actualiza el precio total, se agrega una fila
+ * a la tabla de detalles de compra y se realiza la actualización de la tabla de productos.
+ */
     private void btnAgrega() {
         int cantidad = (int) jsCantidad.getValue();
         Producto productoSeleccionado = buscaProd();
@@ -490,11 +513,17 @@ public final class RealizarVentaView extends javax.swing.JPanel {
             jsCantidad.setValue(1);
         }
     }
+    
+ /**
+ * Finaliza la venta. Si no se han vendido productos, se eliminará la venta y se mostrará
+ * un mensaje informativo. Si se han vendido productos, se mostrará un mensaje de confirmación
+ * para continuar con los detalles de la venta.
+ */
     private void jbFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFinActionPerformed
         if (jtTablaDetalles.getRowCount() == 0) {
             VentaData.eliminarVenta(venta.getIdVenta());
             Principal.mostrarListaClientes();
-            JOptionPane.showMessageDialog(this, "Se elimino la venta por falta de productos");
+            JOptionPane.showMessageDialog(this, "La venta se anulará porque no se vendieron productos. ");
             this.setVisible(false);
             Principal.ClienteSelect = false;
             Principal.mostrarListaClientes();
@@ -510,6 +539,13 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jbFinActionPerformed
 
+ /**
+ * Maneja el evento de tecla liberada en el campo de búsqueda de productos. 
+ * Filtra y muestra los productos que coinciden con el texto ingresado en el campo de búsqueda.
+ * Si el campo de búsqueda está vacío, muestra todos los productos nuevamente.
+ *
+ * @param evt Evento de tecla liberada.
+ */
     private void jtNombreProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNombreProdKeyReleased
         borrarfilasProd();
         String nombreBuscado = jtNombreProd.getText().toLowerCase();
@@ -532,7 +568,14 @@ public final class RealizarVentaView extends javax.swing.JPanel {
     private void jtNombreProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreProdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtNombreProdActionPerformed
-
+/**
+ * Maneja el evento de acción del botón "Volver".
+ * Permite al usuario confirmar si desea anular la venta actual. Si la venta no tiene detalles de compra,
+ * se eliminará la venta y se volverá a la vista de lista de clientes. Si la venta tiene detalles de compra,
+ * se restaurará el stock de los productos y se eliminará la venta antes de volver a la lista de clientes.
+ *
+ * @param evt Evento de acción del botón "Volver".
+ */
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
         int res = JOptionPane.showConfirmDialog(
                 this,
@@ -567,6 +610,13 @@ public final class RealizarVentaView extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jtTablaProdAncestorAdded
 
+/**
+ * Maneja el evento del mouse cuando se hace clic en una fila de la tabla de productos (jtTablaProd).
+ * Si se hace doble clic en una fila, se llama al método btnAgrega() para agregar el producto a la venta.
+ * Si se hace clic una vez en una fila, se muestra el nombre y la descripción del producto seleccionado.
+ *
+ * @param evt Evento de mouse al hacer clic en la tabla de productos.
+ */
     private void jtTablaProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTablaProdMouseClicked
         if (evt.getClickCount() == 2) {
             btnAgrega();
@@ -577,10 +627,12 @@ public final class RealizarVentaView extends javax.swing.JPanel {
             jlProducto.setText(nombre);
             jlDescripcion.setText(descripcion);
         }
-
-
     }//GEN-LAST:event_jtTablaProdMouseClicked
 
+/**
+ * Carga la lista de productos en la tabla de productos (jtTablaProd) en función de la disponibilidad y estado de los productos.
+ * Si no hay productos disponibles, se muestra un mensaje de advertencia.
+ */
     private void listaProductos() {
         if (listaProd.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay Productos en el sistema");
@@ -598,17 +650,27 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         }
     }
 
+ /**
+ * Valida la cantidad de productos seleccionada en el control jsCantidad.
+ * La cantidad debe ser mayor a cero (0) para ser considerada válida.
+ * @return true si la cantidad es válida, de lo contrario, muestra un mensaje de error y devuelve false.
+ */
     private boolean validarCantidad() {
         int valor = (int) jsCantidad.getValue();
         if (valor > 0) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "Cantidad no puede ser 0 (CERO)",
+            JOptionPane.showMessageDialog(this, "Cantidad debe ser mayor a 0 (CERO)",
                     "Error en Cantidad de producto", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
 
+ /**
+ * Busca el producto seleccionado en la tabla de productos (jtTablaProd) y devuelve el objeto Producto correspondiente.
+ * Si no se ha seleccionado ningún producto o el producto no se encuentra en la lista de productos disponibles, muestra un mensaje de error.
+ * @return El objeto Producto correspondiente al producto seleccionado en la tabla, o null si no se ha seleccionado o no se encuentra.
+ */
     private Producto buscaProd() {
         int fila = jtTablaProd.getSelectedRow();
         if (fila >= 0) {
@@ -626,6 +688,14 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         return null;
     }
 
+ /**
+ * Actualiza el stock de un producto en función de si se realiza una compra (venta) o una devolución. 
+ * Verifica si hay suficiente stock para realizar la compra y actualiza la base de datos. 
+ * @param compra Un booleano que indica si se trata de una compra (true) o una devolución (false).
+ * @param prod El objeto Producto que se va a comprar o devolver.
+ * @param cantidad La cantidad de productos que se van a comprar o devolver.
+ * @return true si la operación se realizó con éxito (suficiente stock o actualización exitosa), de lo contrario, muestra un mensaje de error y devuelve false.
+ */
     private boolean actualizarStock(boolean compra, Producto prod, int cantidad) {
         int stock = prod.getStock();
         int idProd = prod.getIdProducto();
@@ -635,7 +705,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
                 ProductoData.ActualizarStock(stock, idProd);
                 return true;
             } else {
-                JOptionPane.showMessageDialog(this, "No hay suficiente stock para realizar la compra.",
+                JOptionPane.showMessageDialog(this, "No hay suficiente stock para realizar la venta.",
                         "Stock insuficiente", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
@@ -647,6 +717,10 @@ public final class RealizarVentaView extends javax.swing.JPanel {
 
     }
 
+ /**
+ * Carga la lista de productos disponibles en la interfaz de usuario.
+ * Limpia las filas anteriores de la tabla de productos (jtTablaProd) y agrega las filas correspondientes a los productos disponibles.
+ */
     private void cargarListaProd() {
         listaProd = ProductoData.listaProducto();
         borrarfilasProd();
