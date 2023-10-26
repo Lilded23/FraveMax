@@ -114,9 +114,10 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("FraveMax");
 
         JLCliente.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        JLCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         JLCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-clientes-30.png"))); // NOI18N
         JLCliente.setText("Clientes");
+        JLCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         JLCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JLCliente.setOpaque(true);
         JLCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -132,9 +133,10 @@ public class Principal extends javax.swing.JFrame {
         });
 
         JLProductos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        JLProductos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         JLProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-accesorios-30.png"))); // NOI18N
         JLProductos.setText("Productos");
+        JLProductos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         JLProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JLProductos.setOpaque(true);
         JLProductos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -150,9 +152,10 @@ public class Principal extends javax.swing.JFrame {
         });
 
         JLVentas.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        JLVentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLVentas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         JLVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-panel-de-detalles-30.png"))); // NOI18N
         JLVentas.setText("Ventas");
+        JLVentas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         JLVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JLVentas.setOpaque(true);
         JLVentas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -173,19 +176,14 @@ public class Principal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(JLProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(JLVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(JLCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(237, Short.MAX_VALUE)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(JLCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
