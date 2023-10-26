@@ -74,7 +74,7 @@ public class ClientesVistas extends javax.swing.JPanel {
         });
 
         jButton1.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-menos-20.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-menos-20.png"))); // NOI18N
         jButton1.setText("Eliminar");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +84,7 @@ public class ClientesVistas extends javax.swing.JPanel {
         });
 
         jButton2.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-añadir-20.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-añadir-20.png"))); // NOI18N
         jButton2.setText("Nuevo");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +112,7 @@ public class ClientesVistas extends javax.swing.JPanel {
         jScrollPane2.setViewportView(JTClientes);
 
         jbRealizarVenta.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
-        jbRealizarVenta.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-efectivo-20.png")); // NOI18N
+        jbRealizarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-efectivo-20.png"))); // NOI18N
         jbRealizarVenta.setText("Nueva venta");
         jbRealizarVenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbRealizarVenta.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +122,7 @@ public class ClientesVistas extends javax.swing.JPanel {
         });
 
         jButton3.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-lápiz-20.png")); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-lápiz-20.png"))); // NOI18N
         jButton3.setText("Editar");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +162,7 @@ public class ClientesVistas extends javax.swing.JPanel {
                     .addComponent(JTBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)

@@ -244,7 +244,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
             PanelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelProductosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -252,7 +252,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jbVolver.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-atrás-30.png")); // NOI18N
+        jbVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-atrás-30.png"))); // NOI18N
         jbVolver.setText("Volver");
         jbVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -261,7 +261,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
             }
         });
 
-        jbImprimir.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-impresora-trazador-30.png")); // NOI18N
+        jbImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-impresora-trazador-30.png"))); // NOI18N
         jbImprimir.setText("Imprimir PDF");
         jbImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -270,7 +270,7 @@ public class DetallesVentaView extends javax.swing.JPanel {
             }
         });
 
-        jbEnviarCorreo.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-enviar-correo-electrónico-masivo-30.png")); // NOI18N
+        jbEnviarCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-enviar-correo-electrónico-masivo-30.png"))); // NOI18N
         jbEnviarCorreo.setText("Enviar Correo");
         jbEnviarCorreo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbEnviarCorreo.addActionListener(new java.awt.event.ActionListener() {

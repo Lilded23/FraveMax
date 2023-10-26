@@ -198,7 +198,7 @@ public class Boletas extends javax.swing.JPanel {
             }
         });
 
-        botonBuscar.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-lupa-20.png")); // NOI18N
+        botonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-lupa-20.png"))); // NOI18N
         botonBuscar.setText("Buscar");
         botonBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -215,7 +215,7 @@ public class Boletas extends javax.swing.JPanel {
         });
 
         botonDetalles.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
-        botonDetalles.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons-detalle.png")); // NOI18N
+        botonDetalles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons-detalle.png"))); // NOI18N
         botonDetalles.setText("Detalles");
         botonDetalles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -274,7 +274,7 @@ public class Boletas extends javax.swing.JPanel {
                     .addComponent(clientesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(proTip)

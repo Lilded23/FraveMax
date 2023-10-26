@@ -153,7 +153,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
             }
         });
 
-        jbFin.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-carro-rápido-30.png")); // NOI18N
+        jbFin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-carro-rápido-30.png"))); // NOI18N
         jbFin.setText("Finalizar venta");
         jbFin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbFin.addActionListener(new java.awt.event.ActionListener() {
@@ -166,7 +166,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
 
         DatosCliente.setText("Nombre y dni cliente");
 
-        jbVolver.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-atrás-30.png")); // NOI18N
+        jbVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-atrás-30.png"))); // NOI18N
         jbVolver.setText("Volver");
         jbVolver.setAlignmentY(0.2F);
         jbVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -222,10 +222,10 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         });
         jtTablaProd.setFillsViewportHeight(true);
         jtTablaProd.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jtTablaProdAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -237,7 +237,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jtTablaProd);
 
-        jbAgregar.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-añadir-20.png")); // NOI18N
+        jbAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-añadir-20.png"))); // NOI18N
         jbAgregar.setText("Agregar");
         jbAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -301,7 +301,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpPoductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -333,7 +333,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jtTablaDetalles);
 
-        jbEliminar.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-menos-20.png")); // NOI18N
+        jbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-menos-20.png"))); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -364,7 +364,7 @@ public final class RealizarVentaView extends javax.swing.JPanel {
             jpDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpDetallesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbEliminar)

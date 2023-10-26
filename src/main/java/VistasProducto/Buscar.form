@@ -45,7 +45,7 @@
                   <Component id="jtBuscar" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="358" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="356" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -100,7 +100,7 @@
           <Font name="sansserif" size="13" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="E:\Argentina Pograma\Desarrollo de Aplicaciones\Proyecto Final\FraveMax\src\main\res\img\icons8-a&#xf1;adir-20.png"/>
+          <Image iconType="3" name="/img/icons8-a&#xf1;adir-20.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Nuevo"/>
       </Properties>
@@ -115,7 +115,7 @@
           <Font name="sansserif" size="13" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="E:\Argentina Pograma\Desarrollo de Aplicaciones\Proyecto Final\FraveMax\src\main\res\img\icons8-menos-20.png"/>
+          <Image iconType="3" name="/img/icons8-menos-20.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>

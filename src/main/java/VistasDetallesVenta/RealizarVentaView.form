@@ -109,7 +109,7 @@
         <Component class="javax.swing.JButton" name="jbFin">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="E:\Argentina Pograma\Desarrollo de Aplicaciones\Proyecto Final\FraveMax\src\main\res\img\icons8-carro-r&#xe1;pido-30.png"/>
+              <Image iconType="3" name="/img/icons8-carro-r&#xe1;pido-30.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Finalizar venta"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -135,7 +135,7 @@
         <Component class="javax.swing.JButton" name="jbVolver">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="E:\Argentina Pograma\Desarrollo de Aplicaciones\Proyecto Final\FraveMax\src\main\res\img\icons8-atr&#xe1;s-30.png"/>
+              <Image iconType="3" name="/img/icons8-atr&#xe1;s-30.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Volver"/>
             <Property name="alignmentY" type="float" value="0.2"/>
@@ -208,7 +208,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" min="-2" pref="16" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="212" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="200" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -298,7 +298,7 @@
             <Component class="javax.swing.JButton" name="jbAgregar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="E:\Argentina Pograma\Desarrollo de Aplicaciones\Proyecto Final\FraveMax\src\main\res\img\icons8-a&#xf1;adir-20.png"/>
+                  <Image iconType="3" name="/img/icons8-a&#xf1;adir-20.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Agregar"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -367,7 +367,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="327" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="320" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jbEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -403,7 +403,7 @@
             <Component class="javax.swing.JButton" name="jbEliminar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="E:\Argentina Pograma\Desarrollo de Aplicaciones\Proyecto Final\FraveMax\src\main\res\img\icons8-menos-20.png"/>
+                  <Image iconType="3" name="/img/icons8-menos-20.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">

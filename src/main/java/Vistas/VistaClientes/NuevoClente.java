@@ -84,7 +84,7 @@ public class NuevoClente extends javax.swing.JPanel {
         jLabel5.setText("Telefono");
 
         JBNuevo.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
-        JBNuevo.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-guardar-30.png")); // NOI18N
+        JBNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-guardar-30.png"))); // NOI18N
         JBNuevo.setText("Guardar");
         JBNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JBNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +94,7 @@ public class NuevoClente extends javax.swing.JPanel {
         });
 
         JBCerrar.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
-        JBCerrar.setIcon(new javax.swing.ImageIcon("E:\\Argentina Pograma\\Desarrollo de Aplicaciones\\Proyecto Final\\FraveMax\\src\\main\\res\\img\\icons8-cancelar-30.png")); // NOI18N
+        JBCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cancelar-30.png"))); // NOI18N
         JBCerrar.setText("Cancelar");
         JBCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JBCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -172,7 +172,7 @@ public class NuevoClente extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(JTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                     .addComponent(JTCorreo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JBNuevo)
                     .addComponent(JBCerrar))
