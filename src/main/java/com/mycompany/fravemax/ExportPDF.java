@@ -19,6 +19,14 @@ import javax.swing.SwingUtilities;
 
 public class ExportPDF {
 
+/**
+ * Exporta los datos de la venta y la tabla al formato PDF y guarda el archivo PDF en el sistema de archivos.
+ *
+ * @param tabla         Tabla que contiene los datos de la venta.
+ * @param nombreArchivo Nombre del archivo PDF que se generará.
+ * @param venta         Detalles de la venta asociada al ticket.
+ * @param total         Monto total de la venta.
+ */
     public static void exportToPDF(JTable tabla, String nombreArchivo, Venta venta, String total) {
         Document document = new Document();
 
@@ -63,6 +71,11 @@ public class ExportPDF {
         }
     }
 
+ /**
+ * Abre un archivo PDF dado su nombre en el visor de PDF predeterminado del sistema.
+ *
+ * @param nombreArchivo Nombre del archivo PDF que se abrirá.
+ */
     public static void abrirPDF(String nombreArchivo) {
         File archivoPDF = new File(nombreArchivo);
         if (archivoPDF.exists()) {
