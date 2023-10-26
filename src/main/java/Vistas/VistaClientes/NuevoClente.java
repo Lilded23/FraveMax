@@ -216,7 +216,7 @@ public class NuevoClente extends javax.swing.JPanel {
                     throw new RuntimeException("DNI debe tener exactamente 8 dígitos");
                 }
 
-                if (!correo.isEmpty() && !correo.matches("^[A-Za-z0-9+_.-]+@.$")) {
+                if (!correo.isEmpty() && !correo.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
                     throw new IllegalArgumentException("Correo mal ingresado");
                 }
 
@@ -336,8 +336,8 @@ public class NuevoClente extends javax.swing.JPanel {
                             if (!telefono.matches("^[0-9]+$") || telefono.length() < 8) {
                                 throw new RuntimeException("Telefono mal ingresado");
                             }
-                            if (!correo.matches("^[A-Za-z0-9_\\-.@]+$") || telefono.length() < 8) {
-                                throw new RuntimeException("Correo mal ingresado mal ingresado");
+                            if (!correo.isEmpty() && !correo.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+                                throw new IllegalArgumentException("Correo mal ingresado");
                             }
                             if (dniString.length() != 8) {
                                 throw new RuntimeException("DNI debe tener exactamente 8 dígitos");
