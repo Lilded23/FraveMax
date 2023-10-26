@@ -215,9 +215,11 @@ public class NuevoClente extends javax.swing.JPanel {
                 if (dniString.length() != 8) {
                     throw new RuntimeException("DNI debe tener exactamente 8 dígitos");
                 }
-                if (!correo.matches("^[A-Za-z0-9+_.-]+@.$")) {
+
+                if (!correo.isEmpty() && !correo.matches("^[A-Za-z0-9+_.-]+@.$")) {
                     throw new IllegalArgumentException("Correo mal ingresado");
                 }
+
                 int dni = Integer.parseInt(dniString);
 
                 Cliente cliente = new Cliente(apellido, nombre, domicilio, telefono, dni, correo);
