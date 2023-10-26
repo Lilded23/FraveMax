@@ -45,8 +45,11 @@ public class Principal extends javax.swing.JFrame {
         clientesVistas = new ClientesVistas();
         vistaVentas = new Boletas();
         setLocationRelativeTo(null);
-
     }
+    public static void doDaThing() {
+        clientesVistas.doSomething();
+    }
+    
 
     public static void cambiar(Component vista) {
         anterior = tablero.getComponent(0);
