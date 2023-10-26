@@ -58,6 +58,12 @@ public class Modificar extends javax.swing.JPanel {
 
         jLabel4.setText("PRECIO ACTUAL: ");
 
+        jtfPrecioActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfPrecioActualActionPerformed(evt);
+            }
+        });
+
         jLabel5.setText("STOCK:");
 
         jbNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-guardar-30.png"))); // NOI18N
@@ -227,6 +233,10 @@ public class Modificar extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jbNuevoMouseClicked
 
+    private void jtfPrecioActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPrecioActualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfPrecioActualActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner JStock;
@@ -275,10 +285,13 @@ public class Modificar extends javax.swing.JPanel {
                             if (stock < 0) {
                                 throw new RuntimeException("El stock debe ser mayor o igual a 0");
                             }
-
+                            double precioActual = Double.parseDouble(jtfPrecioActual.getText());
+                            if (precioActual < 1) {
+                                throw new RuntimeException("El precio debe ser mayor o 1");
+                            }
                             producto.setNombreProducto(jtfNombre.getText());
                             producto.setDescripcion(JTDescripcion.getText());
-                            producto.setPrecioActual(Double.parseDouble(jtfPrecioActual.getText()));
+                            producto.setPrecioActual(precioActual);
                             producto.setStock((int) JStock.getValue());
                             producto.setEstado(jCheckBox1.isSelected());
 
